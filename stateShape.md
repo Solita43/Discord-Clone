@@ -39,44 +39,48 @@
     * All channels of the server including historical chat data
 
     ```json
-    {[
-        {
-            "channelId": 1, 
-            "name": "Channel 1", 
-            "messages": [
-                {
-                    "messageId": 1,
-                    "messageText": "Hey what's up?", 
-                    "dateTimeStamp": "1-1-2023 z 01:12:00"
-                }, 
-                {
-                    "messageId": 2,
-                    "messageText": "Not much? You? ", 
-                    "dateTimeStamp": "1-2-2023 z 01:12:00"
-                }
-            ], 
-            "categoryList": [
-                "category 1", "category 2"
-            ]
-        }, 
-        {
-            "channelId": 2, 
-            "name": "Channel 2", 
-            "messages": [
-                {
-                    "messageId": 1,
-                    "messageText": "Hey what's up?", 
-                    "dateTimeStamp": "1-1-2023 z 01:12:00"
-                }, 
-                {
-                    "messageId": 2,
-                    "messageText": "Not much? You? ", 
-                    "dateTimeStamp": "1-2-2023 z 01:12:00"
-                }
-            ]
-        }
+    {
+        "serverOwnerId": 1, 
+        "users": 
+        "channels": [
+            {
+                "channelId": 1, 
+                "name": "Channel 1", 
+                "messages": [
+                    {
+                        "messageId": 1,
+                        "messageText": "Hey what's up?", 
+                        "dateTimeStamp": "1-1-2023 z 01:12:00"
+                    }, 
+                    {
+                        "messageId": 2,
+                        "messageText": "Not much? You? ", 
+                        "dateTimeStamp": "1-2-2023 z 01:12:00"
+                    }
+                ], 
+                "categoryList": [
+                    "category 1", "category 2"
+                ]
+            }, 
+            {
+                "channelId": 2, 
+                "name": "Channel 2", 
+                "messages": [
+                    {
+                        "messageId": 1,
+                        "messageText": "Hey what's up?", 
+                        "dateTimeStamp": "1-1-2023 z 01:12:00"
+                    }, 
+                    {
+                        "messageId": 2,
+                        "messageText": "Not much? You? ", 
+                        "dateTimeStamp": "1-2-2023 z 01:12:00"
+                    }
+                ]
+            }
         
-    ]}
+    ]
+    }
     ```
 
 
