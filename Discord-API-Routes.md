@@ -141,7 +141,7 @@ information.
         "lastName": "Smith",
         "email": "john.smith@gmail.com",
         "username": "JohnSmith"
-      } 
+      }
     }
     ```
 
@@ -268,3 +268,56 @@ user's information.
     ```
 
 ## SERVERS
+### Create a server
+### Delete a server
+### Edit a server
+### Get all servers
+Returns a list of all available servers.
+
+* Require Authentication: true
+* Request
+  * Method: GET
+  * URL: /api/servers
+  * Body: none
+
+* Successful Response when there is a logged in user
+  * Status Code: 200
+  * Headers:
+    * Content-Type: application/json
+  * Body:
+
+    ```json
+    {
+      "Servers": {
+        []
+    }
+    ```
+
+## SERVER USERS
+### Add a user to a server
+### Get all users in a server
+### Edit a user role in a server
+### Remove a user from a server
+
+
+## CHANNELS
+### Get all server channels
+### Create a channel group
+### Create a channel
+### Edit a channel
+### Delete a channel
+
+## CHANNEL MESSAGES
+### Get all messages
+### Post a message
+### Edit a message
+### Delete a message
+### React to a message
+
+## DIRECT MESSAGES
+### Get all user conversations
+### Get all user conversation messages
+### Post a user conversation message
+### Post a user conversation
+### Delete a user conversation message
+### React to a conversation message
