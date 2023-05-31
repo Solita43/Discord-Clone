@@ -1,5 +1,7 @@
 <!--!!START SILENT -->
+
 # Meetup Clone
+
 <!--!!END -->
 <!--!!ADD -->
 <!-- # `<name of application here>` -->
@@ -24,12 +26,13 @@
 
 All endpoints that require a current user to be logged in.
 
-* Request: endpoints that require authentication
-* Error Response: Require authentication
-  * Status Code: 401
-  * Headers:
-    * Content-Type: application/json
-  * Body:
+- Request: endpoints that require authentication
+- Error Response: Require authentication
+
+  - Status Code: 401
+  - Headers:
+    - Content-Type: application/json
+  - Body:
 
     ```json
     {
@@ -42,12 +45,13 @@ All endpoints that require a current user to be logged in.
 All endpoints that require authentication and the current user does not have the
 correct role(s) or permission(s).
 
-* Request: endpoints that require proper authorization
-* Error Response: Require proper authorization
-  * Status Code: 403
-  * Headers:
-    * Content-Type: application/json
-  * Body:
+- Request: endpoints that require proper authorization
+- Error Response: Require proper authorization
+
+  - Status Code: 403
+  - Headers:
+    - Content-Type: application/json
+  - Body:
 
     ```json
     {
@@ -59,23 +63,25 @@ correct role(s) or permission(s).
 
 Returns the information about the current user that is logged in.
 
-* Require Authentication: true
-* Request
+- Require Authentication: true
+- Request
   <!--!!START SILENT -->
-  * Method: GET
-  * URL: /api/session
-  <!--!!END -->
-  <!--!!ADD -->
-  <!-- * Method: ? -->
-  <!-- * URL: ? -->
-  <!--!!END_ADD -->
-  * Body: none
 
-* Successful Response when there is a logged in user
-  * Status Code: 200
-  * Headers:
-    * Content-Type: application/json
-  * Body:
+  - Method: GET
+  - URL: /api/session
+    <!--!!END -->
+    <!--!!ADD -->
+    <!-- * Method: ? -->
+    <!-- * URL: ? -->
+    <!--!!END_ADD -->
+  - Body: none
+
+- Successful Response when there is a logged in user
+
+  - Status Code: 200
+  - Headers:
+    - Content-Type: application/json
+  - Body:
 
     ```json
     {
@@ -89,11 +95,12 @@ Returns the information about the current user that is logged in.
     }
     ```
 
-* Successful Response when there is no logged in user
-  * Status Code: 200
-  * Headers:
-    * Content-Type: application/json
-  * Body:
+- Successful Response when there is no logged in user
+
+  - Status Code: 200
+  - Headers:
+    - Content-Type: application/json
+  - Body:
 
     ```json
     {
@@ -106,19 +113,20 @@ Returns the information about the current user that is logged in.
 Logs in a current user with valid credentials and returns the current user's
 information.
 
-* Require Authentication: false
-* Request
+- Require Authentication: false
+- Request
   <!--!!START SILENT -->
-  * Method: POST
-  * URL: /api/session
-  <!--!!END -->
-  <!--!!ADD -->
-  <!-- * Method: ? -->
-  <!-- * URL: ? -->
-  <!--!!END_ADD -->
-  * Headers:
-    * Content-Type: application/json
-  * Body:
+
+  - Method: POST
+  - URL: /api/session
+    <!--!!END -->
+    <!--!!ADD -->
+    <!-- * Method: ? -->
+    <!-- * URL: ? -->
+    <!--!!END_ADD -->
+  - Headers:
+    - Content-Type: application/json
+  - Body:
 
     ```json
     {
@@ -127,11 +135,12 @@ information.
     }
     ```
 
-* Successful Response
-  * Status Code: 200
-  * Headers:
-    * Content-Type: application/json
-  * Body:
+- Successful Response
+
+  - Status Code: 200
+  - Headers:
+    - Content-Type: application/json
+  - Body:
 
     ```json
     {
@@ -145,11 +154,12 @@ information.
     }
     ```
 
-* Error Response: Invalid credentials
-  * Status Code: 401
-  * Headers:
-    * Content-Type: application/json
-  * Body:
+- Error Response: Invalid credentials
+
+  - Status Code: 401
+  - Headers:
+    - Content-Type: application/json
+  - Body:
 
     ```json
     {
@@ -157,11 +167,12 @@ information.
     }
     ```
 
-* Error response: Body validation errors
-  * Status Code: 400
-  * Headers:
-    * Content-Type: application/json
-  * Body:
+- Error response: Body validation errors
+
+  - Status Code: 400
+  - Headers:
+    - Content-Type: application/json
+  - Body:
 
     ```json
     {
@@ -178,19 +189,20 @@ information.
 Creates a new user, logs them in as the current user, and returns the current
 user's information.
 
-* Require Authentication: false
-* Request
+- Require Authentication: false
+- Request
   <!--!!START SILENT -->
-  * Method: POST
-  * URL: /api/users
-  <!--!!END -->
-  <!--!!ADD -->
-  <!-- * Method: ? -->
-  <!-- * URL: ? -->
-  <!--!!END_ADD -->
-  * Headers:
-    * Content-Type: application/json
-  * Body:
+
+  - Method: POST
+  - URL: /api/users
+    <!--!!END -->
+    <!--!!ADD -->
+    <!-- * Method: ? -->
+    <!-- * URL: ? -->
+    <!--!!END_ADD -->
+  - Headers:
+    - Content-Type: application/json
+  - Body:
 
     ```json
     {
@@ -202,11 +214,12 @@ user's information.
     }
     ```
 
-* Successful Response
-  * Status Code: 200
-  * Headers:
-    * Content-Type: application/json
-  * Body:
+- Successful Response
+
+  - Status Code: 200
+  - Headers:
+    - Content-Type: application/json
+  - Body:
 
     ```json
     {
@@ -220,11 +233,12 @@ user's information.
     }
     ```
 
-* Error response: User already exists with the specified email
-  * Status Code: 500
-  * Headers:
-    * Content-Type: application/json
-  * Body:
+- Error response: User already exists with the specified email
+
+  - Status Code: 500
+  - Headers:
+    - Content-Type: application/json
+  - Body:
 
     ```json
     {
@@ -235,11 +249,12 @@ user's information.
     }
     ```
 
-* Error response: User already exists with the specified username
-  * Status Code: 500
-  * Headers:
-    * Content-Type: application/json
-  * Body:
+- Error response: User already exists with the specified username
+
+  - Status Code: 500
+  - Headers:
+    - Content-Type: application/json
+  - Body:
 
     ```json
     {
@@ -250,11 +265,12 @@ user's information.
     }
     ```
 
-* Error response: Body validation errors
-  * Status Code: 400
-  * Headers:
-    * Content-Type: application/json
-  * Body:
+- Error response: Body validation errors
+
+  - Status Code: 400
+  - Headers:
+    - Content-Type: application/json
+  - Body:
 
     ```json
     {
@@ -268,51 +284,121 @@ user's information.
     ```
 
 ## SERVERS
+
 ### Create a server
-### Delete a server
-### Edit a server
-Update the name of a specific server. Only the owner can update the server.
-* Require Authentication: true
-* Require Proper Authentication: true
-* Request
-  * Method: PUT
-  * URL: /api/server/:serverId
-  * Body:
+
+Create a new server. User that creates the server will automatically be designated as the owner.
+
+- Require Authentication: true
+- Require Proper Authentication: true
+- Request
+  - Method: POST
+  - Content-Type: application/json
+  - URL: /api/server
+  - Body:
+
 ```json
 {
-"name": "new name!"
+  "name": "new server!",
+  "imageURL": "something.com",
+  "userId": 1
+}
+```
+
+- Response
+
+  - Successful response when user is logged in:
+    - Status Code: 201
+    - Headers:
+    - Content-Type: application/json
+    - Body:
+
+```json
+{
+  "id": 1,
+  "name": "new server!",
+  "imageURL": "something.com",
+  "ownerId": 1,
+  "createdAt": "06/01/2023"
+}
+```
+
+### Delete a server
+
+User must be owner of the server in order to delete.
+
+- Require Authentication: true
+- Require Proper Authentication: true
+- Request
+
+  - Method: DELETE
+  - Content-Type: application/json
+  - URL: /api/servers/:serverId
+  - Body: None
+
+- Response
+  - Successful response when user is owner of the server
+    - Status Code: 202
+    - Headers:
+    - Content-Type: application/json
+    - Body:
+
+```json
+{
+  "message": "Successfully deleted!"
+}
+```
+
+### Edit a server
+
+Update the name or image link of a specific server. Only the owner can update the server.
+
+- Require Authentication: true
+- Require Proper Authentication: true
+- Request
+  - Method: PUT
+  - URL: /api/servers/:serverId
+  - Body:
+
+```json
+{
+  "name": "new name",
+  "imageURL": "new.image.url.com"
 }
 ```
 
 Successful Response when there is a logged in user that is the owner of the server
-  * Status Code: 200
-  * Headers:
-    * Content-Type: application/json
-  * Body:
 
-    ```json
-    {
-      "id":1,
-      "name": "new name!"
+- Status Code: 202
+- Headers:
+  - Content-Type: application/json
+- Body:
 
-    }
-
-    ```
+  ```json
+  {
+    "id": 1,
+    "name": "new name!",
+    "imageURL": "new.image.url.com"
+  }
+  ```
 
 ### Get all servers
+
 Returns a list of all available servers.
 
-* Require Authentication: true
-* Request
-  * Method: GET
-  * URL: /api/servers
-  * Body: none
+- Require Authentication: true
+- Request
 
-* Successful Response when there is a logged in user
-  * Status Code: 200
-  * Headers:
-    * Content-Type: application/json
-  * Body:
+  - Method: GET
+  - URL: /api/servers
+  - Body: none
+
+- Successful Response when there is a logged in user
+
+  - Status Code: 200
+  - Headers:
+    - Content-Type: application/json
+  - Body:
 
     ```json
     {
@@ -338,30 +424,192 @@ Returns a list of all available servers.
     ```
 
 ## SERVER USERS
+
 ### Add a user to a server
+
+Adds a user to a server as a member.
+
+- Require Authentication: true
+- User must have the role "owner" or "admin" to add users to a server.
+- Request
+
+  - Method: POST
+  - Headers: application/json
+  - URL: /api/servers/:serverId/users
+  - Body:
+
+    ```json
+    {
+      "userId": 1,
+      "role": "user" //owner, admin, user
+    }
+    ```
+
+- Successful Response when user is Owner or Admin
+
+  - Status Code: 200
+  - Headers: application/json
+  - Body:
+
+    ```json
+    {
+      "user_id": 1,
+      "server_id": 1,
+      "role": "user", //user or admin
+      "created_at": "06/01/2023"
+    }
+    ```
+
 ### Get all users in a server
+
+Gets the list of members in a server.
+
+- Require Authentication: true
+- User must be a member of the server with the role "user", "admin", or "owner".
+- Request
+
+  - Method: GET
+  -
+
 ### Edit a user role in a server
+
+Update the user role in a server. Only server owners can update roles.
+
+- Require Authentication: true
+- Require Proper Authentication: true
+- Request
+  - Method: PUT
+  - URL: /api/servers/:serverId/users/:userId
+  - Body:
+
+```json
+{
+  "role": "admin"
+}
+```
+
+Successful Response when there is a logged in user that is the owner of the server
+
+- Status Code: 202
+- Headers:
+  - Content-Type: application/json
+- Body:
+
+  ```json
+  {
+    "userId": 1,
+    "role": "admin"
+  }
+  ```
+
 ### Remove a user from a server
 
-
 ## CHANNELS
+
 ### Get all server channels
+
+Returns a list of all available channels within a server
+
+-Require Authentication: true
+-Request:
+-Method: GET
+-URL: /api/channels/:serverId
+-Body: none
+
+Successful response:
+
+-Status Code: 200
+-Headers:
+-Content-Type: application/json
+-Body:
+
+```json
+{
+  "categoryName": {
+    "channelId": {
+      "name": "General",
+      "private": "true"
+    },
+
+    "channelId": {
+      "name": "Memes",
+      "private": "false"
+    }
+  }
+}
+```
+
 ### Create a channel group
+
+Create a new channel in server.
+
+-Require Authentication: true
+-Require Authorization: true
+
+-
+
 ### Create a channel
+
 ### Edit a channel
+
 ### Delete a channel
 
 ## CHANNEL MESSAGES
+
 ### Get all messages
+
 ### Post a message
+
 ### Edit a message
+
 ### Delete a message
+
 ### React to a message
 
 ## DIRECT MESSAGES
+
 ### Get all user conversations
+
+Returns a list of all users current user has a direct message conversation with
+
+- Require Authentication: True
+- Request:
+
+  - Method: GET
+  - URL: /api/:userid/conversations
+  - Body: None
+
+- Successful Response:
+  - Status Code: 200
+  - Headers: Content-Type: application/json
+  - Body:
+
+```json
+{
+  "<UserConversationId>": {
+    "messages": [
+      {
+        "text": "heyyyyyy",
+        "userId": 1,
+        "createdAt": "mm/dd/yy",
+        "reactions": {
+          "<reactionId>": {
+            "username": "Demo-graphics",
+            "emoji": "🙃"
+          }
+        }
+      }
+    ]
+  }
+}
+```
+
 ### Get all user conversation messages
+
 ### Post a user conversation message
+
 ### Post a user conversation
+
 ### Delete a user conversation message
+
 ### React to a conversation message
