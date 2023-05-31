@@ -271,6 +271,34 @@ user's information.
 ### Create a server
 ### Delete a server
 ### Edit a server
+Update the name of a specific server. Only the owner can update the server.
+* Require Authentication: true
+* Require Proper Authentication: true
+* Request
+  * Method: PUT
+  * URL: /api/server/:serverId
+  * Body:
+```json
+{
+"name": "new name!"
+}
+```
+
+Successful Response when there is a logged in user that is the owner of the server
+  * Status Code: 200
+  * Headers:
+    * Content-Type: application/json
+  * Body:
+
+    ```json
+    {
+      "id":1,
+      "name": "new name!"
+
+    }
+
+    ```
+
 ### Get all servers
 Returns a list of all available servers.
 
@@ -289,7 +317,23 @@ Returns a list of all available servers.
     ```json
     {
       "Servers": {
-        []
+        [
+          {
+            "id":1,
+            "name":"First server!!!",
+            "owner_id":1,
+            "created_at":"05/30/2023"
+          },
+          {
+            "id":2,
+            "name":"second server :(",
+            "owner_id":2,
+            "created_at":"06/01/2023"
+          }
+
+
+        ]
+    }
     }
     ```
 
