@@ -573,43 +573,236 @@ Create a new channel in server.
 Returns a list of all users current user has a direct message conversation with
 
 - Require Authentication: True
-- Request:
+- Request
 
   - Method: GET
   - URL: /api/:userid/conversations
+  - Headers:
+    - Content-Type: application/json
   - Body: None
 
-- Successful Response:
+- Successful Response when there are conversations:
   - Status Code: 200
-  - Headers: Content-Type: application/json
+  - Headers:
+    - Content-Type: application/json
   - Body:
 
-```json
-{
-  "<UserConversationId>": {
-    "messages": [
-      {
-        "text": "heyyyyyy",
-        "userId": 1,
-        "createdAt": "mm/dd/yy",
-        "reactions": {
-          "<reactionId>": {
-            "username": "Demo-graphics",
-            "emoji": "🙃"
-          }
-        }
-      }
-    ]
+  ```json
+  {
+    "user1": {
+      "userId": 1,
+      "userIcon": "something.com",
+      "userStatus": "online",
+      "createdAt": "mm/dd/yy",
+      "updatedAt": "mm/dd/yy"
+    },
+    "user2": {
+      "userId": 1,
+      "userIcon": "somethingelse.com",
+      "userStatus": "online",
+      "createdAt": "mm/dd/yy",
+      "updatedAt": "mm/dd/yy"
+    }
   }
-}
-```
+  ```
+  - Successful Response when there are no conversations
+    - Status Code: 200
+    - Headers
+      - Content-Type: application/json
+    - Body:
+
+    ```json
+    {
+      "user": []
+    }
+    ```
 
 ### Get all user conversation messages
 
+Returns all messages in a specific user conversation
+
+- Require Authentication: true
+- Request
+  - Method: GET
+  - URL: /api/conversations/:conversationId/
+  - Headers:
+    - Content-Type: application/json
+  - Body: None
+
+- Successful Response when there are messages
+  - Status Code: 200
+  - Headers:
+    - Content-Type: application/json
+  - Body:
+
+    ```json
+    {
+      "UserConversationId": {
+        "messages": [
+          {
+            "text": "heyyyyyy",
+            "userId": 1,
+            "createdAt": "2021-01-01",
+            "reactions": {
+              "reactionId": {
+                "username": "Demo-graphics",
+                "emoji": "🙃"
+              }
+            }
+          }
+        ]
+      }
+    }
+    ```
+- Successful Response when there are no messages
+  -Status Code: 200
+  - Headers:
+    - Content-Type: application/json
+  - Body:
+
+    ```json
+    {
+      "messages": []
+    }
+    ```
+
 ### Post a user conversation message
+
+Create a new user conversation
+
+- Require Authentication: true
+- Request
+  - Method: POST
+  - URL: /api/conversations/:conversationId/messages
+  - Body:
+
+    ```json
+      {
+        "text": "heyyyyyy",
+        "userId": 1
+      }
+
+    ```
+- Successful Response
+  - Status Code: 201
+  - Headers:
+    - Content-Type: application/json
+  - Body:
+
+    ```json
+      {
+        "id": 3,
+        "text": "heyyyyyy",
+        "userId": 1,
+        "createdAt": "mm/dd/yy",
+        "reactions": {}
+      }
+    ```
 
 ### Post a user conversation
 
+Create a new user conversation
+
+- Require Authentication: true
+- Request
+  - Method: POST
+  - URL: /api/conversations
+  - Headers:
+    - Content-Type: application/json
+  - Body:
+
+    ```json
+    {
+      "userId": 2
+    }
+    ```
+- Successful Response if conversation doesn't already exist
+  -Status Code: 201
+  - Headers:
+    - Content-Type: application/json
+  - Body:
+
+    ```json
+      "user2": {
+        "userId": 1,
+        "userIcon": "default.jpg",
+        "userStatus": "online",
+        "createdAt": "mm/dd/yy",
+        "updatedAt": "mm/dd/yy"
+    }
+    ```
+
+
+### Delete a user conversation
+
+Delete a specific user conversation
+
+- Require Authentication: true
+- Request
+  - Method: DELETE
+  - URL: /api/conversations/:conversationId
+  - Body: None
+
+- Successful Response
+  - Status Code: 202
+  - Headers:
+    - Content-Type: application/json
+  - Body:
+
+    ```json
+    {
+      "message": "Successfully deleted!"
+    }
+    ```
+
+
 ### Delete a user conversation message
 
-### React to a conversation message
+Delete a specific message in a user conversation.
+
+- Require Authentication: true
+- Request
+  - Method: DELETE
+  -  URL: /api/conversations/:conversationId/messages/:messageId
+- Body: None
+
+- Successful Response
+  - Status Code: 202
+  - Headers:
+    - Content-Type: application/json
+  - Body:
+
+    ```json
+    {
+      "message": "Successfully deleted!"
+    }
+    ```
+
+### React to a conversation
+Add a reaction to a specific message in a user conversation
+
+- Require Authentication: true
+- Request
+  -Method: POST
+  - URL: /api/conversations/:conversationId/messages/:messageId/reactions
+  -Headers:
+    -Content-Type: application/json
+  -Body:
+    ```json
+    {
+      "emoji": "❤",
+      "userId": 3
+    }
+    ```
+- Successful Response
+  - Status Code: 201
+  - Header:
+    - Content-Type: application/json
+  -Body:
+
+    ```json
+        "<reactionId>": {
+        "username": "Demo-graphics",
+        "emoji": "🙃"
+          }
+    ```

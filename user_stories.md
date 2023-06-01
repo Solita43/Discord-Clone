@@ -6,7 +6,7 @@
 
 * As an unregistered user, I want to be able to sign up for the website via a sign-up form.
     * When the sign up form opens:
-        * I would like to be able to enter my email, username, preferred password and date of birth on a clearly laid out form.
+        * I would like to be able to enter my email, username, and preferred password.
         * I would like the website to log me in upon successful completion of the sign-up form to instantly access site functionality.
         * I would like the website to inform me of any validations I failed to pass, and repopulate the form with my valid entries (except my password) so that I can try again without needing to refill forms I entered valid data into
 
@@ -116,7 +116,9 @@
     * The pop up should display the message, the username of the message creator, the time/date stamp of the message, and any reactions the message has recieved.
     * There should be a button to confirm or cancel the delete.
     * Only the creator of the message or a server owner/admin should be able to delete a message.
+
 ## Direct Message
+
 ### View all Direct Messages
 * When I click to view all of my direct messages, I should see a list of all the users I have messaged in the past sorted with the conversation that had a message sent most recently on top.
     * I should see the messages in the conversation at the top of the list when I click on the direct message tab.
