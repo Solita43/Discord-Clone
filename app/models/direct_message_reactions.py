@@ -12,3 +12,12 @@ class DirectMessageReaction(db.Model):
 
     direct_message = db.relationship("DirectMessage", back_populates="direct_reactions")
     user = db.relationship("User", back_populates="directMessageReactions")
+
+    def to_dict(self):
+        return{
+            'id': self.id,
+            'message_id': self.message_id,
+            'reaction': self.reaction,
+            'user_id': self.user_id,
+            'username': self.user.username
+        }

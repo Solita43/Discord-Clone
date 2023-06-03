@@ -16,3 +16,12 @@ class DirectMessage(db.Model):
     conversation = db.relationship("DirectMessageConversation", back_populates="directMessages")
     user = db.relationship("User", back_populates="directMessages")
     direct_reactions = db.relationship('DirectMessageReaction', back_populates="direct_message", cascade="delete-orphan, all")
+
+    def to_dict(self):
+        reactions = [reaction.to_dict() for reaction in self.direct_reactions]
+        return {
+            'conversationId': self.conversation_id,
+            'message': self.message,
+            'userId': self.user_id,
+            'reactions': reactions
+        }
