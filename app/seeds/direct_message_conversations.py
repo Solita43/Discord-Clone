@@ -1,6 +1,5 @@
 
-from app import app
-from app.models import DirectMessageConversation, db, environment, SCHEMA, DirectMessageConversationUsers
+from app.models import DirectMessageConversation, db, environment, SCHEMA
 from sqlalchemy.sql import text
 
 def direct_message_conversation():
@@ -16,8 +15,8 @@ def direct_message_conversation():
 
 def undo_direct_message_conversation():
     if environment == "production":
-        db.session.execute(f"TRUNCATE table {SCHEMA}.directMessageConversation RESTART IDENTITY CASCADE;")
+        db.session.execute(f"TRUNCATE table {SCHEMA}.directMessageConversations RESTART IDENTITY CASCADE;")
     else:
-        db.session.execute(text("DELETE FROM directMessageConversation"))
+        db.session.execute(text("DELETE FROM directMessageConversations"))
 
     db.session.commit()

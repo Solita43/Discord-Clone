@@ -1,4 +1,4 @@
-from app.models import db, DirectMessageReactions, environment, SCHEMA
+ from app.models import db, DirectMessageReaction, environment, SCHEMA
 from sqlalchemy.sql import text
 
 def seed_direct_message_reactions():
@@ -19,7 +19,7 @@ def seed_direct_message_reactions():
             "reaction": "👍🏻"
         }
     ]:
-        db.session.add(DirectMessageReactions(**messageReaction))
+        db.session.add(DirectMessageReaction(**messageReaction))
     db.session.commit()
 
 

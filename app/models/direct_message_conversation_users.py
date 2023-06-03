@@ -2,7 +2,7 @@ from .db import db, environment, SCHEMA, add_prefix_for_prod
 from datetime import datetime
 
 
-class DirectMessageConversationUsers(db.Model):
+class DirectMessageConversationUser(db.Model):
     __tablename__ = 'directMessageConversationUsers'
 
     if environment == "production":

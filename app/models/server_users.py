@@ -13,4 +13,4 @@ class ServerUser(db.Model):
     created_at = db.Column(db.Date, default=datetime.utcnow)
 
     server = db.relationship("Server", back_populates="serverUsers")
-    user = db.relationship("User", back_populates="channelMessages")
+    user = db.relationship("User", back_populates="serverUsers")

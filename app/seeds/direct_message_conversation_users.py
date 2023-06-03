@@ -1,4 +1,4 @@
-from app.models import db, DirectMessageConversationUsers, environment, SCHEMA
+from app.models import db, DirectMessageConversationUser, environment, SCHEMA
 from sqlalchemy.sql import text
 
 
@@ -46,7 +46,7 @@ def seed_direct_message_conversation_users():
         },
 
     ]:
-        db.session.add(DirectMessageConversationUsers(**conversationUsers))
+        db.session.add(DirectMessageConversationUser(**conversationUsers))
     db.session.commit()
 
 def undo_direct_message_conversation_users():

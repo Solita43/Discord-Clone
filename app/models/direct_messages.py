@@ -15,4 +15,4 @@ class DirectMessage(db.Model):
 
     conversation = db.relationship("DirectMessageConversation", back_populates="directMessages")
     user = db.relationship("User", back_populates="directMessages")
-    direct_reactions = db.relationship('directMessageRecations', back_populates="direct_message", cascade="delete-orphan, all")
+    direct_reactions = db.relationship('DirectMessageReaction', back_populates="direct_message", cascade="delete-orphan, all")

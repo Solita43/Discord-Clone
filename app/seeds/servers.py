@@ -6,22 +6,22 @@ def seed_servers():
     for server in [
         {
             "name": "First server!!!",
-            "imageURL":"https://discordia-aa.s3.us-west-1.amazonaws.com/shubham-dhage-t0Bv0OBQuTg-unsplash.jpg",
+            "imageUrl":"https://discordia-aa.s3.us-west-1.amazonaws.com/shubham-dhage-t0Bv0OBQuTg-unsplash.jpg",
             "owner_id": 1
         },
         {
             "name": "Demo server!!!",
-            "imageURL":"https://discordia-aa.s3.us-west-1.amazonaws.com/shubham-dhage-t0Bv0OBQuTg-unsplash.jpg",
+            "imageUrl":"https://discordia-aa.s3.us-west-1.amazonaws.com/shubham-dhage-t0Bv0OBQuTg-unsplash.jpg",
             "owner_id": 2
         },
         {
             "name": "third is best",
-            "imageURL":"https://discordia-aa.s3.us-west-1.amazonaws.com/shubham-dhage-t0Bv0OBQuTg-unsplash.jpg",
+            "imageUrl":"https://discordia-aa.s3.us-west-1.amazonaws.com/shubham-dhage-t0Bv0OBQuTg-unsplash.jpg",
             "owner_id": 1
         },
         {
             "name": "Dream team",
-            "imageURL":"https://discordia-aa.s3.us-west-1.amazonaws.com/shubham-dhage-t0Bv0OBQuTg-unsplash.jpg",
+            "imageUrl":"https://discordia-aa.s3.us-west-1.amazonaws.com/shubham-dhage-t0Bv0OBQuTg-unsplash.jpg",
             "owner_id": 1
         },
 

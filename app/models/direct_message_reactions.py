@@ -1,6 +1,6 @@
 from .db import db, environment, SCHEMA, add_prefix_for_prod
 
-class DirectMessageReactions(db.Model):
+class DirectMessageReaction(db.Model):
     __tablename__ = 'directMessageReactions'
     if environment == 'production':
         __table_args__ = {'schema': SCHEMA}
