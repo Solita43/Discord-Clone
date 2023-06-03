@@ -1,4 +1,4 @@
-from flask import Blueprint, jsonify, session, request
+from flask import Blueprint, jsonify, session, request, redirect
 from flask_login import current_user, login_user, logout_user, login_required
 from app.models import Server, ServerUser, db
 from app.forms import ServerUserForm, ServerForm
@@ -87,9 +87,7 @@ def edit_server(serverId):
     """
     role = get_user_role(current_user.id, serverId)
     if role != "owner": 
-        return {
-            "message": "User is not authorized to edit this server."
-        }
+        return {'errors': ['Forbidden']}, 403
     
     data = request.get_json()
     form = ServerForm()
@@ -225,7 +223,7 @@ def edit_server_user_role(server_id, user_id):
     
     # Validating the requested membership role. 
     data = request.get_json()
-    if data["role"] != "user" or data["role"] != "admin": 
+    if data["role"] != "user" and data["role"] != "admin": 
         return {
             "message": "Can only give the roles 'admin' or 'user'."
         }
@@ -240,10 +238,41 @@ def edit_server_user_role(server_id, user_id):
 @server_routes.route('/<int:serverId>/users', methods=["GET"])
 @login_required
 def get_members(serverId):
+    """
+        Get a list of all members in a server
+    """
     members = ServerUser.query.filter(ServerUser.server_id == serverId).all()
     
     res = {
-        "Members": {user.to_dict() for user in members}
+        "Members": {user.id: user.to_dict() for user in members}
     }
     
-    return "in progress"
+    return res
+
+@server_routes.route('/<int:serverId>/users/<int:userId>', methods=["DELETE"])
+@login_required
+def delete_server_user(serverId, userId):
+
+    """
+        Deletes a user from the servers members.
+        
+        Must be owner or admin in server.
+        
+        userId is the id of the user to delete.
+
+    """
+
+    # Checks logged in user has proper permissions.
+    role = get_user_role(current_user.id, serverId)
+    if role != "owner" and role != "admin": 
+        return {'errors': ['Forbidden']}, 403
+    
+    # Find and delete the user to delete from server members
+    user = ServerUser.query.filter(ServerUser.user_id == userId, ServerUser.server_id == serverId).one()
+
+    db.session.delete(user)
+    db.session.commit()
+
+    return {
+        "message": "User sucessfully deleted from server."
+    }
