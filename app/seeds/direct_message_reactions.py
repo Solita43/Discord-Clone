@@ -1,4 +1,4 @@
- from app.models import db, DirectMessageReaction, environment, SCHEMA
+from app.models import db, DirectMessageReaction, environment, SCHEMA
 from sqlalchemy.sql import text
 
 def seed_direct_message_reactions():
