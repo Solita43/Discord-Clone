@@ -11,7 +11,7 @@ class Server(db.Model):
     owner_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod("users.id")), nullable=False)
 
     owner = db.relationship("User", back_populates="server")
-    groups = db.relationship('ChannelGroup', back_populates='server')
+    groups = db.relationship('ChannelGroup', back_populates='server', cascade="delete-orphan, all")
     channels = db.relationship("Channel", back_populates='server')
     serverUsers = db.relationship('ServerUser', back_populates='server', cascade="delete-orphan, all")
 
@@ -22,4 +22,3 @@ class Server(db.Model):
         "imageUrl": self.imageUrl, 
         "owner_id": self.owner_id
         }
-    

@@ -17,6 +17,6 @@ def user_already_exists(form,field):
 
 
 class ServerUserForm(FlaskForm):
-    user_id = IntegerField("User ID", validators=[DataRequired()])
+    user_id = IntegerField("User ID", validators=[DataRequired(), user_id_exists, user_already_exists])
     server_id = IntegerField("Server ID", validators=[DataRequired()])
     role = StringField("Role", validators=[DataRequired()])
