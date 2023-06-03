@@ -22,11 +22,13 @@ def get_all_conversations():
     for user in users:
         print("GOT HERE", user.id)
         user = user.to_dict()
+        print("USER!",user)
         # print("USER Info: ", user.to_dict())
-        userInfo[user['id']] = {"userId": user['id']}
+        # this doesnt work
+        userInfo[user['userId']] = {"userId": user['userId']}
     
 
-    print("USER INFOS", userInfo)
+    print("USER INFOS=======", userInfo)
 
 
 

@@ -41,23 +41,18 @@ def get_servers_by_user(id):
 @login_required
 def add_user_to_server(id): 
     return "lol"
-    # form = ServerUserForm()
-    # data = request.get_json()
-    # form['csrf_token'].data = request.cookies['csrf_token']
-    # form.user_id = data["user_id"]
-    # form.server_id = id
-    # form.role = data["role"]
-    # if form.validate(): 
+    form = ServerUserForm()
+    data = request.get_json()
+    form['csrf_token'].data = request.cookies['csrf_token']
+    form.user_id = data["user_id"]
+    form.server_id = id
+    form.role = data["role"]
+    if form.validate(): 
 
-    #i gotta leave soon but i think bev will keep going for a little
-    #could we do a push and she might work locally?
     
-    #Hmm not sure why it's erroring...
-    #Fixed
 @server_routes.route('/', methods=["POST"])
 @login_required
 def create_a_server():
-    
     form = ServerForm()
     form['csrf_token'].data = request.cookies['csrf_token']
     pass
