@@ -12,3 +12,12 @@ class ChannelGroup(db.Model):
 
     server = db.relationship('Server', back_populates='groups')
     channels = db.relationship('Channel', back_populates='group', cascade="delete-orphan, all" )
+
+    def to_dict(self): 
+        return {
+            "id": self.id, 
+            "server_id": self.server_id, 
+            "name": self.name, 
+            "server": self.server.to_dict(), 
+            "channels": self.channels.to_dict()
+        }

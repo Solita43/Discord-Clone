@@ -17,3 +17,17 @@ class Channel(db.Model):
     group = db.relationship("ChannelGroup", back_populates="channels")
     privateChannels = db.relationship("PrivateChannel", back_populates="channel", cascade="delete-orphan, all")
     channelMessages = db.relationship("ChannelMessage", back_populates="channel", cascade="delete-orphan, all")
+
+    def to_dict(self): 
+        return {
+            "id": self.id, 
+            "server_id": self.server_id, 
+            "group_id": self.group_id, 
+            "name": self.name, 
+            "created_at": self.created_at, 
+            "isPrivate": self.isPrivate, 
+            "server": self.server.to_dict(), 
+            "group": self.group.to_dict(), 
+            "privateChannels": self.privateChannels.to_dict(), 
+            "channelMessages": self.channelMessages.to_dict()
+        }

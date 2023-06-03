@@ -15,7 +15,7 @@ def channel_message_exists(form,field):
     if not message:
         raise ValidationError("Message does not exist")
 
-    class ChannelMessageReactionForm(FlaskForm):
-        message_id = IntegerField("Message ID", validators=[DataRequired(),channel_message_exists])
-        reaction = StringField("Reaction",validators=[DataRequired()])
-        user_id = IntegerField("User ID", validators=[DataRequired(),user_id_exists])
+class ChannelMessageReactionForm(FlaskForm):
+    message_id = IntegerField("Message ID", validators=[DataRequired(),channel_message_exists])
+    reaction = StringField("Reaction",validators=[DataRequired()])
+    user_id = IntegerField("User ID", validators=[DataRequired(),user_id_exists])

@@ -31,10 +31,13 @@ class User(db.Model, UserMixin):
 
     def to_dict(self):
         return {
-            'id': self.id,
+            'userId': self.id,
             'username': self.username,
-            'email': self.email
+            'email': self.email,
+            "userIcon": self.imageUrl,
+            "userStatus": self.status
         }
+
     privateChannels = db.relationship("PrivateChannel",back_populates="user")
     channelMessageReactions = db.relationship("ChannelMessageReaction", back_populates="user")
     channelMessages = db.relationship("ChannelMessage", back_populates="user")

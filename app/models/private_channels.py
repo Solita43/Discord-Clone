@@ -12,3 +12,5 @@ class PrivateChannel(db.Model):
 
     channel = db.relationship("Channel", back_populates="privateChannels")
     user = db.relationship("User", back_populates="privateChannels")
+
+    

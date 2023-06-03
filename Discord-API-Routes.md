@@ -294,7 +294,7 @@ Create a new server. User that creates the server will automatically be designat
 - Request
   - Method: POST
   - Content-Type: application/json
-  - URL: /api/server
+  - URL: /api/servers
   - Body:
 
 ```json
@@ -425,7 +425,16 @@ Returns a list of all available servers.
     }
     ```
 
-### Get servers by User Id~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+### Get servers by User Id
+
+Returns a list of servers by user Id
+
+- Require Authentication: true
+- Request
+
+  - Method: GET
+  - URL: /api/servers
+  - Body: none
 
 ## SERVER USERS
 

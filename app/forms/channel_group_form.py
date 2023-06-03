@@ -9,6 +9,6 @@ def server_id_exists(form, field):
     if not server:
         raise ValidationError("Server does not exist")
 
-def ChannelGroupForm(FlaskForm):
+class ChannelGroupForm(FlaskForm):
     server_id = IntegerField("Server ID", validators=[DataRequired(),server_id_exists])
     name = StringField("Channel Group Name", validators=[DataRequired()])

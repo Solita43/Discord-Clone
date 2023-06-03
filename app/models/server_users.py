@@ -14,3 +14,12 @@ class ServerUser(db.Model):
 
     server = db.relationship("Server", back_populates="serverUsers")
     user = db.relationship("User", back_populates="serverUsers")
+
+    def to_dict(self):
+        return {
+            "id": self.id,
+            "user_id": self.user_id,
+            "server_id": self.server_id,
+            "role": self.role,
+            "created_at": self.created_at
+        }
