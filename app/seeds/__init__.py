@@ -47,6 +47,11 @@ def seed():
     seed_private_channel_user()
     seed_direct_message_conversation_users()
     seed_direct_messages()
+    direct_message_conversation()
+    seed_server_users()
+    seed_servers()
+
+
 
     # Add other seed functions here
 
@@ -55,4 +60,13 @@ def seed():
 @seed_commands.command('undo')
 def undo():
     undo_users()
+    undo_channel_groups()
+    undo_channel_message_reactions()
+    undo_channel_messages()
+    undo_channels()
+    undo_direct_message_conversation_users()
+    undo_direct_message_conversation()
+    undo_direct_messages()
+    undo_server_users()
+    undo_servers()
     # Add other undo functions here
