@@ -12,7 +12,11 @@ class User(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(40), nullable=False, unique=True)
     email = db.Column(db.String(255), nullable=False, unique=True)
+    first_name = db.Column(db.String, nullable=False)
+    last_name = db.Column(db.String, nullable=False)
+    status = db.Column(db.String)
     hashed_password = db.Column(db.String(255), nullable=False)
+    imageUrl = db.Column(db.String(255), default="https://discordia-aa.s3.us-west-1.amazonaws.com/profile-default.jpg")
 
     @property
     def password(self):
@@ -31,3 +35,10 @@ class User(db.Model, UserMixin):
             'username': self.username,
             'email': self.email
         }
+    privateChannels = db.relationship("PrivateChannel",back_populates="user")
+    channelMessageReactions = db.relationship("ChannelMessageReaction", back_populates="user")
+    channelMessages = db.relationship("ChannelMessage", back_populates="user")
+    directMessages = db.relationship("DirectMessage", back_populates="user")
+    directMessageConversationUsers = db.relationship("DirectMessageConversationUser", back_populates="user")
+    directMessageReactions = db.relationship("DirectMessageReaction", back_populates="user")
+    server = db.relationship("Server", back_populates="owner")

@@ -408,13 +408,15 @@ Returns a list of all available servers.
             "id":1,
             "name":"First server!!!",
             "owner_id":1,
-            "created_at":"05/30/2023"
+            "created_at":"05/30/2023",
+            "image_url": "image.png"
           },
           {
             "id":2,
             "name":"second server :(",
             "owner_id":2,
-            "created_at":"06/01/2023"
+            "created_at":"06/01/2023",
+            "image_url": "some.image.com"
           }
 
 
@@ -422,6 +424,8 @@ Returns a list of all available servers.
     }
     }
     ```
+
+### Get servers by User Id~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 ## SERVER USERS
 
@@ -469,7 +473,9 @@ Gets the list of members in a server.
 - Request
 
   - Method: GET
-  -
+  - Headers:
+    - Content-Type: application/json
+  - URL: /api/servers/:serverId/users
 
 ### Edit a user role in a server
 
@@ -503,6 +509,28 @@ Successful Response when there is a logged in user that is the owner of the serv
   ```
 
 ### Remove a user from a server
+
+Removes a user's membership to a server. Only a server owner or server admin can remove users. Server admins can not remove other server admins.
+
+- Require Authentication: true
+- Require Proper Authentication: true
+- Request
+  - Method: DELETE
+  - URL: /api/servers/:serverId/users/:userId
+  - Body: None
+
+Successful Response when the logged in user requesting the delete has the correct server permissions and the userId was found and deleted.
+
+- Status Code: 202
+- Headers:
+  - Content-Type: application/json
+- Body:
+
+```json
+{
+  "message": "User sucessfully deleted from server."
+}
+```
 
 ## CHANNELS
 
@@ -541,30 +569,311 @@ Successful response:
 
 ### Create a channel group
 
-Create a new channel in server.
+Create a new channel group for a server.
 
--Require Authentication: true
--Require Authorization: true
+- Require Authentication: true
+- Require Authorization: true
 
--
+- Request:
+  - Method: POST
+  - URL: /api/channelGroups/:serverid
+  - Body:
+    ```json
+    {
+      "name": "Resources"
+    }
+    ```
+
+Successful Response:
+
+- Status Code: 200
+- Headers:
+  - Content-Type: application/json
+- Body:
+  ```json
+  {
+    "id": 1,
+    "server_id": 1,
+    "name": "Resources"
+  }
+  ```
+
+Error response: Name validation errors
+
+- Status Code: 400
+- Headers:
+  - Content-Type: application/json
+- Body:
+  ```json
+  {
+    "message": "Bad Request",
+    "errors": {
+      "name": "Name is required",
+      "name": "Group with that name already exists on this server"
+    }
+  }
+  ```
 
 ### Create a channel
 
+Create a new channel for a server.
+
+- Require Authentication: true
+- Require Authorization: true
+
+- Request:
+  - Method: POST
+  - Url: /api/channels/
+  - Body:
+    ```json
+    {
+      "name": "General",
+      "isPrivate": false,
+      "groupId": 1
+    }
+    ```
+    Successful Response:
+- Status Code: 200
+- Headers:
+  - Content-Type: application/json
+- Body:
+  ```json
+  {
+    "id": 1,
+    "server_id": 1,
+    "group_id": 1,
+    "name": "General",
+    "created_at": "06/01/2023",
+    "isPrivate": false
+  }
+  ```
+
+Error response: Name validation errors
+
+- Status Code: 400
+- Headers:
+  - Content-Type: application/json
+- Body:
+  ```json
+  {
+    "message": "Bad Request",
+    "errors": {
+      "name": "Name is required",
+      "name": "Channel with that name already exists on this server"
+    }
+  }
+  ```
+
 ### Edit a channel
 
+Update an existing channel on a server.
+
+- Require Authentication: true
+- Require Authorization: true
+
+- Request:
+  - Method: PUT
+  - Url: /api/channels/:id
+  - Body:
+    ```json
+    {
+      "name": "Rules",
+      "isPrivate": false
+    }
+    ```
+    Successful Response:
+- Status Code: 201
+- Headers:
+  - Content-Type: application/json
+- Body:
+  ```json
+  {
+    "id": 1,
+    "server_id": 1,
+    "group_id": 1,
+    "name": "Rules",
+    "created_at": "06/01/2023",
+    "isPrivate": false
+  }
+  ```
+
 ### Delete a channel
+
+Delete a channel from a server. User must be
+a role of "admin" or "owner"
+
+- Require Authentication: True
+- Require Authorization: True
+
+- Request
+  - Method: DELETE
+  - Url: /api/channels/:channelId
+  - Body: none
+
+Successful Response:
+
+- Status Code: 200
+- Headers:
+  - Content-Type: application/json
+- Body:
+  ```json
+  {
+    "message": "Channel successfully deleted"
+  }
+  ```
 
 ## CHANNEL MESSAGES
 
 ### Get all messages
 
+Returns a list of all messages in a channel. User must be a member of the server
+
+- Require Authentication: True
+- Require Authorization: True
+- Request
+
+  - Method: GET
+
+  - URL: /api/channels/:channelId/messages
+  - Headers:
+  - Content-Type: application/json
+  - Body: None
+
+-Successful Response when there are conversations
+
+- Status Code: 200
+- Headers:
+  - Content-Type: application/json
+- Body:
+  ```json
+       "messages": [
+      {
+        "messageId": 1,
+        "username": "Demo-lition",
+        "messageText": "Hey what's up?",
+        "dateTimeStamp": "1-1-2023 z 01:12:00",
+        "reactions": {
+          "<reactionId>": {
+            "username": "Demo-lition",
+            "emoji": "🙃"
+          }
+        }
+      }
+    ]
+  ```
+
 ### Post a message
+
+Post a new message to a channel.
+
+- Require Authentication: true
+- Require membership to server of channel: true
+
+- Request
+  - Method: POST
+  - URL: /api/channels/:channelId/messages
+  - Headers:
+    - Content-Type: application/json
+  - Body:
+    ```json
+    {
+      "userId": 1,
+      "message": "some message text or something"
+    }
+    ```
+- Sucessful response when a user is a member of the server and allowed to post to the channel
+  - Status Code: 201
+  - Headers:
+    - Content-Type: application/json
+  - Body:
+    ```json
+    {
+      "message": "Message sent!"
+    }
+    ```
 
 ### Edit a message
 
+Edit a message that you sent in a channel
+
+- Require Authentication: True
+- Require membership to channel: True
+
+- Request
+- Method: PUT
+- URL: /api/messages/:messageId
+- Header
+  - Content-Type: application/json
+- Body:
+
+  ```json
+  {
+    "userId": 1,
+    "message": "some message text or something edited"
+  }
+  ```
+
+- Successful response when user changes their own message in a channel
+
+- Status Code: 201
+- Header:
+  - application/json
+- Body:
+
+  ```json
+  {
+    "messageId": 5,
+    "username": "Demo-lition",
+    "messageText": "some message text or something edited",
+    "dateTimeStamp": "1-1-2023 z 01:12:00"
+  }
+  ```
+
 ### Delete a message
 
+Delete a message you sent in a channel
+
+- Require Authentication: True
+- Require Proper Authorization: True, user must be the creator of the message or a member of the server with a role of "admin" or "owner"
+- Request:
+  - URL: /api/messages/:messageId
+  - Method: DELETE
+  - Headers:
+    - Content-Type: application/json
+  - Body:None
+
 ### React to a message
+
+React to a message in a channel someone else or you sent
+
+- Require Authentication: True
+- Require Proper Authorization: False
+- Request
+  - URL: /api/messages/:messageId/reactions
+  - Method: POST
+  - Headers:
+    - Content-Type: application/json
+  - Body:
+  ```json
+  {
+    "emoji": "❤",
+    "userId": 3
+  }
+  ```
+- Successful Response
+
+  - Status Code: 201
+  - Header:
+
+    - Content-Type: application/json
+      -Body:
+
+    ```json
+        "<reactionId>": {
+        "username": "Demo-graphics",
+        "emoji": "🙃"
+          }
+    ```
 
 ## DIRECT MESSAGES
 
@@ -576,12 +885,13 @@ Returns a list of all users current user has a direct message conversation with
 - Request
 
   - Method: GET
-  - URL: /api/:userid/conversations
+  - URL: /api/conversations/:userid/
   - Headers:
     - Content-Type: application/json
   - Body: None
 
 - Successful Response when there are conversations:
+
   - Status Code: 200
   - Headers:
     - Content-Type: application/json
@@ -597,7 +907,7 @@ Returns a list of all users current user has a direct message conversation with
       "updatedAt": "mm/dd/yy"
     },
     "user2": {
-      "userId": 1,
+      "userId": 2,
       "userIcon": "somethingelse.com",
       "userStatus": "online",
       "createdAt": "mm/dd/yy",
@@ -605,7 +915,9 @@ Returns a list of all users current user has a direct message conversation with
     }
   }
   ```
+
   - Successful Response when there are no conversations
+
     - Status Code: 200
     - Headers
       - Content-Type: application/json
@@ -613,7 +925,7 @@ Returns a list of all users current user has a direct message conversation with
 
     ```json
     {
-      "user": []
+      "user": {}
     }
     ```
 
@@ -623,13 +935,15 @@ Returns all messages in a specific user conversation
 
 - Require Authentication: true
 - Request
+
   - Method: GET
-  - URL: /api/conversations/:conversationId/
+  - URL: /api/directMessages/:conversationId/
   - Headers:
     - Content-Type: application/json
   - Body: None
 
 - Successful Response when there are messages
+
   - Status Code: 200
   - Headers:
     - Content-Type: application/json
@@ -654,15 +968,17 @@ Returns all messages in a specific user conversation
       }
     }
     ```
+
 - Successful Response when there are no messages
   -Status Code: 200
+
   - Headers:
     - Content-Type: application/json
   - Body:
 
     ```json
     {
-      "messages": []
+      "messages": {}
     }
     ```
 
@@ -672,31 +988,33 @@ Create a new user conversation
 
 - Require Authentication: true
 - Request
+
   - Method: POST
-  - URL: /api/conversations/:conversationId/messages
+  - URL: /api/directMessages/:conversationId
   - Body:
 
     ```json
-      {
-        "text": "heyyyyyy",
-        "userId": 1
-      }
-
+    {
+      "text": "heyyyyyy",
+      "userId": 1
+    }
     ```
+
 - Successful Response
+
   - Status Code: 201
   - Headers:
     - Content-Type: application/json
   - Body:
 
     ```json
-      {
-        "id": 3,
-        "text": "heyyyyyy",
-        "userId": 1,
-        "createdAt": "mm/dd/yy",
-        "reactions": {}
-      }
+    {
+      "id": 3,
+      "text": "heyyyyyy",
+      "userId": 1,
+      "createdAt": "mm/dd/yy",
+      "reactions": {}
+    }
     ```
 
 ### Post a user conversation
@@ -705,6 +1023,7 @@ Create a new user conversation
 
 - Require Authentication: true
 - Request
+
   - Method: POST
   - URL: /api/conversations
   - Headers:
@@ -716,22 +1035,27 @@ Create a new user conversation
       "userId": 2
     }
     ```
+
 - Successful Response if conversation doesn't already exist
-  -Status Code: 201
+
+  - Status Code: 201
+
   - Headers:
     - Content-Type: application/json
   - Body:
 
     ```json
-      "user2": {
-        "userId": 1,
+    {
+      "conversationId": 1,
+      "createdAt": "mm/dd/yy",
+      "updatedAt": "mm/dd/yy",
+      "user": {
+        "userId": 2,
         "userIcon": "default.jpg",
-        "userStatus": "online",
-        "createdAt": "mm/dd/yy",
-        "updatedAt": "mm/dd/yy"
+        "userStatus": "online"
+      }
     }
     ```
-
 
 ### Delete a user conversation
 
@@ -739,11 +1063,13 @@ Delete a specific user conversation
 
 - Require Authentication: true
 - Request
+
   - Method: DELETE
   - URL: /api/conversations/:conversationId
   - Body: None
 
 - Successful Response
+
   - Status Code: 202
   - Headers:
     - Content-Type: application/json
@@ -755,18 +1081,19 @@ Delete a specific user conversation
     }
     ```
 
-
 ### Delete a user conversation message
 
 Delete a specific message in a user conversation.
 
-- Require Authentication: true
+- Require Authentication: True
+- Require Authorization: True
 - Request
   - Method: DELETE
-  -  URL: /api/conversations/:conversationId/messages/:messageId
+  - URL: /api/directMessages/:messageId
 - Body: None
 
 - Successful Response
+
   - Status Code: 202
   - Headers:
     - Content-Type: application/json
@@ -779,15 +1106,16 @@ Delete a specific message in a user conversation.
     ```
 
 ### React to a conversation
+
 Add a reaction to a specific message in a user conversation
 
 - Require Authentication: true
 - Request
   -Method: POST
-  - URL: /api/conversations/:conversationId/messages/:messageId/reactions
-  -Headers:
-    -Content-Type: application/json
-  -Body:
+  - URL: /api/directMessages/:messageId/reactions
+    - Headers:
+    - Content-Type: application/json
+    - Body:
     ```json
     {
       "emoji": "❤",
@@ -795,14 +1123,16 @@ Add a reaction to a specific message in a user conversation
     }
     ```
 - Successful Response
+
   - Status Code: 201
   - Header:
+
     - Content-Type: application/json
-  -Body:
+      -Body:
 
     ```json
         "<reactionId>": {
         "username": "Demo-graphics",
-        "emoji": "🙃"
+        "emoji": "❤"
           }
     ```
