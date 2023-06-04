@@ -8,17 +8,17 @@ server_routes = Blueprint('servers', __name__)
 
 @server_routes.route('/')
 @login_required
-def get_all_servers(): 
+def get_all_servers():
     """
-    Returns a list of all servers in the DB 
+    Returns a list of all servers in the DB
     """
 
     servers = Server.query.all()
-    
+
     res = {
         "servers": [server.to_dict() for server in servers]
     }
-  
+
     return res
 
 
@@ -33,20 +33,20 @@ def get_servers_by_user(userId):
     res = {
         "Servers": {server.id: server.to_dict() for server in servers}
     }
-    
+
     return res
-    
 
 
 
 
-    
+
+
 @server_routes.route('/', methods=["POST"])
 @login_required
 def create_a_server():
     """"
         Creates a new server and adds the current logged in user as the owner of the server.
-        
+
         Expected keys:
         {
             "name": "example",
@@ -86,9 +86,9 @@ def edit_server(serverId):
         }
     """
     role = get_user_role(current_user.id, serverId)
-    if role != "owner": 
+    if role != "owner":
         return {'errors': ['Forbidden']}, 403
-    
+
     data = request.get_json()
     form = ServerForm()
     form['csrf_token'].data = request.cookies['csrf_token']
@@ -102,12 +102,12 @@ def edit_server(serverId):
         if "imageUrl" in data:
             server.imageUrl = data["imageUrl"]
         db.session.commit()
-        return server.to_dict()    
+        return server.to_dict()
     else:
         errors = form.errors
         return errors
-    
-    
+
+
 
 
 @server_routes.route("/<int:server_id>", methods=["DELETE"])
@@ -118,20 +118,20 @@ def delete_server_by_id(server_id):
     Method: DELETE
     Body: None
 
-    Deletes a server by server_id if the current user is the owner of the server, 
-    and the server exists. 
-    
-    Otherwise returns an error message. 
+    Deletes a server by server_id if the current user is the owner of the server,
+    and the server exists.
+
+    Otherwise returns an error message.
     """
 
-    
+
     server = Server.query.get(server_id)
-    if not server: 
+    if not server:
         return {
             "message": "Server not found..."
         }
     role = get_user_role(current_user.id, server_id)
-    if role != "owner": 
+    if role != "owner":
         return {
             "message": "Insufficient permission to delete this server."
         }
@@ -140,105 +140,105 @@ def delete_server_by_id(server_id):
     return {
         "message": "Server successfully deleted"
     }
-    
+
 
 @server_routes.route('/<int:server_id>/users', methods=["POST"])
 @login_required
-def add_user_to_server(server_id): 
+def add_user_to_server(server_id):
 
     """
     Route: /api/servers/:server_id/users
     Method: POST
-    
-    Body: {
-        "userId": <integer>, 
-        
-        "role": <"user", "admin"> 
-    }
-    
-    Adds a user to a server's member list if the currently logged in 
-    user has a server role of "admin" or "owner". 
 
-    Otherwise returns message object with an error message. 
+    Body: {
+        "userId": <integer>,
+
+        "role": <"user", "admin">
+    }
+
+    Adds a user to a server's member list if the currently logged in
+    user has a server role of "admin" or "owner".
+
+    Otherwise returns message object with an error message.
 
     """
 
     # Validating that the currently logged in user has the authority to add
-    # a user to the server. 
+    # a user to the server.
     logged_in_user = current_user.to_dict()
     role = get_user_role(logged_in_user["userId"], server_id)
-    if role != "owner" and role != "admin": 
+    if role != "owner" and role != "admin":
         return {
             "message": "User is not authorized to add users to this server."
         }
 
-    # Getting the user and role data from the request. 
+    # Getting the user and role data from the request.
     data = request.get_json()
     new_user_id = data['userId']
     new_user_role = data['role']
 
-    # Adding the user data to the form for validation. 
+    # Adding the user data to the form for validation.
     form = ServerUserForm()
     form['csrf_token'].data = request.cookies['csrf_token']
-    form.user_id.data = new_user_id 
+    form.user_id.data = new_user_id
     form.server_id.data = server_id
     form.role.data = new_user_role
-    
-    # If valid data, the user is added to the server. 
-    if form.validate(): 
+
+    # If valid data, the user is added to the server.
+    if form.validate():
         new_member = ServerUser(user_id = new_user_id , server_id = server_id, role = new_user_role)
         db.session.add(new_member)
         db.session.commit()
         return ServerUser.query.filter(ServerUser.user_id == new_user_id , ServerUser.server_id == server_id).first().to_dict()
-    elif form.errors: 
+    elif form.errors:
         return {
             "message": form.errors
         }
-    
+
 @server_routes.route('/<int:server_id>/users/<int:user_id>', methods=["PUT"])
 @login_required
 def edit_server_user_role(server_id, user_id):
 
     """
-    
+
     """
-     
+
     server = Server.query.get(server_id)
     membership = ServerUser.query.filter(ServerUser.server_id == server_id, ServerUser.user_id == user_id).first()
 
     # Verifying the server exists
-    if not server: 
+    if not server:
         return {
             "message": "Server not found..."
         }
-    
+
     # Verifying the user has a membership to the server
-    if not membership: 
+    if not membership:
         return {
             "message": "User isn't a member of this server..."
         }
-    
+
     # Verifying the logged in user has permission to alter roles
     role = get_user_role(current_user.id, server_id)
-    if role != "owner": 
+    if role != "owner":
         return {
             "message": "Insufficient permission to edit roles on this server."
         }
-    
-    # Validating the requested membership role. 
+
+    # Validating the requested membership role.
     data = request.get_json()
-    if data["role"] != "user" and data["role"] != "admin": 
+    if data["role"] != "user" and data["role"] != "admin":
         return {
             "message": "Can only give the roles 'admin' or 'user'."
         }
-    
-    # Updating the user's membership to the requested type. 
+
+    # Updating the user's membership to the requested type.
     membership.role = data["role"]
     db.session.commit()
 
     return membership.to_dict()
 
-    
+
 @server_routes.route('/<int:serverId>/users', methods=["GET"])
 @login_required
 def get_members(serverId):
@@ -249,11 +249,11 @@ def get_members(serverId):
         TODO: Add name and imageURL from user's profile
     """
     members = ServerUser.query.filter(ServerUser.server_id == serverId).all()
-    
+
     res = {
         "Members": {user.id: user.to_dict() for user in members}
     }
-    
+
     return res
 
 @server_routes.route('/<int:serverId>/users/<int:userId>', methods=["DELETE"])
@@ -262,9 +262,9 @@ def delete_server_user(serverId, userId):
 
     """
         Deletes a user from the servers members.
-        
+
         Must be owner or admin in server.
-        
+
         userId is the id of the user to delete.
 
         TODO: Disallow admins from deleting other admins and the owner
@@ -273,9 +273,9 @@ def delete_server_user(serverId, userId):
 
     # Checks logged in user has proper permissions.
     role = get_user_role(current_user.id, serverId)
-    if role != "owner" and role != "admin": 
+    if role != "owner" and role != "admin":
         return {'errors': ['Forbidden']}, 403
-    
+
     # Find and delete the user to delete from server members
     user = ServerUser.query.filter(ServerUser.user_id == userId, ServerUser.server_id == serverId).one()
 
