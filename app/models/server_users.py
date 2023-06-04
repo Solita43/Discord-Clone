@@ -23,11 +23,3 @@ class ServerUser(db.Model):
             "role": self.role,
             "created_at": self.created_at
         }
-    
-    def to_dict_users_in_server(self): 
-        """
-        Used in the server routes to format a ServerUser model joined with a User model. 
-        """
-        return {
-            "id": self.User.id
-        }
