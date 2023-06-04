@@ -9,7 +9,7 @@
 .nav-root {
   box-sizing: border-box;
   height: 100%;
-  width: fit-content;
+  width: 72px;
   background-color: #232326;
 }
 
@@ -27,11 +27,13 @@ html, body, #root {
   flex-direction: column;
   align-items: center;
   width: 72px;
-  gap: 8px; 
   height: 100%;
 }
 
 .server-nav-bar > ol {
+  display: flex;
+  flex-direction: column;
+  gap: .3rem;
   list-style: none;
   padding: 0;
   margin: 0; 
@@ -39,9 +41,10 @@ html, body, #root {
 }
 
 .server-icons {
-  width: 48px;
-  height: 48px;
+  width: 3rem;
+  height: 3rem;
   border-radius: 100%;
+  background-color: #313137;
 }
 
 .server-nav-bar > ol > li {
@@ -61,7 +64,7 @@ html, body, #root {
   color: #29CC7A;
   background-color: #313137;
   border-radius: 100%;
-  font-size: 1.3rem
+  font-size: 1.3rem;
 }
 
 #create-a-server:hover {
@@ -75,32 +78,47 @@ html, body, #root {
   cursor: pointer;
 }
 
-.tooltip::before {
+.tooltip::before,
+.tooltip::after {
+  --scale: 0;
+  --arrow-size: 12px;
+  --tooltip-color: #232326;
+  
   position: absolute;
-  z-index: 1;
-  width: max-content;
-  display: none;
-  left: 65px;
-  top: 30%;
-  text-align: center;
-  color: #ffffff;
-  background-color: #232326;
-  padding: 8px;
-  border-radius: 10px;
-  font-size: 12px;
+  top: 50%;
+  left: 140%;
+  transform: translateY(-50%) scale(var(--scale));
+}
+
+.tooltip::before {
   content: attr(data-tooltip);
+  color: white;
+  font-size: .7rem;
+  padding: .5rem;
+  width: max-content;
+  border-radius: .4rem;
+  background-color: var(--tooltip-color);
 }
 
 .tooltip:hover::before,
 .tooltip:hover::after {
-  display: inline-block;
+  --scale: 1;
 }
 
-/* .tooltip::after {
-  content: "";
-  border: 10px solid transparent;
-  border-right-color: white;
-  display: none;
-  left: 65px;
-  top: 30%;
-} */
+.tooltip::after {
+  content: '';
+  left: 103%;
+  border: var(--arrow-size) solid transparent;
+  border-right-color: var(--tooltip-color);
+}
+
+.dm-img {
+  
+  height: 2.3rem;
+}
+
+.dm-div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

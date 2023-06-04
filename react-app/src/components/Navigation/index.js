@@ -31,8 +31,10 @@ function Navigation({ isLoaded }) {
 			<div className='server-nav-bar'>
 				<ol>
 					<li className='tooltip' data-tooltip={'Direct Messages'}>
-						<a href='/conversations/' className='dm-anchor-tag'>
-							<img className='server-icons' src='https://img.icons8.com/?size=512&id=aqOnqIFQZ4_I&format=png' />
+						<a href='/conversations' className='dm-anchor-tag'>
+							<div className='server-icons dm-div'>
+								<img className='dm-img' src='https://img.icons8.com/?size=512&id=aqOnqIFQZ4_I&format=png' />
+							</div>
 						</a>
 					</li>
 					{Object.values(servers).map((server) => {
@@ -42,10 +44,8 @@ function Navigation({ isLoaded }) {
 							</li>
 						)
 					})}
-					<li className='tooltip' data-tooltip='Add a server'>
-							<div id="create-a-server">
-								<i class="fa-solid fa-plus"></i>
-							</div>
+					<li className='tooltip server icons' data-tooltip='Add a Server'>
+						<i class="fa-solid fa-plus" id='create-a-server'></i>
 					</li>
 
 				</ol>
