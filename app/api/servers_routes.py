@@ -198,6 +198,10 @@ def add_user_to_server(server_id):
 @server_routes.route('/<int:server_id>/users/<int:user_id>', methods=["PUT"])
 @login_required
 def edit_server_user_role(server_id, user_id):
+
+    """
+    
+    """
      
     server = Server.query.get(server_id)
     membership = ServerUser.query.filter(ServerUser.server_id == server_id, ServerUser.user_id == user_id).first()
@@ -240,6 +244,9 @@ def edit_server_user_role(server_id, user_id):
 def get_members(serverId):
     """
         Get a list of all members in a server
+
+
+        TODO: Add name and imageURL from user's profile
     """
     members = ServerUser.query.filter(ServerUser.server_id == serverId).all()
     
@@ -260,6 +267,8 @@ def delete_server_user(serverId, userId):
         
         userId is the id of the user to delete.
 
+        TODO: Disallow admins from deleting other admins and the owner
+
     """
 
     # Checks logged in user has proper permissions.
@@ -274,5 +283,5 @@ def delete_server_user(serverId, userId):
     db.session.commit()
 
     return {
-        "message": "User sucessfully deleted from server."
+        "message": "User successfully deleted from server."
     }
