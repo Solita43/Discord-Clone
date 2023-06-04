@@ -1,3 +1,4 @@
 AWS_helpers.py
 .env
 *.db
+Pipfile.lock

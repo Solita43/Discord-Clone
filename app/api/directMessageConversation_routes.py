@@ -8,22 +8,24 @@ conversation_routes = Blueprint("conversations", __name__)
 
 
 # get all conversations by user id
-@conversation_routes.route('/')
+@conversation_routes.route('')
 @login_required
 def get_all_conversations():
     conversations = DirectMessageConversationUser.query.with_entities(DirectMessageConversationUser.conversation_id).filter(current_user.id == DirectMessageConversationUser.user_id).all()
     conversation_ids = [row.conversation_id for row in conversations]
-    otherUsers = DirectMessageConversationUser.query.with_entities(DirectMessage.user_id).filter(DirectMessageConversationUser.conversation_id.in_(conversation_ids)).all()
-    otherUser_ids = [row.user_id for row in otherUsers if row.user_id != current_user.id]
-
-    users = set(User.query.filter(User.id.in_(otherUser_ids)).all())
-
     userInfo = {}
-    for user in users:
+    for conversation in conversation_ids:
+        otherUsers = DirectMessageConversationUser.query.with_entities(DirectMessageConversationUser.user_id).filter(DirectMessageConversationUser.conversation_id == conversation).all()
+        otherUser_id = [row.user_id for row in otherUsers if row.user_id != current_user.id]
+
+        user = User.query.get(otherUser_id)
         user = user.to_dict()
+        userInfo[user['userId']] = {"userId": user['userId'], "userIcon": user['userIcon'], "userStatus": user['userStatus'], "username": user['username'],"conversation_id": conversation}
+
+    # for user in users:
         # print("USER Info: ", user.to_dict())
         # this doesnt work
-        userInfo[user['userId']] = {"userId": user['userId'], "userIcon": user['userIcon'], "userStatus": user['userStatus']}
+
 
     return(userInfo)
 
@@ -59,6 +61,7 @@ def get_all_conversation_messages(id):
         dms[id]["messages"].append({
             "text": message_dict['message'],
             "userId": message_dict['userId'],
+            "createdAt": message_dict['created_at'],
             "reactions": final_reaction
             })
 

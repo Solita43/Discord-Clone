@@ -1,9 +1,12 @@
 import { createStore, combineReducers, applyMiddleware, compose } from 'redux';
 import thunk from 'redux-thunk';
 import session from './session'
-
+import userConversations from './userconversations'
+import userConversationMessages from './userConversationMessages'
 const rootReducer = combineReducers({
   session,
+  userConversations,
+  userConversationMessages
 });
 
 

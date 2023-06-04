@@ -11,6 +11,7 @@ from .api.servers_routes import server_routes
 from .api.directMessageConversation_routes import conversation_routes
 from .seeds import seed_commands
 from .config import Config
+from .socket import socketio
 
 app = Flask(__name__, static_folder='../react-app/build', static_url_path='/')
 
@@ -34,6 +35,9 @@ app.register_blueprint(server_routes, url_prefix='/api/servers')
 app.register_blueprint(conversation_routes, url_prefix='/api/conversations')
 db.init_app(app)
 Migrate(app, db)
+
+# initialize the app with the socket instance
+socket.init_app(app)
 
 # Application Security
 CORS(app)

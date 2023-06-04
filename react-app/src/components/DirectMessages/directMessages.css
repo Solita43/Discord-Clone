@@ -1,0 +1,14 @@
+#conversations-container {
+  display: flex;
+  flex-direction: column;
+}
+
+#conversations-container img {
+  width: 50px;
+  height: auto;
+  float: left;
+}
+
+.conversation-user-container {
+  display: flex;
+}
