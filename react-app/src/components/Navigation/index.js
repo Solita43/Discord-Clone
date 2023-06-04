@@ -42,12 +42,10 @@ function Navigation({ isLoaded }) {
 							</li>
 						)
 					})}
-					<li>
-						<div className='tooltip' data-tooltip='Add a server'>
+					<li className='tooltip' data-tooltip='Add a server'>
 							<div id="create-a-server">
 								<i class="fa-solid fa-plus"></i>
 							</div>
-						</div>
 					</li>
 
 				</ol>
