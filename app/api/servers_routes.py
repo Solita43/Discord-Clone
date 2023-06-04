@@ -1,6 +1,6 @@
 from flask import Blueprint, jsonify, session, request, redirect
 from flask_login import current_user, login_user, logout_user, login_required
-from app.models import Server, ServerUser, db
+from app.models import Server, ServerUser, User, db
 from app.forms import ServerUserForm, ServerForm
 from app.api.utils import get_user_role
 
@@ -200,7 +200,14 @@ def add_user_to_server(server_id):
 def edit_server_user_role(server_id, user_id):
 
     """
+    Method: PUT
+    Body: {
+        "role": "admin"
+    }
+    Route: /<int:server_id>/users/<int:user_id>
 
+
+    Allows a server owner to update the role of a user to admin. 
     """
 
     server = Server.query.get(server_id)
@@ -244,16 +251,20 @@ def edit_server_user_role(server_id, user_id):
 def get_members(serverId):
     """
         Get a list of all members in a server
-
-
-        TODO: Add name and imageURL from user's profile
     """
-    members = ServerUser.query.filter(ServerUser.server_id == serverId).all()
+    members = ServerUser.query.join(User).filter(ServerUser.server_id == serverId).add_columns(User.imageUrl, User.id, User.username, ServerUser.server_id, ServerUser.role, ServerUser.created_at, User.status).all()
 
     res = {
-        "Members": {user.id: user.to_dict() for user in members}
+        "Members": {user.id: {
+            "user_id": user.id, 
+            "server_id": user.server_id, 
+            "username": user.username, 
+            "role": user.role, 
+            "created_at": user.created_at, 
+            "imageUrl": user.imageUrl, 
+            "status": user.status
+        } for user in members}
     }
-
     return res
 
 @server_routes.route('/<int:serverId>/users/<int:userId>', methods=["DELETE"])
@@ -267,8 +278,6 @@ def delete_server_user(serverId, userId):
 
         userId is the id of the user to delete.
 
-        TODO: Disallow admins from deleting other admins and the owner
-
     """
 
     # Checks logged in user has proper permissions.
@@ -278,7 +287,15 @@ def delete_server_user(serverId, userId):
 
     # Find and delete the user to delete from server members
     user = ServerUser.query.filter(ServerUser.user_id == userId, ServerUser.server_id == serverId).one()
-
+    if role == "owner" and user.role == "owner": 
+        return {
+            'errors': 'Owner can not delete owner'
+        }
+    
+    if role == "admin" and user.role == "admin" or user.role == "owner": 
+        return {
+            'errors': 'admins can not delete admins/owners'
+        }
     db.session.delete(user)
     db.session.commit()
 
