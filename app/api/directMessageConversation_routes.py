@@ -223,6 +223,18 @@ def create_direct_conversation():
 
 # delete a user conversation message
 
+
 # delete a user conversation
+@conversation_routes.route('/<int:id>', methods=['DELETE'])
+def delete_direct_conversation(id):
+    """ Delete conversation  by its id"""
+    # find the conversation by id
+    conversation = DirectMessageConversation.query.get(id)
+    db.session.delete(conversation)
+    db.session.commit()
+    return {
+        "message": "Conversation successfully deleted"
+    }
+
 
 # react to a user conversation
