@@ -14,4 +14,10 @@ class DirectMessageConversation(db.Model):
 
     directMessages = db.relationship("DirectMessage",back_populates="conversation", cascade="delete-orphan, all")
     directMessageConversationUsers = db.relationship("DirectMessageConversationUser", back_populates="conversation", cascade="delete-orphan, all")
-    
+
+    def to_dict(self):
+        return {
+            "conversationId": self.id,
+            "createdAt": self.created_at,
+            "updatedAt": self.updated_at
+        }

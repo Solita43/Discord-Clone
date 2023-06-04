@@ -7,17 +7,17 @@ server_routes = Blueprint('servers', __name__)
 
 @server_routes.route('/')
 @login_required
-def get_all_servers(): 
+def get_all_servers():
     """
-    Returns a list of all servers in the DB 
+    Returns a list of all servers in the DB
     """
 
     servers = Server.query.all()
-    
+
     res = {
         "servers": [server.to_dict() for server in servers]
     }
-  
+
     return res
 
 
@@ -32,14 +32,14 @@ def get_servers_by_user(id):
     res = {
         "Servers": {server.id: server.to_dict() for server in servers}
     }
-    
+
     return res
-    
+
 
 
 @server_routes.route('/<int:id>/users')
 @login_required
-def add_user_to_server(id): 
+def add_user_to_server(id):
     return "lol"
     form = ServerUserForm()
     data = request.get_json()
@@ -47,13 +47,12 @@ def add_user_to_server(id):
     form.user_id = data["user_id"]
     form.server_id = id
     form.role = data["role"]
-    if form.validate(): 
+    if form.validate():
 
-    
+
 @server_routes.route('/', methods=["POST"])
 @login_required
 def create_a_server():
     form = ServerForm()
     form['csrf_token'].data = request.cookies['csrf_token']
     pass
-    

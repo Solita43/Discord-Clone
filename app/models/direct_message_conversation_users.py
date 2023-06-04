@@ -15,3 +15,8 @@ class DirectMessageConversationUser(db.Model):
 
     conversation = db.relationship("DirectMessageConversation", back_populates="directMessageConversationUsers")
     user = db.relationship("User", back_populates="directMessageConversationUsers")
+
+    def to_dict(self):
+        return {
+            "conversationId": self.conversation_id
+        }
