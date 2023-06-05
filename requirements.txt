@@ -26,7 +26,7 @@ python-editor==1.0.4
 python-engineio==4.4.1 ; python_version >= '3.6'
 python-socketio==5.8.0 ; python_version >= '3.6'
 s3transfer==0.6.1
-setuptools==3.3 ; python_version >= '3.7'
+setuptools==65.5.1 ; python_version >= '3.7'
 six==1.16.0
 socketio==0.2.1
 sqlalchemy==1.4.46
