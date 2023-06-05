@@ -18,6 +18,6 @@ class DirectMessageConversation(db.Model):
     def to_dict(self):
         return {
             "conversationId": self.id,
-            "createdAt": self.created_at,
-            "updatedAt": self.updated_at
+            "createdAt": self.created_at.strftime("%m/%d/%Y, %H:%M:%S"),
+            "updatedAt": self.updated_at.strftime("%m/%d/%Y, %H:%M:%S")
         }

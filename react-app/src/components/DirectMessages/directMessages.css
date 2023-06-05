@@ -10,8 +10,6 @@
 }
 
 #conversations-container img {
-  width: 50px;
-  height: auto;
   float: left;
 }
 
@@ -42,6 +40,8 @@
 
 .dm-profile-img {
   border-radius: 30px;
+  width: 50px;
+  height: auto;
 }
 
 .dm-username {

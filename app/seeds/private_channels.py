@@ -26,7 +26,7 @@ def seed_private_channel_user():
     db.session.commit()
 
 
-def undo_server_users():
+def undo_private_channel_user():
     if environment == "production":
         db.session.execute(f"TRUNCATE table {SCHEMA}.privateChannels RESTART IDENTITY CASCADE;")
     else:

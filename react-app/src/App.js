@@ -32,6 +32,7 @@ function App() {
               <DirectMessages />
             </Route>
             <Route exact path="/conversations/:conversationId">
+              <DirectMessages />
               <ConversationMessages />
             </Route>
             <Route exact path="/channels/:channelId">

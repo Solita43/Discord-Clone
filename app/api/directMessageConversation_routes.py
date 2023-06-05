@@ -59,9 +59,10 @@ def get_all_conversation_messages(id):
                 "emoji": reaction['reaction']}
 
         dms[id]["messages"].append({
-            "text": message_dict['message'],
+            "message": message_dict['message'],
             "userId": message_dict['userId'],
-            "createdAt": message_dict['created_at'],
+            "createdAt": message_dict['createdAt'],
+            "UserInfo": message_dict['UserInfo'],
             "reactions": final_reaction
             })
 
