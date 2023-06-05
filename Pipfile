@@ -33,6 +33,7 @@ s3transfer = "==0.6.1"
 urllib3 = "==1.26.16"
 zipp = "==3.15.0"
 flask-socketio = "*"
+socketio = "*"
 
 [dev-packages]
 
