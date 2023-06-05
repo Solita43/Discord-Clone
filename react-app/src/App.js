@@ -7,19 +7,27 @@ import { authenticate } from "./store/session";
 import Navigation from "./components/Navigation";
 import DirectMessages from "./components/DirectMessages";
 import ConversationMessages from "./components/DirectMessages/ConversationMessages";
+import LandingPage from "./components/LandingPage"
+
 function App() {
   const dispatch = useDispatch();
   const [isLoaded, setIsLoaded] = useState(false);
+
   useEffect(() => {
     dispatch(authenticate()).then(() => setIsLoaded(true));
-  }, [dispatch]);
+  }, [dispatch, authenticate]);
 
   return (
     <>
       <Navigation isLoaded={isLoaded} />
-      <DirectMessages />
       {isLoaded && (
         <Switch>
+          <Route exact path="/">
+            <LandingPage />
+          </Route>
+          <Route exact path="/home">
+            <DirectMessages />
+          </Route>
           <Route path="/login" >
             <LoginFormPage />
           </Route>

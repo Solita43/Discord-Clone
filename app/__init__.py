@@ -37,7 +37,7 @@ db.init_app(app)
 Migrate(app, db)
 
 # initialize the app with the socket instance
-socket.init_app(app)
+socketio.init_app(app)
 
 # Application Security
 CORS(app)
