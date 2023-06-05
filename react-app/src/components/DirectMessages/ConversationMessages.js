@@ -20,8 +20,13 @@ export default function ConversationMessages() {
     let [messages, setMessages] = useState([]);
     let [chatInput, setChatInput] = useState("");
     let [errors, setErrors] = useState({});
+    let [emojiList, setEmojiList] = useState({})
 
-
+    const buttonClick = (messageId) => {
+        setEmojiList((prev) => {
+            return { ...prev, [messageId]: !prev[messageId] }
+        })
+    }
 
 
     useEffect(() => {
@@ -83,12 +88,18 @@ export default function ConversationMessages() {
     if (isLoading || !conversation) {
         return <></>
     }
-    // console.log("CURRENT MESSAGES", messages);
+
+
+    let emojiListClass = "emoji-list"
+
+
+
     return (
         <>
 
             <div>
                 {messages.map((message) => {
+                    let showEmojiList = emojiList[message.id]
                     return (<div key={message.id}>
                         <div>
                             {message.UserInfo.username}
@@ -98,8 +109,22 @@ export default function ConversationMessages() {
                         <p>{message.createdAt}</p>
                         <div>
                             {message.message}
-                            <DirectMessageReactions reactions={message.reactions} />
+                            <button
+                                onClick={() => buttonClick(message.id)}
+                            >😊</button>
+                            {showEmojiList && (
+                                <ul>
+                                    <li>😊</li>
+                                    <li>❤️ </li>
+                                    <li>👍🏻</li>
+                                    <li>👀</li>
+                                </ul>
+                            )}
 
+                            <DirectMessageReactions reactions={message.reactions} />
+                            <div>
+                                {Object.values(message.reactions).length > 0 && Object.values(message.reactions).length}
+                            </div>
                         </div>
                     </div>)
                 })}

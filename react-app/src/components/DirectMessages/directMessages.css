@@ -71,3 +71,7 @@
 a {
   text-decoration: none;
 }
+
+.emoji-list {
+  display: none;
+}

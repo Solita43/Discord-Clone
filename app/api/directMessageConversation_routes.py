@@ -61,6 +61,7 @@ def get_all_conversation_messages(id):
         dms[id]["messages"].append({
             "message": message_dict['message'],
             "userId": message_dict['userId'],
+            "id": message_dict['id'],
             "createdAt": message_dict['createdAt'],
             "UserInfo": message_dict['UserInfo'],
             "reactions": final_reaction

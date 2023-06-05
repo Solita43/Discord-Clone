@@ -8,7 +8,7 @@ const getConversations = (data) => {
     }
 }
 
-const createConversation = (data) => {
+const createNewConversation = (data) => {
     return {
         type: CREATENEWCONVERSATION,
         data
@@ -46,7 +46,7 @@ export default function reducer(state = initialState, action) {
             return { ...action.data }
         }
         case CREATENEWCONVERSATION: {
-            return {...state, [action.username.userId]: action.data }
+            return { ...state, [action.username.userId]: action.data }
         }
 
         default:
