@@ -55,16 +55,17 @@ export default function ConversationMessages() {
         return <></>
     }
 
-    return <div>
-        {conversationMessages.map((message) => {
-            return (<div>
-                <p>{message.createdAt}</p>
-                {message.text}
-            </div>)
-        })}
+    return (
+        <div>
+            {conversationMessages.map((message) => {
+                return (<div>
+                    <p>{message.createdAt}</p>
+                    {message.text}
+                </div>)
+            })}
 
-    </div>
+        </div>
 
-
+    )
 
 }
