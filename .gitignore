@@ -2,4 +2,12 @@ AWS_helpers.py
 .env
 *.db
 Pipfile.lock
+AWS_helpers.py
+.env
+*.db
+Pipfile.lock
 *.lock
+*/*/__pycache__/
+*/__pycache__/
+/__pycache__/
+/app/seeds/__pycache__

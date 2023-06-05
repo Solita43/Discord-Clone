@@ -2,4 +2,8 @@
     box-sizing: border-box;
     margin: 0;
     padding: 0;
+    font-family: 'Montserrat', sans-serif;
 }
+
+@import url('https://fonts.googleapis.com/css2?family=Arvo&family=Montserrat:ital,wght@0,100;0,200;0,400;0,700;0,800;1,100;1,200&display=swap');
+
