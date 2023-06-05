@@ -8,7 +8,7 @@ from .channels import seed_channels, undo_channels
 from .direct_message_conversation_users import seed_direct_message_conversation_users, undo_direct_message_conversation_users
 from .direct_message_conversations import direct_message_conversation, undo_direct_message_conversation
 from .direct_messages import seed_direct_messages, undo_direct_messages
-from .private_channels import seed_private_channel_user, undo_server_users
+from .private_channels import seed_private_channel_user, undo_private_channel_user
 from .server_users import seed_server_users, undo_server_users
 from .servers import seed_servers, undo_servers
 from .direct_message_reactions import seed_direct_message_reactions, undo_direct_message_reactions
@@ -29,28 +29,28 @@ def seed():
         # the schema name (see comment in users.py undo_users function).
         # Make sure to add all your other model's undo functions below
         undo_users()
-        undo_channel_groups()
-        undo_channel_message_reactions()
-        undo_channel_messages()
-        undo_channels()
-        undo_direct_message_conversation_users()
-        undo_direct_message_conversation()
-        undo_direct_messages()
-        undo_server_users()
         undo_servers()
+        undo_server_users()
+        undo_channel_groups()
+        undo_channels()
+        undo_private_channel_user()
+        undo_channel_messages()
+        undo_channel_message_reactions()
+        undo_direct_message_conversation()
+        undo_direct_message_conversation_users()
+        undo_direct_messages()
         undo_direct_message_reactions()
     seed_users()
+    seed_servers()
+    seed_server_users()
     seed_channel_groups()
-    seed_channel_message_reactions()
-    seed_channel_messages()
     seed_channels()
-    seed_direct_messages()
     seed_private_channel_user()
+    seed_channel_messages()
+    seed_channel_message_reactions()
+    direct_message_conversation()
     seed_direct_message_conversation_users()
     seed_direct_messages()
-    direct_message_conversation()
-    seed_server_users()
-    seed_servers()
     seed_direct_message_reactions()
 
 
@@ -61,14 +61,15 @@ def seed():
 @seed_commands.command('undo')
 def undo():
     undo_users()
-    undo_channel_groups()
-    undo_channel_message_reactions()
-    undo_channel_messages()
-    undo_channels()
-    undo_direct_message_conversation_users()
-    undo_direct_message_conversation()
-    undo_direct_messages()
-    undo_server_users()
     undo_servers()
+    undo_server_users()
+    undo_channel_groups()
+    undo_channels()
+    undo_private_channel_user()
+    undo_channel_messages()
+    undo_channel_message_reactions()
+    undo_direct_message_conversation()
+    undo_direct_message_conversation_users()
+    undo_direct_messages()
     undo_direct_message_reactions()
     # Add other undo functions here

@@ -894,7 +894,7 @@ Returns a list of all users current user has a direct message conversation with
 - Request
 
   - Method: GET
-  - URL: /api/conversations/:userid/
+  - URL: /api/conversations
   - Headers:
     - Content-Type: application/json
   - Body: None

@@ -1,1 +1,24 @@
-/* TODO Add site wide styles */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: "Montserrat", sans-serif;
+}
+
+@import url("https://fonts.googleapis.com/css2?family=Arvo&family=Montserrat:ital,wght@0,100;0,200;0,400;0,700;0,800;1,100;1,200&display=swap");
+
+:root {
+  --login-logout-button: #65656b;
+  --modal-background: #33343d;
+  --modal-input: #232326;
+  --left-right-nav: #232326;
+  --channel-nav: #313137;
+  --center-page: #414148;
+  --user-info: #2a2a2e;
+  --text: #d3d3d3;
+  --hover-channel: #8d8d8d;
+  --check-box: #29cc7a;
+  --main-button-blue: #5865f2;
+  --main-button-gray: #33343d;
+  --main-button-red: #ef4343;
+}
