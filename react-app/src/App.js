@@ -7,7 +7,7 @@ import { authenticate } from "./store/session";
 import Navigation from "./components/Navigation";
 import DirectMessages from "./components/DirectMessages";
 import ConversationMessages from "./components/DirectMessages/ConversationMessages";
-import LandingPage from "./components/LandingPage"
+import LandingPage from "./components/LandingPage";
 
 function App() {
   const dispatch = useDispatch();
@@ -19,25 +19,21 @@ function App() {
 
   return (
     <>
-      <Navigation isLoaded={isLoaded} />
       {isLoaded && (
-        <Switch>
-          <Route exact path="/">
-            <LandingPage />
-          </Route>
-          <Route exact path="/home">
-            <DirectMessages />
-          </Route>
-          <Route path="/login" >
-            <LoginFormPage />
-          </Route>
-          <Route path="/signup">
-            <SignupFormPage />
-          </Route>
-          <Route exact path="/conversations/:conversationId">
-            <ConversationMessages />
-          </Route>
-        </Switch>
+        <>
+          <Navigation isLoaded={isLoaded} />
+          <Switch>
+            <Route exact path="/home">
+              <DirectMessages />
+            </Route>
+            <Route exact path="/conversations">
+              <DirectMessages />
+            </Route>
+            <Route exact path="/conversations/:conversationId">
+              <ConversationMessages />
+            </Route>
+          </Switch>
+        </>
       )}
     </>
   );

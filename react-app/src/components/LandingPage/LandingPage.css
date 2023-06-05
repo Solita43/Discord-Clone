@@ -1,0 +1,165 @@
+.wrapper {
+  height: 560px;
+  background-color: #404eed;
+  height: 100vw;
+}
+
+.landing-title {
+  margin-bottom: 20px;
+  color: white;
+}
+
+.landing-body {
+  color: white;
+  font-size: 18px;
+}
+
+.body-wrapper {
+  display: flex;
+  justify-content: center;
+  padding-top: 100px;
+}
+
+.body {
+  display: flex;
+  flex-direction: column;
+  width: 800px;
+  align-items: center;
+}
+
+.open-discordia {
+  width: 380px;
+  height: 68px;
+  background-color: #33343d;
+  color: white;
+  border-radius: 35px;
+  margin-top: 50px;
+  font-size: 20px;
+  cursor: pointer;
+  border: none;
+  z-index: 2;
+}
+
+.all-images {
+  background-color: #404eed;
+  display: flex;
+  justify-content: center;
+  /* border: 1px solid bisque; */
+}
+
+.main-bg-image {
+  position: absolute;
+  top: 200px;
+  height: 754px;
+  width: auto;
+}
+
+.left-bg-image {
+  position: relative;
+  max-width: 1188px;
+  bottom: 150px;
+  right: 1748px;
+}
+
+.right-bg-image {
+  position: relative;
+  max-width: 1039px;
+  bottom: 150px;
+  left: 1750px;
+}
+
+.footer {
+  background-color: #33343d;
+  width: 100%;
+  height: 20rem;
+  position: fixed;
+  bottom: 0;
+}
+
+.profile-dropdown {
+  position: absolute;
+}
+
+.hidden {
+  display: none;
+}
+
+.dm-img {
+  height: 2.3rem;
+}
+
+.dm-div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.discordia-title {
+  text-decoration: none;
+  font-family: "Montserrat", sans-serif;
+  font-size: 40px;
+  color: white;
+  margin-left: 10px;
+}
+
+.top-nav {
+  list-style: none;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #404eed;
+  padding: 20px;
+  z-index: 200;
+  position: absolute;
+  top: 0;
+  width: 100vw;
+}
+
+li.top-right-nav {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+}
+
+.fa-solid {
+  font-size: 40px;
+  color: white;
+  cursor: pointer;
+}
+
+.fa-bars {
+  font-size: 58px;
+}
+
+.login-button {
+  width: 209px;
+  height: 68px;
+  border-radius: 35px;
+  background-color: white;
+  color: black;
+  font-size: 20px;
+  font-weight: 500;
+  border: none;
+  cursor: pointer;
+}
+
+.sign-up-button {
+  width: 209px;
+  height: 68px;
+  border-radius: 35px;
+  border: 3px solid white;
+  background-color: #404eed;
+  color: white;
+  font-size: 20px;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.welcome-user {
+  color: white;
+}
+
+.user-email {
+  color: white;
+}

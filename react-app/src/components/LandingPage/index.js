@@ -1,5 +1,5 @@
 import React, { useState } from "react"
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import background from "../../assets/main_background.svg"
 import backgroundLeft from "../../assets/main_left_background.svg"
 import backgroundRight from "../../assets/main_right_background.svg"
@@ -7,9 +7,13 @@ import backgroundMain from "../../assets/discord_home_2.png"
 import { useHistory } from "react-router-dom"
 import OpenModalButton from "../OpenModalButton";
 import LoginFormModal from "../LoginFormModal";
-import './index.css'
+import SignupFormModal from "../SignupFormModal";
+import { NavLink } from 'react-router-dom';
+import './LandingPage.css'
+
 
 export default function LandingPage() {
+    const dispatch = useDispatch();
     const history = useHistory();
     const user = useSelector((state) => state.session.user)
     console.log("this is state now/ user: ", user)
@@ -18,8 +22,39 @@ export default function LandingPage() {
         history.push("/home")
     }
 
+
+
     return (
         <>
+            <ul className='top-nav'>
+                <li className='top-left-nav'>
+                    <i className={`fa-solid fa-comment-dots`}></i>
+                    <NavLink exact to="/" className="discordia-title">Discordia</NavLink>
+                </li>
+                <li>
+                    <OpenModalButton
+                        buttonText="Log In"
+                        // onItemClick={closeMenu}
+                        className="login-button"
+                        modalComponent={<LoginFormModal />}
+                    />
+                </li>
+                <li>
+                    <OpenModalButton
+                        buttonText="Sign Up"
+                        // onItemClick={closeMenu}
+                        className="sign-up-button"
+                        modalComponent={<SignupFormModal />}
+                    />
+                </li>
+                {/* {isLoaded && (
+                    <li className='top-right-nav'>
+                        <ProfileButton user={user} />
+                        <i className={`fa-solid fa-bars`}></i>
+                    </li>
+                )} */}
+            </ul>
+
             <div className="wrapper">
                 <div className="body-wrapper">
                     < div className="body">

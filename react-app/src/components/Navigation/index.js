@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, Redirect } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import ProfileButton from './ProfileButton';
 import './Navigation.css';
@@ -10,26 +10,18 @@ function Navigation({ isLoaded }) {
 	const sessionUser = useSelector(state => state.session.user);
 	const servers = useSelector(state => state.servers.AllServers);
 
+
 	useEffect(() => {
 		if (sessionUser) {
 			dispatch(userServersGet(sessionUser.userId))
 		}
 	}, [sessionUser, dispatch])
+	if (!isLoaded) return (<Redirect to="/" />)
 	if (!servers) return null;
+
+
 	return (
 		<div className='nav-root'>
-			<ul className='top-nav'>
-				<li className='top-left-nav'>
-				<i className={`fa-solid fa-comment-dots`}></i>
-					<NavLink exact to="/" className="discordia-title">Discordia</NavLink>
-				</li>
-				{isLoaded && (
-					<li className='top-right-nav'>
-						<ProfileButton user={sessionUser} />
-						<i className={`fa-solid fa-bars`}></i>
-				</li>
-				)}
-			</ul>
 			<div className='server-nav-bar'>
 				<ol>
 					<li className='tooltip' data-tooltip={'Direct Messages'}>
@@ -41,7 +33,7 @@ function Navigation({ isLoaded }) {
 					</li>
 					{Object.values(servers).map((server) => {
 						return (
-							<li className='tooltip' data-tooltip={server.name}>
+							<li key={server.id} className='tooltip' data-tooltip={server.name}>
 								<img className='server-icons' src={server.imageUrl}  ></img>
 							</li>
 						)
