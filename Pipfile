@@ -40,6 +40,7 @@ netifaces = "==0.10.6"
 python-engineio = "==4.4.1"
 python-socketio = "==5.8.0"
 eventlet = "==0.30.2"
+gevent = "*"
 
 [dev-packages]
 

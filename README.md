@@ -146,3 +146,26 @@ your site just below the name of the Web Service at the top of the page.
 
 [Render.com]: https://render.com/
 [Dashboard]: https://dashboard.render.com/
+
+
+Running setup.py install for netifaces: started
+Jun 5 03:35:28 PM      Running setup.py install for netifaces: finished with status 'error'
+Jun 5 03:35:28 PM      ERROR: Command errored out with exit status 1:
+Jun 5 03:35:28 PM       command: /opt/render/project/src/.venv/bin/python -u -c 'import sys, setuptools, tokenize; sys.argv[0] = '"'"'/tmp/pip-install-e4sitjoe/netifaces/setup.py'"'"'; __file__='"'"'/tmp/pip-install-e4sitjoe/netifaces/setup.py'"'"';f=getattr(tokenize, '"'"'open'"'"', open)(__file__);code=f.read().replace('"'"'\r\n'"'"', '"'"'\n'"'"');f.close();exec(compile(code, __file__, '"'"'exec'"'"'))' install --record /tmp/pip-record-4t3yc__p/install-record.txt --single-version-externally-managed --compile --install-headers /opt/render/project/src/.venv/include/site/python3.7/netifaces
+Jun 5 03:35:28 PM           cwd: /tmp/pip-install-e4sitjoe/netifaces/
+Jun 5 03:35:28 PM      Complete output (11 lines):
+Jun 5 03:35:28 PM      Traceback (most recent call last):
+Jun 5 03:35:28 PM        File "<string>", line 1, in <module>
+Jun 5 03:35:28 PM        File "/opt/render/project/src/.venv/lib/python3.7/site-packages/setuptools/__init__.py", line 12, in <module>
+Jun 5 03:35:28 PM          from setuptools.extension import Extension
+Jun 5 03:35:28 PM        File "/opt/render/project/src/.venv/lib/python3.7/site-packages/setuptools/extension.py", line 7, in <module>
+Jun 5 03:35:28 PM          from setuptools.dist import _get_unpatched
+Jun 5 03:35:28 PM        File "/opt/render/project/src/.venv/lib/python3.7/site-packages/setuptools/dist.py", line 16, in <module>
+Jun 5 03:35:28 PM          import pkg_resources
+Jun 5 03:35:28 PM        File "/opt/render/project/src/.venv/lib/python3.7/site-packages/pkg_resources.py", line 1479, in <module>
+Jun 5 03:35:28 PM          register_loader_type(importlib_bootstrap.SourceFileLoader, DefaultProvider)
+Jun 5 03:35:28 PM      AttributeError: module 'importlib._bootstrap' has no attribute 'SourceFileLoader'
+Jun 5 03:35:28 PM      ----------------------------------------
+Jun 5 03:35:28 PM  ERROR: Command errored out with exit status 1: /opt/render/project/src/.venv/bin/python -u -c 'import sys, setuptools, tokenize; sys.argv[0] = '"'"'/tmp/pip-install-e4sitjoe/netifaces/setup.py'"'"'; __file__='"'"'/tmp/pip-install-e4sitjoe/netifaces/setup.py'"'"';f=getattr(tokenize, '"'"'open'"'"', open)(__file__);code=f.read().replace('"'"'\r\n'"'"', '"'"'\n'"'"');f.close();exec(compile(code, __file__, '"'"'exec'"'"'))' install --record /tmp/pip-record-4t3yc__p/install-record.txt --single-version-externally-managed --compile --install-headers /opt/render/project/src/.venv/include/site/python3.7/netifaces Check the logs for full command output.
+Jun 5 03:35:28 PM  WARNING: You are using pip version 20.1.1; however, version 23.1.2 is available.
+Jun 5 03:35:28 PM  You should consider upgrading via the '/opt/render/project/src/.venv/bin/python -m pip install --upgrade pip' command.
