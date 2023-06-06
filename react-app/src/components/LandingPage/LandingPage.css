@@ -1,23 +1,35 @@
+#root {
+  display: block;
+}
+
 .wrapper {
   height: 560px;
   background-color: #404eed;
   height: 100vw;
+  display: block;
 }
 
 .landing-title {
   margin-bottom: 20px;
   color: white;
+  margin-bottom: 46px;
+  font-size: 50px;
+  font-weight: 300;
+  z-index: 2;
 }
 
 .landing-body {
   color: white;
   font-size: 18px;
+  z-index: 1;
+  line-height: 180%;
 }
 
 .body-wrapper {
   display: flex;
   justify-content: center;
-  padding-top: 100px;
+  padding-top: 150px;
+  z-index: 5;
 }
 
 .body {
@@ -49,29 +61,30 @@
 
 .main-bg-image {
   position: absolute;
-  top: 200px;
+  top: -68px;
   height: 754px;
   width: auto;
+  z-index: 0;
 }
 
 .left-bg-image {
   position: relative;
-  max-width: 1188px;
-  bottom: 150px;
-  right: 1748px;
+  max-width: 700px;
+  bottom: 213px;
+  right: 1433px;
 }
 
 .right-bg-image {
   position: relative;
-  max-width: 1039px;
-  bottom: 150px;
-  left: 1750px;
+  max-width: 631px;
+  bottom: 220px;
+  left: 1482px;
 }
 
 .footer {
   background-color: #33343d;
   width: 100%;
-  height: 20rem;
+  height: 10rem;
   position: fixed;
   bottom: 0;
 }
@@ -102,6 +115,7 @@
   margin-left: 10px;
 }
 
+/* start the top nav stuff */
 .top-nav {
   list-style: none;
   display: flex;
@@ -162,4 +176,168 @@ li.top-right-nav {
 
 .user-email {
   color: white;
+}
+
+@media (max-width: 2400px) {
+  .left-bg-image {
+    /* right: 1%; */
+    /* Adjust the value as needed */
+    transform: translateX(60%);
+  }
+
+  .right-bg-image {
+    /* Adjust the value as needed */
+    transform: translateX(-30%);
+  }
+}
+
+@media(max-width: 1400px) {
+  .right-bg-image {
+    left: 1100px;
+  }
+}
+
+
+@media (max-width: 1020px) {
+
+  .wrapper {
+    overflow: hidden;
+  }
+
+  /* .left-bg-image {
+    visibility: hidden;
+  } */
+
+  .right-bg-image {
+    bottom: -35px;
+    left: 764px;
+  }
+
+  .main-bg-image {
+    top: -196px;
+    width: 300%;
+    left: -299px;
+    height: 599px;
+  }
+
+  .landing-title {
+    font-size: 30px;
+    margin-bottom: 1rem;
+  }
+
+  .open-discordia {
+    width: 309px;
+    height: 49px;
+    font-size: 16px;
+    margin-top: 17px;
+  }
+
+  .sign-up-button {
+    width: 127px;
+    height: 49px;
+    font-size: 16px;
+  }
+
+  .login-button {
+    width: 127px;
+    height: 49px;
+    font-size: 16px;
+  }
+
+  .body-wrapper {
+    justify-content: start;
+    margin: 0 2rem;
+  }
+
+  .body {
+    align-items: start;
+    height: 15rem;
+    margin: 10px 0;
+    width: 420px;
+    height: 20rem;
+
+  }
+
+  .landing-title {
+    font-size: 25px;
+  }
+
+  .images-all {
+    background-color: #404eed;
+  }
+
+  .landing-body {
+    font-size: 16px;
+  }
+
+  .top-nav {
+    width: 100%;
+  }
+
+  .images-all {
+    position: absolute;
+    overflow: hidden;
+    height: 100%;
+    width: 100%;
+    top: 270px;
+  }
+}
+
+@media (max-width: 817px) {
+  .login-button {
+    width: 97px;
+    height: 36px;
+    font-size: 14px;
+  }
+
+  .sign-up-button {
+    width: 97px;
+    height: 36px;
+    font-size: 14px;
+  }
+
+  li.top-left-nav {
+    display: flex;
+    align-items: center;
+  }
+
+  li.top-right-nav {
+    gap: 1rem;
+  }
+
+  .discordia-title {
+    font-size: 24px;
+  }
+
+  .body-wrapper {
+    justify-content: center;
+    margin-top: 3rem;
+    text-align: center;
+  }
+
+  .body {
+    text-align: center;
+    align-items: center;
+    align-self: center;
+    width: 100%;
+  }
+
+  .landing-title {
+    text-align: center;
+  }
+
+  .open-discordia {
+    align-self: center;
+  }
+
+  .right-bg-image {
+    bottom: 0px;
+    left: 366px;
+  }
+
+  .images-all {
+    top: 533px;
+    background-color: #404eed;
+  }
+
 }
