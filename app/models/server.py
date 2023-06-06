@@ -1,4 +1,5 @@
 from .db import db, environment, SCHEMA, add_prefix_for_prod
+from .user import User
 
 class Server(db.Model):
     __tablename__ = 'servers'
@@ -22,4 +23,12 @@ class Server(db.Model):
         "name": self.name, 
         "imageUrl": self.imageUrl, 
         "owner_id": self.owner_id,
+        "default_channel_id": self.default_channel_id
         }
+
+    def single_to_dict(self): 
+        return {
+            "owner": self.owner.to_dict(),
+            "users": {user.id: (User.query.get(user.id).to_dict()) for user in self.serverUsers},
+            "channels": {group.name: {channel.id: channel.to_dict() for channel in group.channels} for group in self.groups}
+        } 

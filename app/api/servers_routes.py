@@ -21,10 +21,58 @@ def get_all_servers():
 
     return res
 
+    """
+     "<server.id>": {
+      "serverOwnerId": 1,
+      "users": {
+      "<username>": {
+          "username": "server user 1",
+          "iconURL": "some.image.com",
+          "role": "User",
+          "status": "Online"
+      },
+      "<username>": {
+          "username": "server user 2",
+          "iconURL": "another.image.com",
+          "role": "Admin",
+          "status": "Offline"
+      },
+      "channels": {
+          "<channelCategory>": {
+              "<channelId>": {
+                  "id": 1,
+                  "name": "Channel 1",
+                  "category": "category 1",
+                  "private": "True"
+              },
+              "<channelId>": {
+                  "id": 2,
+                  "name": "Channel 2",
+                  "category": "category 1",
+                  "private": "True"
+              }
+          },
+              "<channelCategory>" {
+                  "<channelId>": {
+                  "id": 3,
+                  "name": "Channel 3",
+                  "category": "category 2",
+                  "private": "False"
+              }
+          }
+      }
+  }
+    """
 
-@server_routes.route('/<int:userId>')
+@server_routes.route('/<int:server_id>')
 @login_required
-def get_servers_by_user(userId):
+def get_specific_server_slice(server_id): 
+    return {server_id: Server.query.get(server_id).single_to_dict()}
+
+
+@server_routes.route('/users')
+@login_required
+def get_servers_by_user():
     """
         Returns a list of all servers a user is apart of.
     """
@@ -52,7 +100,6 @@ def create_a_server():
             "imageUrl": *optional
         }
 
-        TODO: create default channel.
     """
     data = request.get_json()
     form = ServerForm()
@@ -61,22 +108,24 @@ def create_a_server():
     if "imageUrl" in data:
         form.imageURL.data = data["imageUrl"]
     form.owner_id.data = current_user.id
+
+
     if form.validate():
-        newServer = Server(**data, owner_id=current_user.id)
-        db.session.add(newServer)
-        res = Server.query.filter(Server.name == newServer.name).one()
+
+        res = Server(**data, owner_id=current_user.id)
+        db.session.add(res)
+        db.session.commit()
         #create a channel group
         newGroup = ChannelGroup(server_id=res.id, name="text-channels")
         db.session.add(newGroup)
-        newChannel = res.channels.append(Channel(group_id=res.groups[0].id, name='General'))
+        # Create a channel
+        res.channels.append(Channel(group_id=res.groups[0].id, name='General'))
         db.session.commit()
-        print("HEY!!---------------->>", [channel.to_dict() for channel in res.channels])
-
-        
+        res.default_channel_id= res.channels[0].id        
         serverOwner = ServerUser(user_id=current_user.id, server_id=res.id, role="owner")
         db.session.add(serverOwner)
         db.session.commit()
-        return jsonify([group.to_dict() for group in res.groups])
+        return jsonify(res.to_dict())
     else:
         errors = form.errors
         return errors
