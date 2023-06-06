@@ -45,10 +45,10 @@ export const createNewConversationThunk = (username) => async (dispatch) => {
     if (response.ok) {
         const data = await response.json();
         if (data.errors) {
-            // console.log("This is our data after a fetch: ", data)
+
             return data
         }
-        console.log("DATA", data);
+
         dispatch(createNewConversation(data))
         return data
     }

@@ -1,19 +1,29 @@
 import React, { useEffect } from 'react';
-import { NavLink, Redirect } from 'react-router-dom';
+import { NavLink, Redirect, useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import ProfileButton from './ProfileButton';
 import './Navigation.css';
 import { userServersGet } from '../../store/servers';
+import { getConversationsThunk } from '../../store/userconversations';
 
 function Navigation({ isLoaded }) {
 	const dispatch = useDispatch();
+	const history = useHistory()
 	const sessionUser = useSelector(state => state.session.user);
 	const servers = useSelector(state => state.servers.AllServers);
+	const conversations = Object.values(useSelector(state => state.userConversations))
+	let firstConversation = conversations.sort((a, b) => {
+		return a.updated_at < b.updated_at ? 0 : -1
+	})
+	if (firstConversation.length) {
 
+		firstConversation = firstConversation[0].conversation_id
 
+	}
 	useEffect(() => {
 		if (sessionUser) {
 			dispatch(userServersGet(sessionUser.userId))
+			dispatch(getConversationsThunk())
 		}
 	}, [sessionUser, dispatch])
 	if (!isLoaded) return (<Redirect to="/" />)
@@ -26,9 +36,10 @@ function Navigation({ isLoaded }) {
 			<div className='server-nav-bar'>
 				<ol>
 					<li className='tooltip' data-tooltip={'Direct Messages'}>
-						<a href='/conversations' className='dm-anchor-tag'>
+						<a className='dm-anchor-tag'>
 							<div className='server-icons dm-div'>
-								<img className='dm-img' src='https://img.icons8.com/?size=512&id=aqOnqIFQZ4_I&format=png' />
+								<img className='dm-img' src='https://img.icons8.com/?size=512&id=aqOnqIFQZ4_I&format=png'
+									onClick={() => history.push(`/conversations/${firstConversation}`)} />
 							</div>
 						</a>
 					</li>

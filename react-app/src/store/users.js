@@ -7,7 +7,6 @@ const getUsers = (data) => ({
 })
 
 export const getAllUsersThunk = () => async (dispatch) => {
-    console.log("We are in the users thunk!! ")
     let res = await fetch('/api/users/')
     const data = await res.json();
     if (res.ok) {
