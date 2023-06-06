@@ -71,3 +71,16 @@
 a {
   text-decoration: none;
 }
+
+.emoji-list {
+  display: none;
+}
+
+.dm-title-div {
+  display: flex;
+  justify-content: space-between;
+}
+
+.add-conversation {
+  cursor: pointer;
+}

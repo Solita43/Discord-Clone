@@ -2,9 +2,10 @@ import React, { useState, useEffect } from "react"
 import { useParams } from 'react-router-dom'
 import { useSelector, useDispatch } from "react-redux"
 import { getConversationMessagesThunk } from "../../store/userConversationMessages"
-import DirectMessageReactions from "./DirectMessageReactions"
+import OpenModalButton from "../OpenModalButton"
 import { io } from 'socket.io-client'
 import './directMessages.css'
+import MessageDetails from "../MessageDetails"
 
 // initialize socket variable outside of component
 let socket;
@@ -20,8 +21,13 @@ export default function ConversationMessages() {
     let [messages, setMessages] = useState([]);
     let [chatInput, setChatInput] = useState("");
     let [errors, setErrors] = useState({});
+    // let [emojiList, setEmojiList] = useState({})
 
-
+    // const buttonClick = (messageId) => {
+    //     setEmojiList((prev) => {
+    //         return { ...prev, [messageId]: !prev[messageId] }
+    //     })
+    // }
 
 
     useEffect(() => {
@@ -83,12 +89,21 @@ export default function ConversationMessages() {
     if (isLoading || !conversation) {
         return <></>
     }
-    // console.log("CURRENT MESSAGES", messages);
-    return (
-        <>
 
-            <div>
+
+    // let emojiListClass = "emoji-list"
+
+
+
+    return (
+        <div>
+            {messages.map((message) => {
+                return <MessageDetails key={message.id} message={message} />
+            })}
+
+            {/* <div>
                 {messages.map((message) => {
+                    let showEmojiList = emojiList[message.id]
                     return (<div key={message.id}>
                         <div>
                             {message.UserInfo.username}
@@ -98,13 +113,27 @@ export default function ConversationMessages() {
                         <p>{message.createdAt}</p>
                         <div>
                             {message.message}
-                            <DirectMessageReactions reactions={message.reactions} />
+                            <button
+                                onClick={() => buttonClick(message.id)}
+                            >😊</button>
+                            {showEmojiList && (
+                                <ul>
+                                    <li>😊</li>
+                                    <li>❤️ </li>
+                                    <li>👍🏻</li>
+                                    <li>👀</li>
+                                </ul>
+                            )}
 
+                            <DirectMessageReactions reactions={message.reactions} />
+                            <div>
+                                {Object.values(message.reactions).length > 0 && Object.values(message.reactions).length}
+                            </div>
                         </div>
                     </div>)
                 })}
 
-            </div>
+            </div> */}
             <div>
                 <form onSubmit={sendChat}>
                     <textarea
@@ -115,7 +144,7 @@ export default function ConversationMessages() {
 
                 </form>
             </div>
-        </>
+        </div>
 
     )
 

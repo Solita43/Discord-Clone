@@ -61,6 +61,7 @@ def get_all_conversation_messages(id):
         dms[id]["messages"].append({
             "message": message_dict['message'],
             "userId": message_dict['userId'],
+            "id": message_dict['id'],
             "createdAt": message_dict['createdAt'],
             "UserInfo": message_dict['UserInfo'],
             "reactions": final_reaction
@@ -145,8 +146,10 @@ def create_direct_conversation():
         "userId": 2,
         "userIcon": "default.jpg",
         "userStatus": "online"
+
       }
     }
+
     ```
     """
     # get the info from the user
@@ -219,8 +222,9 @@ def create_direct_conversation():
     db.session.commit()
 
     # include user info into the conversation info to return correct data
-    new_id[friend_person_dict['username']] = user_friend
-    print("NEW ID WOOOOT: ", new_id)
+
+    new_id[str(friend_person_dict['userId'])] = {**user_friend,"conversationId":new_id['conversationId']}
+    # res = {**user_friend,"conversationId":new_id['conversationId']}
 
     # send back the new conversation info plus info on the user you are talking with
     return new_id

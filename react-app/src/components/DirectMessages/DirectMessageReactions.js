@@ -9,14 +9,16 @@ import './directMessages.css'
 export default function DirectMessageReactions({ reactions }) {
     let dispatch = useDispatch()
     reactions = Object.values(reactions)
-    console.log("EMOJIS", reactions);
+
 
 
     return (<>
+
         {reactions.map((reaction, i) => {
-            <div key={i}>
+
+            return (<div key={i}>
                 {reaction.emoji}
-            </div>
+            </div>)
         })}
 
     </>)
