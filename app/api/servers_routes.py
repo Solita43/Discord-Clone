@@ -67,6 +67,7 @@ def get_all_servers():
 @server_routes.route('/<int:server_id>')
 @login_required
 def get_specific_server_slice(server_id): 
+    print(current_user['serverUsers'])
     return {server_id: Server.query.get(server_id).single_to_dict()}
 
 
@@ -125,7 +126,7 @@ def create_a_server():
         serverOwner = ServerUser(user_id=current_user.id, server_id=res.id, role="owner")
         db.session.add(serverOwner)
         db.session.commit()
-        return jsonify(res.to_dict())
+        return res.to_dict()
     else:
         errors = form.errors
         return errors

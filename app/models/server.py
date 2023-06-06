@@ -27,8 +27,9 @@ class Server(db.Model):
         }
 
     def single_to_dict(self): 
+        print("SERVER USERS LIST",serverUsers)
         return {
             "owner": self.owner.to_dict(),
             "users": {user.id: (User.query.get(user.id).to_dict()) for user in self.serverUsers},
-            "channels": {group.name: {channel.id: channel.to_dict() for channel in group.channels} for group in self.groups}
+            "channels": {group.name: {channel.name: channel.to_dict() for channel in group.channels} for group in self.groups}
         } 
