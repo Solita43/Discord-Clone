@@ -27,11 +27,7 @@ class Server(db.Model):
         }
 
     def single_to_dict(self): 
-<<<<<<< Updated upstream
-        print("SERVER USERS LIST",serverUsers)
-=======
         print("SERVER USERS LIST",self.serverUsers)
->>>>>>> Stashed changes
         return {
             "owner": self.owner.to_dict(),
             "users": {user.id: (User.query.get(user.id).to_dict()) for user in self.serverUsers},
