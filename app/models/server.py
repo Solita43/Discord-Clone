@@ -9,6 +9,7 @@ class Server(db.Model):
     name = db.Column(db.String, unique=True)
     imageUrl = db.Column(db.String, default="https://discordia-aa.s3.us-west-1.amazonaws.com/shubham-dhage-t0Bv0OBQuTg-unsplash.jpg")
     owner_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod("users.id")), nullable=False)
+    default_channel_id = db.Column(db.Integer)
 
     owner = db.relationship("User", back_populates="server")
     groups = db.relationship('ChannelGroup', back_populates='server', cascade="delete-orphan, all")

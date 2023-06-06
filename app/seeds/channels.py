@@ -64,6 +64,11 @@ def seed_channels():
             "server_id":3,
             "group_id":8,
             "name":"General Chat"
+        },
+        {
+            "server_id":4,
+            "group_id":10,
+            "name":"General Chat"
         }
 
     ]:
