@@ -65,8 +65,8 @@ def seed_direct_messages():
 
 def undo_direct_messages():
     if environment == "production":
-        db.session.execute(f"TRUNCATE table {SCHEMA}.directMessages RESTART IDENTITY CASCADE;")
+        db.session.execute(f"TRUNCATE table {SCHEMA}.direct_messages RESTART IDENTITY CASCADE;")
     else:
-        db.session.execute(text("DELETE FROM directMessages"))
+        db.session.execute(text("DELETE FROM direct_messages"))
 
     db.session.commit()

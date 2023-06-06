@@ -2,7 +2,7 @@ from .db import db, environment, SCHEMA, add_prefix_for_prod
 from datetime import datetime
 
 class ChannelMessage(db.Model):
-    __tablename__ = 'channelMessages'
+    __tablename__ = 'channel_messages'
     if environment == "production":
         __table_args__ = {'schema': SCHEMA}
 

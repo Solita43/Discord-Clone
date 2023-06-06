@@ -2,7 +2,7 @@ from .db import db, environment, SCHEMA, add_prefix_for_prod
 
 
 class PrivateChannel(db.Model):
-    __tablename__ = 'privateChannels'
+    __tablename__ = 'private_channels'
     if environment == "production":
         __table_args__ = {'schema': SCHEMA}
 

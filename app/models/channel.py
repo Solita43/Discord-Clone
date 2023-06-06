@@ -8,7 +8,7 @@ class Channel(db.Model):
 
     id = db.Column(db.Integer, primary_key = True)
     server_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod("servers.id")), nullable = False)
-    group_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod("channelGroups.id")), nullable = False)
+    group_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod("channel_groups.id")), nullable = False)
     name = db.Column(db.String, nullable= False)
     created_at = db.Column(db.Date, default=datetime.utcnow)
     isPrivate = db.Column(db.Boolean, default=False)

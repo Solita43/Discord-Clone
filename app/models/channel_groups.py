@@ -1,7 +1,7 @@
 from .db import db, environment, SCHEMA, add_prefix_for_prod
 
 class ChannelGroup(db.Model):
-    __tablename__ = 'channelGroups'
+    __tablename__ = 'channel_groups'
 
     if environment == "production":
         __table_args__ = {'schema': SCHEMA}

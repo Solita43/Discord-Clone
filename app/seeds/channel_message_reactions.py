@@ -32,8 +32,8 @@ def seed_channel_message_reactions():
 
 def undo_channel_message_reactions():
     if environment == "production":
-        db.session.execute(f"TRUNCATE table {SCHEMA}.channelMessageReactions RESTART IDENTITY CASCADE;")
+        db.session.execute(f"TRUNCATE table {SCHEMA}.channel_message_reactions RESTART IDENTITY CASCADE;")
     else:
-        db.session.execute(text("DELETE FROM channelMessageReactions"))
+        db.session.execute(text("DELETE FROM channel_message_reactions"))
 
     db.session.commit()
