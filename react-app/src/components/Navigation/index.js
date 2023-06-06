@@ -19,7 +19,8 @@ function Navigation({ isLoaded }) {
 	if (!isLoaded) return (<Redirect to="/" />)
 	if (!servers) return null;
 
-
+	const root = window.document.getElementById('root')
+	root.style.display = 'flex'
 	return (
 		<div className='nav-root'>
 			<div className='server-nav-bar'>

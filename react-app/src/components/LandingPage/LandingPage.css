@@ -1,4 +1,4 @@
-#root {
+#landing-page-root {
   display: block;
 }
 
@@ -159,8 +159,6 @@ li.top-right-nav {
   cursor: pointer;
 }
 
-
-
 .sign-up-button {
   width: 209px;
   height: 68px;
@@ -194,15 +192,13 @@ li.top-right-nav {
   }
 }
 
-@media(max-width: 1400px) {
+@media (max-width: 1400px) {
   .right-bg-image {
     left: 1100px;
   }
 }
 
-
 @media (max-width: 1020px) {
-
   .wrapper {
     overflow: hidden;
   }
@@ -258,7 +254,6 @@ li.top-right-nav {
     margin: 10px 0;
     width: 420px;
     height: 20rem;
-
   }
 
   .landing-title {
@@ -342,5 +337,4 @@ li.top-right-nav {
     top: 533px;
     background-color: #404eed;
   }
-
 }

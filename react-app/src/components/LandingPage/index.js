@@ -22,11 +22,14 @@ export default function LandingPage() {
         history.push("/home")
     }
 
+    const root = window.document.getElementById('root')
+    root.style.display = 'block'
+    // console.log("ROOT", root.style);
 
 
     return (
-        <>
-            <div id="root">
+        <div id='landing-page-root'>
+            <div>
 
                 <ul className='top-nav'>
                     <li className='top-left-nav'>
@@ -97,6 +100,6 @@ export default function LandingPage() {
 
                 </div>
             </div>
-        </>
+        </div>
     )
 }
