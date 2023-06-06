@@ -87,6 +87,7 @@
   height: 10rem;
   position: fixed;
   bottom: 0;
+  z-index: 2;
 }
 
 .profile-dropdown {
@@ -157,6 +158,8 @@ li.top-right-nav {
   border: none;
   cursor: pointer;
 }
+
+
 
 .sign-up-button {
   width: 209px;
