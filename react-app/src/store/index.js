@@ -3,13 +3,15 @@ import thunk from 'redux-thunk';
 import userConversations from './userconversations'
 import userConversationMessages from './userConversationMessages'
 import session from './session'
-import servers from './servers'; 
+import servers from './servers';
+import users from './users'
 
 const rootReducer = combineReducers({
   session,
   userConversations,
-  userConversationMessages, 
-  servers
+  userConversationMessages,
+  servers,
+  users
 });
 
 

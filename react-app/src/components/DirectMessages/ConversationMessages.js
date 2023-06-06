@@ -2,9 +2,10 @@ import React, { useState, useEffect } from "react"
 import { useParams } from 'react-router-dom'
 import { useSelector, useDispatch } from "react-redux"
 import { getConversationMessagesThunk } from "../../store/userConversationMessages"
-import DirectMessageReactions from "./DirectMessageReactions"
+import OpenModalButton from "../OpenModalButton"
 import { io } from 'socket.io-client'
 import './directMessages.css'
+import MessageDetails from "../MessageDetails"
 
 // initialize socket variable outside of component
 let socket;
@@ -20,13 +21,13 @@ export default function ConversationMessages() {
     let [messages, setMessages] = useState([]);
     let [chatInput, setChatInput] = useState("");
     let [errors, setErrors] = useState({});
-    let [emojiList, setEmojiList] = useState({})
+    // let [emojiList, setEmojiList] = useState({})
 
-    const buttonClick = (messageId) => {
-        setEmojiList((prev) => {
-            return { ...prev, [messageId]: !prev[messageId] }
-        })
-    }
+    // const buttonClick = (messageId) => {
+    //     setEmojiList((prev) => {
+    //         return { ...prev, [messageId]: !prev[messageId] }
+    //     })
+    // }
 
 
     useEffect(() => {
@@ -90,14 +91,17 @@ export default function ConversationMessages() {
     }
 
 
-    let emojiListClass = "emoji-list"
+    // let emojiListClass = "emoji-list"
 
 
 
     return (
-        <>
+        <div>
+            {messages.map((message) => {
+                return <MessageDetails key={message.id} message={message} />
+            })}
 
-            <div>
+            {/* <div>
                 {messages.map((message) => {
                     let showEmojiList = emojiList[message.id]
                     return (<div key={message.id}>
@@ -129,7 +133,7 @@ export default function ConversationMessages() {
                     </div>)
                 })}
 
-            </div>
+            </div> */}
             <div>
                 <form onSubmit={sendChat}>
                     <textarea
@@ -140,7 +144,7 @@ export default function ConversationMessages() {
 
                 </form>
             </div>
-        </>
+        </div>
 
     )
 
