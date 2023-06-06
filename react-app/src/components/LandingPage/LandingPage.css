@@ -124,7 +124,7 @@
   align-items: center;
   background-color: #404eed;
   padding: 20px;
-  z-index: 200;
+  z-index: 1;
   position: absolute;
   top: 0;
   width: 100vw;
