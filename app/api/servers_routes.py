@@ -1,6 +1,6 @@
 from flask import Blueprint, jsonify, session, request, redirect
 from flask_login import current_user, login_user, logout_user, login_required
-from app.models import Server, ServerUser, User, db
+from app.models import Server, ServerUser, User, db, Channel, ChannelGroup
 from app.forms import ServerUserForm, ServerForm
 from app.api.utils import get_user_role
 
@@ -28,11 +28,10 @@ def get_servers_by_user(userId):
     """
         Returns a list of all servers a user is apart of.
     """
-    servers = Server.query.join(ServerUser).filter(ServerUser.user_id == userId)
-
     res = {
-        "Servers": {server.id: server.to_dict() for server in servers}
+        "Servers": {server.id: server.to_dict() for server in current_user.servers}
     }
+
 
     return res
 
@@ -52,6 +51,8 @@ def create_a_server():
             "name": "example",
             "imageUrl": *optional
         }
+
+        TODO: create default channel.
     """
     data = request.get_json()
     form = ServerForm()
@@ -64,10 +65,18 @@ def create_a_server():
         newServer = Server(**data, owner_id=current_user.id)
         db.session.add(newServer)
         res = Server.query.filter(Server.name == newServer.name).one()
+        #create a channel group
+        newGroup = ChannelGroup(server_id=res.id, name="text-channels")
+        db.session.add(newGroup)
+        newChannel = res.channels.append(Channel(group_id=res.groups[0].id, name='General'))
+        db.session.commit()
+        print("HEY!!---------------->>", [channel.to_dict() for channel in res.channels])
+
+        
         serverOwner = ServerUser(user_id=current_user.id, server_id=res.id, role="owner")
         db.session.add(serverOwner)
         db.session.commit()
-        return res.to_dict()
+        return jsonify([group.to_dict() for group in res.groups])
     else:
         errors = form.errors
         return errors
