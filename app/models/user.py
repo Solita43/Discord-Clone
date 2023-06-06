@@ -44,5 +44,5 @@ class User(db.Model, UserMixin):
     directMessages = db.relationship("DirectMessage", back_populates="user")
     directMessageConversationUsers = db.relationship("DirectMessageConversationUser", back_populates="user")
     directMessageReactions = db.relationship("DirectMessageReaction", back_populates="user")
-    server = db.relationship("Server", back_populates="owner")
+    servers = db.relationship("Server", back_populates="owner")
     serverUsers = db.relationship("ServerUser", back_populates="user")

@@ -13,4 +13,9 @@ class PrivateChannel(db.Model):
     channel = db.relationship("Channel", back_populates="privateChannels")
     user = db.relationship("User", back_populates="privateChannels")
 
-    
+    def to_dict(self): 
+        return {
+            "id": self.id, 
+            "channel_id": self.channel_id, 
+            "user_id": self.user_id
+        }

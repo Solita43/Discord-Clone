@@ -32,8 +32,12 @@ jmespath = "==1.0.1"
 s3transfer = "==0.6.1"
 urllib3 = "==1.26.16"
 zipp = "==3.15.0"
-flask-socketio = "*"
-socketio = "*"
+flask-socketio = "==5.3.4"
+socketio = "==0.2.1"
+bidict = "==0.22.1"
+netifaces = "==0.10.6"
+python-engineio = "==4.4.1"
+python-socketio = "==5.8.0"
 
 [dev-packages]
 
