@@ -1,0 +1,14 @@
+.user-list {
+    list-style: none;
+}
+
+.user-box {
+    height: 2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.user-box:hover {
+    background-color: wheat;
+}

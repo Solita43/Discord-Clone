@@ -22,3 +22,8 @@
   --main-button-gray: #33343d;
   --main-button-red: #ef4343;
 }
+
+#bars {
+  display: flex;
+  position: relative;
+}
