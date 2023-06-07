@@ -30,5 +30,6 @@ class Server(db.Model):
         return {
             "owner": self.owner.to_dict(),
             "users": {user.user_id: (User.query.get(user.user_id).to_dict()) for user in self.serverUsers},
-            "channels": {group.name: {channel.name: channel.to_dict() for channel in group.channels} for group in self.groups}
+            "channels": {group.name: {channel.name: channel.to_dict() for channel in group.channels} for group in self.groups}, 
+            "groupIds": {group.name: group.id for group in self.groups}
         } 

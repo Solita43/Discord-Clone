@@ -1,6 +1,8 @@
 const GET_USER_SERVERS = "servers/GET_USER_SERVERS";
-const GET_DETAILS = "servers/GET_DETAILS"
-const POST_NEW_SERVER = "servers/POST_NEW_SERVER"
+const GET_DETAILS = "servers/GET_DETAILS";
+const POST_NEW_SERVER = "servers/POST_NEW_SERVER";
+const EDIT_SERVER = "servers/EDIT_SERVER";
+const DELETE_SERVER = "servers/DELETE_SERVER";
 
 
 const getUserServers = (serverList) => ({
@@ -18,6 +20,15 @@ const postServer = (newServer) => ({
     payload: newServer
 })
 
+const editServer = (updated) => ({
+    type: EDIT_SERVER,
+    payload: updated
+})
+
+const deleteServer = (serverId) => ({
+    type: DELETE_SERVER,
+    payload: serverId
+})
 
 export const userServersGet = (userId) => async (dispatch) => {
     const res = await fetch(`/api/servers/users`)
@@ -54,7 +65,6 @@ export const serverPost = (server) => async (dispatch) => {
 
     const data = await res.json();
 
-    console.log(data)
 
     if (res.ok) {
         dispatch(postServer(data))
@@ -64,7 +74,80 @@ export const serverPost = (server) => async (dispatch) => {
     }
 }
 
+export const serverEdit = (updated, serverId) => async (dispatch) => {
+    const res = await fetch(`/api/servers/${serverId}`, {
+        method: "PUT",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify(updated)
+    })
 
+    const data = await res.json();
+
+    if (res.ok) {
+        dispatch(editServer(serverId))
+        return null
+    } else {
+        return data
+    }
+}
+
+export const channelEdit = (channelId, body) =>  async (dispatch) => {
+    const res = await fetch(`/api/channels/${channelId}`, {
+        method: "PUT", 
+        headers: {"Content-Type": "application/json"}, 
+        body: JSON.stringify(body)
+    })
+
+    const data = await res.json(); 
+    if (res.ok) {
+        return null; 
+    } else {
+        return data; 
+    }
+}
+
+export const deleteChannel = (channelId) => async (dispatch) => {
+    const res = await fetch(`/api/channels/${channelId}`, {
+        method: "DELETE"
+    })
+
+    const data = await res.json(); 
+    if (res.ok) {
+        return null; 
+    } else {
+        return data; 
+    }
+}
+
+export const serverDelete = (serverId) => async (dispatch) => {
+    const res = await fetch(`/api/servers/${serverId}`, {
+        method: "DELETE"
+    })
+
+    const data = await res.json()
+
+    if (res.ok) {
+        dispatch(deleteServer(serverId))
+        return data
+    } else {
+        return data
+    }
+}
+
+export const createChannel = (body) => async (dispatch) => {
+    const res = await fetch('/api/channels/', {
+        method: "POST", 
+        headers: {"Content-Type": "application/json"}, 
+        body: JSON.stringify(body)
+    })
+    if (res.ok) {
+        return null
+    } else {
+        const data = await res.json(); 
+        console.log(data)
+        return data; 
+    }
+}
 
 
 
@@ -86,6 +169,12 @@ export default function reducer(state = initialState, action) {
             newState.AllServers[action.payload.id] = { ...action.payload };
             newState.AllServers = { ...newState.AllServers }
             return newState;
+        case EDIT_SERVER:
+            newState.AllServers = {...newState.AllServers, [action.payload.id]: {...action.payload}}
+            return newState
+        case DELETE_SERVER:
+            delete newState.AllServers[action.payload]
+            return newState
         default:
             return state;
     }

@@ -1,0 +1,10 @@
+#delete-form-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: auto;
+    box-sizing: border-box;
+    border-radius: 35px;
+    background-color: #33343D;
+    padding: 2rem;
+}

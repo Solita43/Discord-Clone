@@ -3,6 +3,10 @@
   grid-template-columns: 2fr 5fr 1fr;
 }
 
+.hidden {
+  display: none;
+}
+
 .channels-list-box {
   display: flex;
   flex-direction: column;
@@ -10,20 +14,27 @@
   background-color: var(--channel-nav);
   color: white;
   align-items: flex-start;
-  padding: 2rem;
+  padding-top: .5rem;
   padding-left: 1rem;
 }
 
 .channel-group-name {
+  position: relative;
   font-weight: bold;
   font-size: 15px;
   color: white;
   list-style: none;
   padding-top: 1rem;
   padding-bottom: 0.5rem;
+  width: 100%;
+}
+
+ul {
+  width: 100%;
 }
 
 .channel-name {
+  position: relative;
   list-style: none;
   font-size: 12px;
   padding-left: 0.5rem;
@@ -33,4 +44,50 @@
 .channel-name:hover {
   color: red;
   cursor: pointer;
+}
+
+.edit-channel-name-button {
+  position: absolute;
+  left: 125px; 
+  bottom: 10px;
+  background-color: white;
+  color: black;
+  border: 0; 
+  width: max-content;
+}
+
+.server-header {
+  gap: 1rem;
+  max-width: fit-content;
+}
+
+.server-menu {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+  background-color: var(--channel-nav);
+  border: none;
+  padding: .3rem;
+  width: 93%;
+  position: relative;
+}
+
+.server-menu:hover {
+  background-color: var(--hover-channel);
+}
+
+.fa-chevron-down {
+  font-size: 11px;
+
+}
+
+.icon {
+  margin-left: auto;
+}
+
+.server-title {
+  font-weight: 300;
+  font-size: 18px;
+  color: white;
 }
