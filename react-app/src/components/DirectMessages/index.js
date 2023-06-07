@@ -26,7 +26,7 @@ export default function DirectMessages() {
     }
 
     if (isLoading) {
-        return <></>
+        return <div id="conversations-container"></div>
     }
     return (
         <>

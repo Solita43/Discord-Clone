@@ -135,7 +135,7 @@ export default function ConversationMessages() {
         })
     }
     if (isLoading || !conversation) {
-        return <></>
+        return <div id="direct-messages-view"></div>
     }
 
 
