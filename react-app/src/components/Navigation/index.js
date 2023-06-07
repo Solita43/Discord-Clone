@@ -14,7 +14,15 @@ function Navigation({ isLoaded }) {
   const servers = useSelector(state => state.servers.AllServers);
   const history = useHistory();
 
-  const firstConversation = firstConversation[0].conversation_id
+  const conversations = Object.values(useSelector(state => state.userConversations))
+	let firstConversation = conversations.sort((a, b) => {
+		return a.updated_at < b.updated_at ? 0 : -1
+	})
+	if (firstConversation.length) {
+
+		firstConversation = firstConversation[0].conversation_id
+
+	}
 
 
   useEffect(() => {
