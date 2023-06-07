@@ -31,7 +31,6 @@ python-socketio==5.8.0
 s3transfer==0.6.1
 setuptools==3.3
 six==1.16.0
-socketio==0.2.1
 sqlalchemy==1.4.46
 urllib3==1.26.16
 werkzeug==2.2.2

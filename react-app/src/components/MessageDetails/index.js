@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from "react"
-import DirectMessageReactions from "../MessageReactions"
 import { io } from 'socket.io-client'
-import Picker from '@emoji-mart/react'
-import data from '@emoji-mart/data'
+// import Picker from '@emoji-mart/react'
+// import data from '@emoji-mart/data'
 import { useSelector } from "react-redux"
 
 let socket;
@@ -59,7 +58,7 @@ export default function MessageDetails({ message }) {
             <button
                 onClick={() => buttonClick(message.id)}
             >😊</button>
-            {showEmojiList && <Picker data={data} onEmojiSelect={sendReaction} />}
+            {/* {showEmojiList && <Picker data={data} onEmojiSelect={sendReaction} />} */}
 
             {/* <DirectMessageReactions reactions={reactions.emoji} /> */}
             <div>

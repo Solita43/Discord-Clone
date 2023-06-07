@@ -1,36 +1,36 @@
 .channel-list-wrapper {
-    display: grid; 
-    grid-template-columns: 2fr 5fr 1fr; 
+  display: grid;
+  grid-template-columns: 2fr 5fr 1fr;
 }
 
 .channels-list-box {
-    display: flex; 
-    flex-direction: column;
-    background-color: var(--channel-nav); 
-    color: white;
-    align-items: center;
-    padding: 2rem;
-    padding-left: 1rem;
-    
+  display: flex;
+  flex-direction: column;
+  width: 240px;
+  background-color: var(--channel-nav);
+  color: white;
+  align-items: flex-start;
+  padding: 2rem;
+  padding-left: 1rem;
 }
 
-
 .channel-group-name {
-    font-weight: bold;
-    font-size: 15px; 
-    color: white; 
-    list-style: none; 
-    padding-top: 1rem;
-    padding-bottom: .5rem;
+  font-weight: bold;
+  font-size: 15px;
+  color: white;
+  list-style: none;
+  padding-top: 1rem;
+  padding-bottom: 0.5rem;
 }
 
 .channel-name {
-    list-style: none;
-    font-size: 12px; 
-    padding-left: .5rem;
-    padding-bottom: .8rem;
+  list-style: none;
+  font-size: 12px;
+  padding-left: 0.5rem;
+  padding-bottom: 0.8rem;
 }
 
 .channel-name:hover {
-    color: red; 
+  color: red;
+  cursor: pointer;
 }
