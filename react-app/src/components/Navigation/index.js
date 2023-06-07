@@ -12,6 +12,7 @@ function Navigation({ isLoaded }) {
   const dispatch = useDispatch();
   const sessionUser = useSelector(state => state.session.user);
   const servers = useSelector(state => state.servers.AllServers);
+  const history = useHistory();
 
   const firstConversation = firstConversation[0].conversation_id
 
