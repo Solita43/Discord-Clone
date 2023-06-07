@@ -10,6 +10,7 @@ import ConversationMessages from "./components/DirectMessages/ConversationMessag
 import LandingPage from "./components/LandingPage";
 import ChannelList from "./components/ChannelList";
 import ChannelMessages from "./components/ChannelMessages";
+// import CreateConversation from "./components/DirectMessages/CreateConversation";
 
 function App() {
   const dispatch = useDispatch();
@@ -27,6 +28,7 @@ function App() {
           <Switch>
             <Route exact path="/home">
               <DirectMessages />
+              {/* <CreateConversation /> */}
             </Route>
             <Route exact path="/conversations">
               <DirectMessages />
@@ -35,9 +37,8 @@ function App() {
               <DirectMessages />
               <ConversationMessages />
             </Route>
-            <Route exact path="/channels/:channelId">
+            <Route exact path="/channels/:serverId/:channelId">
               <ChannelList />
-              <ChannelMessages />
             </Route>
           </Switch>
         </>

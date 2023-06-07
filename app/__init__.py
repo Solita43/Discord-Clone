@@ -11,7 +11,9 @@ from .models import db, User
 from .api.user_routes import user_routes
 from .api.auth_routes import auth_routes
 from .api.servers_routes import server_routes
+from .api.channel_routes import channel_routes
 from .api.directMessageConversation_routes import conversation_routes
+from .api.channel_group_routes import channel_group_routes
 from .seeds import seed_commands
 from .config import Config
 from .socket import socketio
@@ -36,6 +38,8 @@ app.register_blueprint(user_routes, url_prefix='/api/users')
 app.register_blueprint(auth_routes, url_prefix='/api/auth')
 app.register_blueprint(server_routes, url_prefix='/api/servers')
 app.register_blueprint(conversation_routes, url_prefix='/api/conversations')
+app.register_blueprint(channel_routes, url_prefix="/api/channels")
+app.register_blueprint(channel_group_routes, url_prefix='/api/channelGroups')
 db.init_app(app)
 Migrate(app, db)
 

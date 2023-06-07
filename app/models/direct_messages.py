@@ -22,6 +22,7 @@ class DirectMessage(db.Model):
         return {
             'conversationId': self.conversation_id,
             'message': self.message,
+            'id': self.id,
             'userId': self.user_id,
             "UserInfo": self.user.to_dict(),
             'reactions': reactions,

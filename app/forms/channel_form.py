@@ -14,12 +14,14 @@ def group_id_exists(form, field):
     channel_group = ChannelGroup.query.get(channel_group_id)
     if not channel_group:
         raise ValidationError("Group ")
+    
 
 def name_exists_on_server(form, field):
     name = field.data
-    channel_name = str(channel.name for channel in Channel.query.filter(Channel.server_id == form.server_id).all() if channel.name == name)
+    channel_name = list(channel.name for channel in Channel.query.filter(Channel.server_id == form.server_id.data).all() if channel.name == name)
     if channel_name:
         raise ValidationError("This channel name already exists")
+    
 
 
 

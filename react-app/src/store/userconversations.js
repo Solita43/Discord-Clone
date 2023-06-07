@@ -1,5 +1,6 @@
 const GETUSERCONVERSATIONS = 'conversations/GET_CONVERSATIONS'
 const CREATENEWCONVERSATION = 'conversations/CREATENEWCONVERSATION'
+const DELETECONVERSATION = 'conversations/DELETECONVERSATION'
 
 const getConversations = (data) => {
     return {
@@ -8,9 +9,16 @@ const getConversations = (data) => {
     }
 }
 
-const createConversation = (data) => {
+const createNewConversation = (data) => {
     return {
         type: CREATENEWCONVERSATION,
+        data
+    }
+}
+
+const deleteConversation = (data) => {
+    return {
+        type: DELETECONVERSATION,
         data
     }
 }
@@ -28,16 +36,37 @@ export const getConversationsThunk = () => async (dispatch) => {
 }
 
 export const createNewConversationThunk = (username) => async (dispatch) => {
-    const response = await fetch('/api/conversations')
+    const response = await fetch('/api/conversations/', {
+        method: "POST",
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ username })
+    })
 
     if (response.ok) {
         const data = await response.json();
         if (data.errors) {
+
             return data
         }
+
+        dispatch(createNewConversation(data))
+        return data
     }
 }
 
+
+export const deleteConversationThunk = (id, userId) => async dispatch => {
+    const response = await fetch(`/api/conversations/${id}`, {
+        method: "DELETE"
+    })
+    if (response.ok) {
+        const data = await response.json()
+        if (data.errors) {
+            return
+        }
+        dispatch(deleteConversation(userId))
+    }
+}
 
 const initialState = {};
 export default function reducer(state = initialState, action) {
@@ -46,7 +75,13 @@ export default function reducer(state = initialState, action) {
             return { ...action.data }
         }
         case CREATENEWCONVERSATION: {
-            return {...state, [action.username.userId]: action.data }
+            return { ...state, ...action.data }
+        }
+
+        case DELETECONVERSATION: {
+            let newState = { ...state }
+            delete newState[action.data]
+            return newState
         }
 
         default:

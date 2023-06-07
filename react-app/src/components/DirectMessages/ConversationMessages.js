@@ -2,9 +2,11 @@ import React, { useState, useEffect } from "react"
 import { useParams } from 'react-router-dom'
 import { useSelector, useDispatch } from "react-redux"
 import { getConversationMessagesThunk } from "../../store/userConversationMessages"
-import DirectMessageReactions from "./DirectMessageReactions"
+import { getConversationsThunk } from "../../store/userconversations"
+import OpenModalButton from "../OpenModalButton"
 import { io } from 'socket.io-client'
 import './directMessages.css'
+import MessageDetails from "../MessageDetails"
 
 // initialize socket variable outside of component
 let socket;
@@ -14,6 +16,7 @@ export default function ConversationMessages() {
     const params = useParams()
     let { conversationId } = params
     let conversations = useSelector((state) => state.userConversationMessages)
+    let conversationList = useSelector((state) => state.userConversations)
     let currentUser = useSelector((state) => state.session.user)
     let conversation = conversations[conversationId]
     let [isLoading, setIsLoading] = useState(true)
@@ -22,6 +25,21 @@ export default function ConversationMessages() {
     let [errors, setErrors] = useState({});
 
 
+    let username;
+    for (let key in conversationList) {
+        // console.log(conversationList[key].conversation_id);
+        if (conversationList[key] && conversationList[key].conversation_id == conversationId) {
+            username = conversationList[key].username
+        }
+    }
+
+    // let [emojiList, setEmojiList] = useState({})
+
+    // const buttonClick = (messageId) => {
+    //     setEmojiList((prev) => {
+    //         return { ...prev, [messageId]: !prev[messageId] }
+    //     })
+    // }
 
 
     useEffect(() => {
@@ -40,7 +58,13 @@ export default function ConversationMessages() {
         socket.on("direct_message", (direct_message) => {
             // when we recieve a chat add to our messages array in state
             setMessages(messages => [...messages, direct_message])
+            dispatch(getConversationsThunk())
 
+        })
+        socket.on("delete_direct_message", (deleted_message) => {
+            setMessages(messages => {
+                return messages.filter(message => message.id !== deleted_message.id)
+            })
         })
 
 
@@ -80,15 +104,44 @@ export default function ConversationMessages() {
             setChatInput("")
         }
     }
+    const handleEnter = (e) => {
+        if (e.key === "Enter" && !e.shiftKey) {
+            sendChat(e)
+        }
+    }
+
+    const deleteChat = (messageId) => {
+
+        socket.emit("delete_direct_message", {
+            messageId
+        })
+    }
     if (isLoading || !conversation) {
         return <></>
     }
-    // console.log("CURRENT MESSAGES", messages);
-    return (
-        <>
 
-            <div>
+
+    // let emojiListClass = "emoji-list"
+
+
+
+    return (
+        <div id="direct-messages-view">
+            <div className="direct-messages-container">
                 {messages.map((message) => {
+                    return (<>
+
+                        <MessageDetails key={message.id} message={message} />
+                        {message.userId === currentUser.userId && (<button
+                            onClick={() => deleteChat(message.id)}
+                        >Delete</button >)}
+
+                    </>)
+                })}
+
+                {/* <div>
+                {messages.map((message) => {
+                    let showEmojiList = emojiList[message.id]
                     return (<div key={message.id}>
                         <div>
                             {message.UserInfo.username}
@@ -98,24 +151,42 @@ export default function ConversationMessages() {
                         <p>{message.createdAt}</p>
                         <div>
                             {message.message}
-                            <DirectMessageReactions reactions={message.reactions} />
+                            <button
+                                onClick={() => buttonClick(message.id)}
+                            >😊</button>
+                            {showEmojiList && (
+                                <ul>
+                                    <li>😊</li>
+                                    <li>❤️ </li>
+                                    <li>👍🏻</li>
+                                    <li>👀</li>
+                                </ul>
+                            )}
 
+                            <DirectMessageReactions reactions={message.reactions} />
+                            <div>
+                                {Object.values(message.reactions).length > 0 && Object.values(message.reactions).length}
+                            </div>
                         </div>
                     </div>)
                 })}
 
-            </div>
-            <div>
-                <form onSubmit={sendChat}>
-                    <textarea
-                        value={chatInput}
-                        onChange={(e) => setChatInput(e.target.value)}
-                    > </textarea>
-                    <button type='submit'>Send</button>
+            </div> */}
 
-                </form>
-            </div>
-        </>
+            </div >
+
+            <form className="message-input-form" onSubmit={sendChat}>
+                <textarea className="message-input"
+                    placeholder={`Message @${username}`}
+                    value={chatInput}
+                    onChange={(e) => setChatInput(e.target.value)}
+                    onKeyPress={handleEnter}
+                > </textarea>
+
+
+            </form>
+
+        </div>
 
     )
 

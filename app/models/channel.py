@@ -26,8 +26,5 @@ class Channel(db.Model):
             "name": self.name, 
             "created_at": self.created_at, 
             "isPrivate": self.isPrivate, 
-            "server": self.server.to_dict(), 
-            "group": self.group.to_dict(), 
-            "privateChannels": self.privateChannels.to_dict(), 
-            "channelMessages": self.channelMessages.to_dict()
+            "group_name": self.group.name
         }

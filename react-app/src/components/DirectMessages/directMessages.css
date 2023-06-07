@@ -71,3 +71,41 @@
 a {
   text-decoration: none;
 }
+
+.emoji-list {
+  display: none;
+}
+
+.dm-title-div {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.add-conversation {
+  cursor: pointer;
+  width: 20px;
+  height: 20px;
+}
+
+.direct-messages-container {
+  height: 75%;
+  width: 90%;
+  overflow-y: scroll;
+}
+
+#direct-messages-view {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 100%;
+  margin: 0 1em;
+}
+
+.message-input {
+  width: 100%;
+}
+.message-input-form {
+  margin-top: 1em;
+  width: 90%;
+}

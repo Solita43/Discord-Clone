@@ -1,5 +1,5 @@
 from flask_socketio import SocketIO, emit
-from .models import DirectMessage, db
+from .models import DirectMessage, DirectMessageConversation, DirectMessageReaction, db
 import os
 from datetime import datetime
 
@@ -28,9 +28,31 @@ def handle_direct_message(data):
     )
     # add to seesion and commit
     db.session.add(message)
+    conversation = DirectMessageConversation.query.get(data['conversation_id'])
+    conversation.updated_at = datetime.utcnow()
     db. session.commit()
     temp = message.to_dict()
-    print("TEMP!!!!",temp)
     # temp['created_at'] = temp['created_at'].strftime("%m/%d/%Y, %H:%M:%S")
-
     emit("direct_message", temp, broadcast=True)
+
+@socketio.on("delete_direct_message")
+def delete_message(data):
+    message = DirectMessage.query.get(data['messageId'])
+    temp = message.to_dict()
+    db.session.delete(message)
+
+    db.session.commit()
+    emit("delete_direct_message",temp,broadcast=True)
+
+
+@socketio.on("add_reaction_direct")
+def add_reaction_direct(data):
+    new_reaction = DirectMessageReaction (
+        message_id = data['message_id'],
+        reaction = data['reaction'],
+        user_id = data['user_id']
+    )
+    db.session.add(new_reaction)
+    db.session.commit()
+    temp = new_reaction.to_dict()
+    emit("add_reaction_direct", temp, broadcast=True)

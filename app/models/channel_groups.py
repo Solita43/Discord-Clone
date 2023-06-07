@@ -18,6 +18,6 @@ class ChannelGroup(db.Model):
             "id": self.id, 
             "server_id": self.server_id, 
             "name": self.name, 
-            "server": self.server.to_dict(), 
-            "channels": self.channels.to_dict()
+            # "server": self.server.to_dict(), 
+            # "channels": self.channels.to_dict()
         }

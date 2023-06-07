@@ -17,10 +17,11 @@ def get_all_conversations():
     for conversation in conversation_ids:
         otherUsers = DirectMessageConversationUser.query.with_entities(DirectMessageConversationUser.user_id).filter(DirectMessageConversationUser.conversation_id == conversation).all()
         otherUser_id = [row.user_id for row in otherUsers if row.user_id != current_user.id]
-
+        conversation_obj = DirectMessageConversation.query.get(conversation).to_dict()
+        updated_at = conversation_obj['updatedAt']
         user = User.query.get(otherUser_id)
         user = user.to_dict()
-        userInfo[user['userId']] = {"userId": user['userId'], "userIcon": user['userIcon'], "userStatus": user['userStatus'], "username": user['username'],"conversation_id": conversation}
+        userInfo[user['userId']] = {"userId": user['userId'], "userIcon": user['userIcon'], "userStatus": user['userStatus'], "username": user['username'],"conversation_id": conversation, "updated_at":updated_at}
 
     # for user in users:
         # print("USER Info: ", user.to_dict())
@@ -61,6 +62,7 @@ def get_all_conversation_messages(id):
         dms[id]["messages"].append({
             "message": message_dict['message'],
             "userId": message_dict['userId'],
+            "id": message_dict['id'],
             "createdAt": message_dict['createdAt'],
             "UserInfo": message_dict['UserInfo'],
             "reactions": final_reaction
@@ -145,8 +147,10 @@ def create_direct_conversation():
         "userId": 2,
         "userIcon": "default.jpg",
         "userStatus": "online"
+
       }
     }
+
     ```
     """
     # get the info from the user
@@ -191,6 +195,7 @@ def create_direct_conversation():
     # format the user
     user_friend = {
         "userId": friend_person_dict['userId'],
+        "username":friend_person_dict['username'],
         "userIcon": friend_person_dict['userIcon'],
         "userStatus": friend_person_dict['userStatus']
     }
@@ -219,13 +224,15 @@ def create_direct_conversation():
     db.session.commit()
 
     # include user info into the conversation info to return correct data
-    new_id[friend_person_dict['username']] = user_friend
-    print("NEW ID WOOOOT: ", new_id)
+
+    new_id[str(friend_person_dict['userId'])] = {**user_friend,"conversation_id":new_id['conversationId'], "updated_at":new_id['updatedAt']}
+    del new_id['conversationId']
+    del new_id['createdAt']
+    del new_id['updatedAt']
+    # res = {**user_friend,"conversationId":new_id['conversationId']}
 
     # send back the new conversation info plus info on the user you are talking with
     return new_id
-
-# delete a user conversation message
 
 
 # delete a user conversation

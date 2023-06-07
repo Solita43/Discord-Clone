@@ -41,6 +41,10 @@ def seed_channel_groups():
             "server_id":3,
             "name": "Other"
         },
+        {
+            "server_id":4,
+            "name": "General"
+        }
 
     ]:
         db.session.add(ChannelGroup(**group))
