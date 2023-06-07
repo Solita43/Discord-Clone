@@ -38,7 +38,6 @@ html, body, #root {
   padding: 0;
   margin: 0; 
   z-index: 0;
-  overflow: hidden scroll;
 }
 
 .server-nav-bar > ol::-webkit-scrollbar {
@@ -95,6 +94,7 @@ html, body, #root {
   top: 50%;
   left: 140%;
   transform: translateY(-50%) scale(var(--scale));
+  z-index: -1;
 }
 
 .tooltip::before {
@@ -110,6 +110,7 @@ html, body, #root {
 .tooltip:hover::before,
 .tooltip:hover::after {
   --scale: 1;
+  z-index: 2;
 }
 
 .tooltip::after {

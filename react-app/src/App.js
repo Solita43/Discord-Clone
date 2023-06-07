@@ -10,6 +10,8 @@ import ConversationMessages from "./components/DirectMessages/ConversationMessag
 import LandingPage from "./components/LandingPage";
 import ChannelList from "./components/ChannelList";
 import ChannelMessages from "./components/ChannelMessages";
+import ServerUserList from "./components/ServerUserList";
+import TitleBar from "./components/TitleBar"
 // import CreateConversation from "./components/DirectMessages/CreateConversation";
 import LogoutNav from "./components/LogoutNav"
 
@@ -25,8 +27,11 @@ function App() {
     <>
       {isLoaded && (
         <>
+          <div id="bars">
+            <Navigation isLoaded={isLoaded} />
+            <TitleBar />
+          </div>
           <LogoutNav />
-          <Navigation isLoaded={isLoaded} />
           <Switch>
             <Route exact path="/home">
               <DirectMessages />
@@ -42,6 +47,7 @@ function App() {
             <Route exact path="/channels/:serverId/:channelId">
               <ChannelList />
               <ChannelMessages />
+              <ServerUserList />
             </Route>
           </Switch>
         </>

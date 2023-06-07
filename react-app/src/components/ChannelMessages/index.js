@@ -101,10 +101,10 @@ export default function ChannelMessages() {
 
     }
 
-    if (isLoading) return <></>
+    if (isLoading) return (<div style={{width: "100%"}}></div>)
 
     return (
-        <div>
+        <div style={{width: "100%"}}>
             <div>
                 {messages && messages.map((message) => {
                     return (

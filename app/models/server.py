@@ -32,5 +32,10 @@ class Server(db.Model):
             "users": {user.user_id: (User.query.get(user.user_id).to_dict()) for user in self.serverUsers},
             "channels": {group.name: {channel.name: channel.to_dict() for channel in group.channels} for group in self.groups}, 
             "groupIds": {group.name: group.id for group in self.groups}, 
-            "channelIds": {channel.id: channel.name for channel in self.channels}
+            "channelIds": {channel.id: channel.name for channel in self.channels}, 
+            "userRoles": {
+                "owner": [user.user_id for user in self.serverUsers if user.role == "owner"], 
+                "admins": [user.user_id for user in self.serverUsers if user.role == "admin"], 
+                "users": [user.user_id for user in self.serverUsers if user.role == "user"]
+            }
         } 

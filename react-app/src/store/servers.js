@@ -92,7 +92,7 @@ export const serverEdit = (updated, serverId) => async (dispatch) => {
     const data = await res.json();
 
     if (res.ok) {
-        dispatch(editServer(serverId))
+        dispatch(editServer(data))
         return null
     } else {
         return data

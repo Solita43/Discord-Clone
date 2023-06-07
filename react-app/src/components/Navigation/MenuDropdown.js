@@ -4,6 +4,7 @@ import "./Navigation.css"
 import CreateServerModal from "../CreateServerModal"
 import DeleteServerModal from "../DeleteServerModal"
 import CreateGroupModal from "../CreateGroupModal";
+import EditServerModal from "../EditSeverModal"
 
 function MenuDropdown({ serverId, serverName }) {
   const [showMenu, setShowMenu] = useState(false);
@@ -53,7 +54,7 @@ function MenuDropdown({ serverId, serverName }) {
           buttonText="Edit Server"
           className="server-menu-buttons"
           onItemClick={closeMenu}
-          modalComponent={<CreateServerModal title="Edit Server" serverId={serverId} />}
+          modalComponent={<EditServerModal serverId={serverId} />}
         />
         <OpenModalButton
           buttonText="Create Group"

@@ -1,0 +1,8 @@
+#top-bar {
+    display: none;
+    height: 72px;
+    position: absolute;
+    z-index: 2;
+    background-color: var(--channel-nav);
+    width: 100vw;
+}
