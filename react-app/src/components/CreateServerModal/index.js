@@ -2,10 +2,10 @@ import React, {useState} from "react";
 import { useDispatch } from "react-redux";
 import { useModal } from "../../context/Modal";
 import { useHistory } from "react-router-dom";
-import { serverPost } from "../../store/servers";
+import { serverPost, serverEdit } from "../../store/servers";
 
 
-function CreateServerModal() {
+function CreateServerModal( { title, serverId } ) {
     const dispatch = useDispatch(); 
     const [name, setName] = useState("");
 	const { closeModal } = useModal();
@@ -13,27 +13,34 @@ function CreateServerModal() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        dispatch(serverPost({name})).then((server) => {
+        
+        if (title === "Create a Server") {
+            dispatch(serverPost({name})).then((server) => {
             closeModal()
             history.push(`/channels/${server.id}/${server.default_channel_id}`)
             
         })
+        } else {
+            dispatch(serverEdit({name}, serverId)).then(() => closeModal())
+        }
+        
     }
 
     return (
-        <div className="create_server_form">
-            <h1>Create A Server</h1>
-            <form onSubmit={handleSubmit}>
-                <label>
+        <div id="delete-form-container">
+            <h1 className="form-title">{title}</h1>
+            <form onSubmit={handleSubmit} className="form-box">
+                <label className="signup-labels">
                     Server Name
                     <input 
                         type="text"
                         value={name}
+                        className="input-area" 
                         onChange={(e) => setName(e.target.value)}
                         required
                     />
                 </label>
-                <button type="submit">Create</button>
+                <button id="form-button" type="submit">Create</button>
             </form>
         </div>
     );

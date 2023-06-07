@@ -38,6 +38,11 @@ html, body, #root {
   padding: 0;
   margin: 0; 
   z-index: 0;
+  overflow: hidden scroll;
+}
+
+.server-nav-bar > ol::-webkit-scrollbar {
+  display: none;
 }
 
 .server-icons {
@@ -64,13 +69,15 @@ html, body, #root {
   color: #29CC7A;
   background-color: #313137;
   border-radius: 100%;
-  font-size: 1.3rem;
+  font-size: 1.3rem;  
+  border: none;
 }
 
 #create-a-server:hover {
   border-radius: 30%;
   background-color: #29CC7A;
   color: white;
+
 }
 
 .tooltip {
@@ -189,4 +196,29 @@ li.top-right-nav {
 
 .user-email {
   color: white;
+}
+
+.server-dropdown {
+  position: absolute;
+  z-index: 3;
+  top: 100%;
+  display: flex;
+  flex-direction: column;
+  left: 20%;
+  width: fit-content;
+  border: solid red 2px;
+  padding: .6rem;
+  gap: .5rem;
+  background-color: var(--modal-background);
+
+}
+
+.server-menu-buttons {
+  background-color: var(--modal-background);
+  color: white;
+  padding: .2rem .4rem;
+}
+
+.hidden {
+  display: none;
 }

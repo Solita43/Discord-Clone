@@ -37,13 +37,13 @@ setuptools = "==3.3"
 bidict = "==0.22.1"
 netifaces = "==0.10.6"
 python-engineio = "==4.4.1"
-python-socketio = "==5.8.0"
 eventlet = "==0.30.2"
 gevent = "==22.10.2"
 wheel = "*"
 dnspython = "==1.16.0"
 "zope.event" = "==4.6"
 "zope.interface" = "==6.0"
+python-socketio = "*"
 
 [dev-packages]
 

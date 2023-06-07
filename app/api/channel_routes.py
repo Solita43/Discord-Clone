@@ -10,6 +10,16 @@ channel_routes = Blueprint('channels', __name__)
 @channel_routes.route('/', methods=['POST'])
 @login_required
 def create_channel():
+    """
+    Method: POST
+    Body: {
+    serverId: Int, 
+    groupId: Int, 
+    name: String, 
+    isPrivate: Boolean
+    }
+    """
+
     data = request.get_json()
     serverId = data["serverId"]
 
@@ -32,11 +42,20 @@ def create_channel():
         return newChannel.to_dict()
     else:
         errors = form.errors
-        return errors
+        return errors, 400
 
 @channel_routes.route('/<int:channelId>', methods =['PUT'])
 @login_required
 def edit_channel(channelId):
+    """
+    method: PUT
+    body: {
+    serverId: Int, 
+    groupId: Int, 
+    name: String, 
+    isPrivate: Boolean
+    }
+    """
     data = request.get_json()
     serverId = data["serverId"]
 
@@ -46,22 +65,28 @@ def edit_channel(channelId):
         return {'errors': ['Forbidden']}, 403
     
     form = ChannelForm()
+    edit_channel = Channel.query.get(channelId); 
+    if edit_channel.name != data["name"]: 
+        form.name.data = data["name"]
+    else: 
+        form.name.data = "@#$@()#SLDFSDH#Hlsdhfl2"
+    
     form['csrf_token'].data = request.cookies['csrf_token']
     form.server_id.data = serverId
     form.group_id.data = data["groupId"]
-    form.name.data = data["name"]
     form.isPrivate.data = data["isPrivate"]
 
     if form.validate():
         channel = Channel.query.get(channelId)
         channel.name = data["name"]
         channel.isPrivate = data["isPrivate"]
+        channel.group_id = data["groupId"]
         db.session.add(channel)
         db.session.commit()
         return channel.to_dict(), 201
     else:
         errors = form.errors
-        return errors
+        return errors, 400
     
 @channel_routes.route('/<int:channelId>', methods =['DELETE'])
 @login_required

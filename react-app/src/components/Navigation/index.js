@@ -1,7 +1,6 @@
 import React, { useEffect } from "react";
 import { NavLink, Redirect, useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import ProfileButton from "./ProfileButton";
 import "./Navigation.css";
 import { userServersGet } from "../../store/servers";
 import CreateServerModal from "../CreateServerModal";
@@ -66,7 +65,7 @@ function Navigation({ isLoaded }) {
             );
           })}
           <li className="tooltip server icons" data-tooltip="Add a Server">
-            <OpenModalButton id='create-a-server' modalComponent={<CreateServerModal />} buttonText={<i class="fa-solid fa-plus" id='create-a-server'></i>} />
+            <OpenModalButton id='create-a-server' modalComponent={<CreateServerModal title="Create a Server" />} buttonText={<i className="fa-solid fa-plus" id='create-a-server'></i>} />
           </li>
         </ol>
       </div>
