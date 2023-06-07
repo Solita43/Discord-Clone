@@ -3,6 +3,7 @@ const GET_DETAILS = "servers/GET_DETAILS";
 const POST_NEW_SERVER = "servers/POST_NEW_SERVER";
 const EDIT_SERVER = "servers/EDIT_SERVER";
 const DELETE_SERVER = "servers/DELETE_SERVER";
+const POST_NEW_GROUP = "servers/POST_NEW_GROUP"
 
 
 const getUserServers = (serverList) => ({
@@ -29,6 +30,13 @@ const deleteServer = (serverId) => ({
     type: DELETE_SERVER,
     payload: serverId
 })
+
+const postGroup = (data) => {
+    return {
+        type: POST_NEW_GROUP,
+        data
+    }
+}
 
 export const userServersGet = (userId) => async (dispatch) => {
     const res = await fetch(`/api/servers/users`)
@@ -77,7 +85,7 @@ export const serverPost = (server) => async (dispatch) => {
 export const serverEdit = (updated, serverId) => async (dispatch) => {
     const res = await fetch(`/api/servers/${serverId}`, {
         method: "PUT",
-        headers: {"Content-Type": "application/json"},
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify(updated)
     })
 
@@ -91,18 +99,18 @@ export const serverEdit = (updated, serverId) => async (dispatch) => {
     }
 }
 
-export const channelEdit = (channelId, body) =>  async (dispatch) => {
+export const channelEdit = (channelId, body) => async (dispatch) => {
     const res = await fetch(`/api/channels/${channelId}`, {
-        method: "PUT", 
-        headers: {"Content-Type": "application/json"}, 
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify(body)
     })
 
-    const data = await res.json(); 
+    const data = await res.json();
     if (res.ok) {
-        return null; 
+        return null;
     } else {
-        return data; 
+        return data;
     }
 }
 
@@ -111,11 +119,11 @@ export const deleteChannel = (channelId) => async (dispatch) => {
         method: "DELETE"
     })
 
-    const data = await res.json(); 
+    const data = await res.json();
     if (res.ok) {
-        return null; 
+        return null;
     } else {
-        return data; 
+        return data;
     }
 }
 
@@ -136,16 +144,30 @@ export const serverDelete = (serverId) => async (dispatch) => {
 
 export const createChannel = (body) => async (dispatch) => {
     const res = await fetch('/api/channels/', {
-        method: "POST", 
-        headers: {"Content-Type": "application/json"}, 
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify(body)
     })
     if (res.ok) {
-        return null
+        const data = await res.json()
+        console.log("DATA", data)
+        return data
     } else {
-        const data = await res.json(); 
-        console.log(data)
-        return data; 
+        const data = await res.json();
+        return data;
+    }
+}
+
+export const createChannelGroupThunk = (data) => async dispatch => {
+    const res = await fetch(`/api/channelGroups/${data.serverId}`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data)
+    })
+
+    if (res.ok) {
+        // dispatch(postGroup(data))
+        return data
     }
 }
 
@@ -170,11 +192,15 @@ export default function reducer(state = initialState, action) {
             newState.AllServers = { ...newState.AllServers }
             return newState;
         case EDIT_SERVER:
-            newState.AllServers = {...newState.AllServers, [action.payload.id]: {...action.payload}}
+            newState.AllServers = { ...newState.AllServers, [action.payload.id]: { ...action.payload } }
             return newState
         case DELETE_SERVER:
             delete newState.AllServers[action.payload]
             return newState
+        // case POST_NEW_GROUP:
+        //     let server = action.data.server_id
+        //     let groupName = action.data.name
+        //     newState.ServerDetails[server].channels = { ...newState.serverDetails[server].channels, groupName: action.data}
         default:
             return state;
     }

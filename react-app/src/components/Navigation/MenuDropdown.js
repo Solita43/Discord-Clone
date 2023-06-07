@@ -3,8 +3,9 @@ import OpenModalButton from "../OpenModalButton";
 import "./Navigation.css"
 import CreateServerModal from "../CreateServerModal"
 import DeleteServerModal from "../DeleteServerModal"
+import CreateGroupModal from "../CreateGroupModal";
 
-function MenuDropdown( {serverId, serverName} ) {
+function MenuDropdown({ serverId, serverName }) {
   const [showMenu, setShowMenu] = useState(false);
   const ulRef = useRef();
 
@@ -17,10 +18,10 @@ function MenuDropdown( {serverId, serverName} ) {
     if (!showMenu) return;
 
     const closeMenu = (e) => {
-    if (!ulRef.current.contains(e.target)) {
-      setShowMenu(false);
-    }
-  };
+      if (!ulRef.current.contains(e.target)) {
+        setShowMenu(false);
+      }
+    };
 
     document.addEventListener("click", closeMenu);
 
@@ -29,7 +30,7 @@ function MenuDropdown( {serverId, serverName} ) {
 
   const displayName = (name) => {
     if (name.length > 14) {
-      return name.slice(0,14) + "..."
+      return name.slice(0, 14) + "..."
     } else {
       return name
     }
@@ -40,26 +41,32 @@ function MenuDropdown( {serverId, serverName} ) {
   return (
     <>
       <button className="server-menu" onClick={openMenu}>
-      <div className="server-header">
-        <h1 className="server-title">{displayName(serverName)}</h1>
-      </div>
-      <div className="icon">
+        <div className="server-header">
+          <h1 className="server-title">{displayName(serverName)}</h1>
+        </div>
+        <div className="icon">
           <i className="fa-solid fa-chevron-down" />
-      </div>
+        </div>
       </button>
       <ul className={ulClassName} ref={ulRef}>
-            <OpenModalButton
-              buttonText="Edit Server"
-              className="server-menu-buttons"
-              onItemClick={closeMenu}
-              modalComponent={<CreateServerModal title="Edit Server" serverId={serverId}/>}
-            />
-            <OpenModalButton
-              buttonText="Delete Server"
-              className="server-menu-buttons"
-              onItemClick={closeMenu}
-              modalComponent={<DeleteServerModal serverId={serverId} serverName={serverName} />}
-            />
+        <OpenModalButton
+          buttonText="Edit Server"
+          className="server-menu-buttons"
+          onItemClick={closeMenu}
+          modalComponent={<CreateServerModal title="Edit Server" serverId={serverId} />}
+        />
+        <OpenModalButton
+          buttonText="Create Group"
+          className="server-menu-buttons"
+          onItemClick={closeMenu}
+          modalComponent={<CreateGroupModal title="Create Group" serverId={serverId} />}
+        />
+        <OpenModalButton
+          buttonText="Delete Server"
+          className="server-menu-buttons"
+          onItemClick={closeMenu}
+          modalComponent={<DeleteServerModal serverId={serverId} serverName={serverName} />}
+        />
       </ul>
     </>
   );

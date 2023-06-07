@@ -11,6 +11,7 @@ import LandingPage from "./components/LandingPage";
 import ChannelList from "./components/ChannelList";
 import ChannelMessages from "./components/ChannelMessages";
 // import CreateConversation from "./components/DirectMessages/CreateConversation";
+import LogoutNav from "./components/LogoutNav"
 
 function App() {
   const dispatch = useDispatch();
@@ -24,6 +25,7 @@ function App() {
     <>
       {isLoaded && (
         <>
+          <LogoutNav />
           <Navigation isLoaded={isLoaded} />
           <Switch>
             <Route exact path="/home">

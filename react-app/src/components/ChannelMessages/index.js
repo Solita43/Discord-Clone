@@ -12,11 +12,20 @@ let socket;
 export default function ChannelMessages() {
     let dispatch = useDispatch()
     let params = useParams()
-    let { channelId } = params
+
+    let { channelId, serverId } = params
 
 
 
     let channels = useSelector((state) => state.channels)
+    let servers = useSelector((state) => state.servers.ServerDetails)
+    let server = servers[serverId]
+    let channelName;
+    if (server) {
+
+        channelName = server["channelIds"][channelId]
+    }
+
     let currentUser = useSelector((state) => state.session.user)
     let [isLoading, setIsLoading] = useState(true)
     let [messages, setMessages] = useState([])
@@ -40,7 +49,11 @@ export default function ChannelMessages() {
         socket = io();
 
         socket.on("channel_message", (channel_message) => {
-            setMessages(messages => [...messages, channel_message])
+
+            if (channelId == channel_message.channelId) {
+                setMessages(messages => [...messages, channel_message])
+
+            }
         })
         socket.on("delete_channel_message", (deleted_message) => {
             setMessages((messages) => {
@@ -111,7 +124,7 @@ export default function ChannelMessages() {
             </div>
             <form className="message-input-form" onSubmit={sendChat}>
                 <textarea className="message-input"
-                    placeholder={`Message #`}
+                    placeholder={`Message #${channelName ? channelName : ''}`}
                     value={chatInput}
                     onChange={(e) => setChatInput(e.target.value)}
                     onKeyPress={handleEnter}
