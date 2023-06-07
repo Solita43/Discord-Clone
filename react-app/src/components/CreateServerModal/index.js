@@ -13,9 +13,11 @@ function CreateServerModal() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        const server = dispatch(serverPost({name}))
-        closeModal(); 
-        history.push(`/channels/${server.id}/${server.default_channel_id}`)
+        dispatch(serverPost({name})).then((server) => {
+            closeModal()
+            history.push(`/channels/${server.id}/${server.default_channel_id}`)
+            
+        })
     }
 
     return (
