@@ -12,7 +12,7 @@ class DirectMessage(db.Model):
     message = db.Column(db.String(255), nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('users.id')), nullable=False)
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
-
+    updated_at = db.Column(db.DateTime, default=datetime.utcnow)
     conversation = db.relationship("DirectMessageConversation", back_populates="directMessages")
     user = db.relationship("User", back_populates="directMessages")
     direct_reactions = db.relationship('DirectMessageReaction', back_populates="direct_message", cascade="delete-orphan, all")
@@ -26,5 +26,6 @@ class DirectMessage(db.Model):
             'userId': self.user_id,
             "UserInfo": self.user.to_dict(),
             'reactions': reactions,
-            'createdAt': self.created_at.strftime("%m/%d/%Y, %H:%M:%S")
+            'createdAt': self.created_at.strftime("%m/%d/%Y, %H:%M:%S"),
+            'updatedAt': self.updated_at.strftime("%m/%d/%Y, %H:%M:%S")
         }

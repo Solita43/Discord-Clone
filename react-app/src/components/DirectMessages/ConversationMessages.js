@@ -7,6 +7,7 @@ import OpenModalButton from "../OpenModalButton"
 import { io } from 'socket.io-client'
 import './directMessages.css'
 import MessageDetails from "../MessageDetails"
+import UpdateMessageModal from "../UpdateMessageModal"
 
 // initialize socket variable outside of component
 let socket;
@@ -56,8 +57,9 @@ export default function ConversationMessages() {
     useEffect(() => {
         socket = io();
         socket.on("direct_message", (direct_message) => {
-            // when we recieve a chat add to our messages array in state
+            // when we recieve a chat add to our messages array in our usestate
             setMessages(messages => [...messages, direct_message])
+            // updating store
             dispatch(getConversationsThunk())
 
         })
@@ -67,6 +69,23 @@ export default function ConversationMessages() {
             })
         })
 
+        socket.on("update_direct_message", (update_direct_message) => {
+            dispatch(getConversationMessagesThunk(conversationId))
+            // console.log("RETURNED ID TO FIND", update_direct_message.id);
+            // console.log(messages);
+            // let messageIndex = messages.findIndex((message) => {
+            //     console.log('indexes in messages', message.id);
+            //     return message.id == update_direct_message.id
+            // })
+
+            // console.log(messageIndex);
+
+            // setMessages(messages => {
+            //     messages[messageIndex]["message"] = update_direct_message["message"]
+            //     return messages
+            // })
+
+        })
 
         // when component unmount, disconnect
         return (() => {
@@ -75,8 +94,6 @@ export default function ConversationMessages() {
     }, [])
 
     if (isLoading) return <></>
-
-
 
 
     // let conversationMessages;
@@ -110,6 +127,7 @@ export default function ConversationMessages() {
         }
     }
 
+
     const deleteChat = (messageId) => {
 
         socket.emit("delete_direct_message", {
@@ -124,7 +142,7 @@ export default function ConversationMessages() {
     // let emojiListClass = "emoji-list"
 
 
-
+    console.log("MESSAGES", messages);
     return (
         <div id="direct-messages-view">
             <div className="direct-messages-container">
@@ -132,9 +150,20 @@ export default function ConversationMessages() {
                     return (<>
 
                         <MessageDetails key={message.id} message={message} />
-                        {message.userId === currentUser.userId && (<button
-                            onClick={() => deleteChat(message.id)}
-                        >Delete</button >)}
+                        {message.userId === currentUser.userId &&
+                            (
+                                <>
+                                    <button
+                                        onClick={() => deleteChat(message.id)}
+                                    >Delete</button >
+                                    <OpenModalButton
+                                        buttonText="Update"
+                                        // onItemClick={closeMenu}
+                                        className="update-conversation"
+                                        modalComponent={<UpdateMessageModal message={message} />}
+                                    />
+                                </>
+                            )}
 
                     </>)
                 })}

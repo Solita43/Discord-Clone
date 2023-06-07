@@ -9,9 +9,8 @@ export default function MessageDetails({ message }) {
 
     let [emojiList, setEmojiList] = useState({})
     let showEmojiList = emojiList[message.id]
-    let [reactions, setReactions] = useState(Object.values(message.reactions))
-    let reactSet = new Set(reactions)
-    console.log("REACTIONS", reactions);
+    // let [reactions, setReactions] = useState(Object.values(message.reactions))
+    // let reactSet = new Set(reactions)
     let user = useSelector((state) => state.session.user)
     const buttonClick = (messageId) => {
         setEmojiList((prev) => {
@@ -19,31 +18,31 @@ export default function MessageDetails({ message }) {
         })
     }
 
-    useEffect(() => {
-        socket = io();
-        socket.on("add_reaction_direct", (direct_reaction) => {
-            // when we recieve a chat add to our messages array in state
-            setReactions(reactions => [...reactions, direct_reaction])
+    // useEffect(() => {
+    //     socket = io();
+    //     socket.on("add_reaction_direct", (direct_reaction) => {
+    //         // when we recieve a chat add to our messages array in state
+    //         setReactions(reactions => [...reactions, direct_reaction])
 
 
-        })
+    //     })
 
-        // when component unmount, disconnect
-        return (() => {
-            socket.disconnect()
-        })
-    }, [])
+    //     // when component unmount, disconnect
+    //     return (() => {
+    //         socket.disconnect()
+    //     })
+    // }, [])
 
-    const sendReaction = (e) => {
-        let reaction = e.native
+    // const sendReaction = (e) => {
+    //     let reaction = e.native
 
-        socket.emit("add_reaction_direct", {
-            message_id: message.id,
-            reaction,
-            user_id: user.userId
-        })
+    //     socket.emit("add_reaction_direct", {
+    //         message_id: message.id,
+    //         reaction,
+    //         user_id: user.userId
+    //     })
 
-    }
+    // }
 
 
     return (<div key={message.id}>
@@ -52,23 +51,23 @@ export default function MessageDetails({ message }) {
             <img className="dm-profile-img" src={message.UserInfo.userIcon}></img>
 
         </div>
-        <p>{message.createdAt}</p>
+        <p>{message.updatedAt}</p>
         <div>
             {message.message}
-            <button
+            {/* <button
                 onClick={() => buttonClick(message.id)}
-            >😊</button>
+            >😊</button> */}
             {/* {showEmojiList && <Picker data={data} onEmojiSelect={sendReaction} />} */}
 
             {/* <DirectMessageReactions reactions={reactions.emoji} /> */}
-            <div>
-                {Object.values(reactions).length > 0 && Object.values(reactions).length}
-                <div>
+            {/* <div> */}
+            {/* {Object.values(reactions).length > 0 && Object.values(reactions).length} */}
+            {/* <div>
                     {reactions.map(reaction => {
                         return <span>{reaction.emoji}</span>
                     })}
-                </div>
-            </div>
+                </div> */}
+            {/* </div> */}
         </div>
     </div>)
 }

@@ -1,7 +1,7 @@
 """create all tables
 
 Revision ID: 64ac24bef684
-Revises: 
+Revises:
 Create Date: 2023-06-03 11:19:02.262004
 
 """
@@ -89,6 +89,7 @@ def upgrade():
         sa.Column("message", sa.String(length=255), nullable=False),
         sa.Column("user_id", sa.Integer(), nullable=False),
         sa.Column("created_at", sa.DateTime(), nullable=True),
+        sa.Column("updated_at", sa.DateTime(), nullable=True),
         sa.ForeignKeyConstraint(
             ["conversation_id"],
             ["direct_message_conversations.id"],
@@ -186,7 +187,9 @@ def upgrade():
         sa.Column("channel_id", sa.Integer(), nullable=False),
         sa.Column("user_id", sa.Integer(), nullable=False),
         sa.Column("message", sa.String(length=255), nullable=False),
-        sa.Column("created_at", sa.Date(), nullable=True),
+        sa.Column("created_at", sa.DateTime(), nullable=True),
+        sa.Column("updated_at", sa.DateTime(), nullable=True),
+
         sa.ForeignKeyConstraint(
             ["channel_id"],
             ["channels.id"],

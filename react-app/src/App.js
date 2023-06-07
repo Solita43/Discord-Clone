@@ -39,6 +39,7 @@ function App() {
             </Route>
             <Route exact path="/channels/:serverId/:channelId">
               <ChannelList />
+              <ChannelMessages />
             </Route>
           </Switch>
         </>

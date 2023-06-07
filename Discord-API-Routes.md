@@ -1,6 +1,6 @@
 <!--!!START SILENT -->
 
-# Meetup Clone
+# Discord Clone
 
 <!--!!END -->
 <!--!!ADD -->

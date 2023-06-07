@@ -15,14 +15,14 @@ function Navigation({ isLoaded }) {
   const history = useHistory();
 
   const conversations = Object.values(useSelector(state => state.userConversations))
-	let firstConversation = conversations.sort((a, b) => {
-		return a.updated_at < b.updated_at ? 0 : -1
-	})
-	if (firstConversation.length) {
+  let firstConversation = conversations.sort((a, b) => {
+    return a.updated_at < b.updated_at ? 0 : -1
+  })
+  if (firstConversation.length) {
 
-		firstConversation = firstConversation[0].conversation_id
+    firstConversation = firstConversation[0].conversation_id
 
-	}
+  }
 
 
   useEffect(() => {
@@ -42,7 +42,7 @@ function Navigation({ isLoaded }) {
       <div className="server-nav-bar">
         <ol>
           <li className="tooltip" data-tooltip={"Direct Messages"}>
-            <a href="/conversations" className="dm-anchor-tag">
+            <a className="dm-anchor-tag">
               <div className="server-icons dm-div">
                 <img
                   className="dm-img"

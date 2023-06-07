@@ -5,13 +5,15 @@ import userConversationMessages from './userConversationMessages'
 import session from './session'
 import servers from './servers';
 import users from './users'
+import channels from './channels'
 
 const rootReducer = combineReducers({
   session,
   userConversations,
   userConversationMessages,
   servers,
-  users
+  users,
+  channels
 });
 
 

@@ -36,7 +36,7 @@ def get_all_conversations():
 @conversation_routes.route('/<int:id>')
 @login_required
 def get_all_conversation_messages(id):
-    print("ID:", id)
+    # print("ID:", id)
     """Get all the conversation messages by the id of the conversation"""
     # get all messages inside the conversation by conversation id
     messages = DirectMessage.query.filter(DirectMessage.conversation_id == id ).all()
@@ -63,7 +63,7 @@ def get_all_conversation_messages(id):
             "message": message_dict['message'],
             "userId": message_dict['userId'],
             "id": message_dict['id'],
-            "createdAt": message_dict['createdAt'],
+            "updatedAt": message_dict['updatedAt'],
             "UserInfo": message_dict['UserInfo'],
             "reactions": final_reaction
             })
