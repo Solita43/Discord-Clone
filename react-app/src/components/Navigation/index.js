@@ -13,7 +13,7 @@ function Navigation({ isLoaded }) {
   const sessionUser = useSelector(state => state.session.user);
   const servers = useSelector(state => state.servers.AllServers);
 
-  firstConversation = firstConversation[0].conversation_id
+  const firstConversation = firstConversation[0].conversation_id
 
 
   useEffect(() => {
