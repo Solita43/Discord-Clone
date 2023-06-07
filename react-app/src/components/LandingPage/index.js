@@ -16,7 +16,7 @@ export default function LandingPage() {
     const dispatch = useDispatch();
     const history = useHistory();
     const user = useSelector((state) => state.session.user)
-    console.log("this is state now/ user: ", user)
+
 
     const handleClick = () => {
         history.push("/home")

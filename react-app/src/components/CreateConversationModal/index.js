@@ -8,18 +8,21 @@ import { createNewConversationThunk, getConversationsThunk } from "../../store/u
 import "./CreateConvo.css"
 
 export default function CreateConversationModal({ users }) {
-
+    const history = useHistory()
     const [username, setUsername] = useState("")
     const dispatch = useDispatch()
     const { closeModal } = useModal();
     const handleSubmit = async (e) => {
-        console.log("This is our username: ", username)
+        let user = users.find(user => user.username === username)
+        // console.log("This is our user: ", user)
         e.preventDefault();
-        const data = await dispatch(createNewConversationThunk(username)).then(dispatch(getConversationsThunk()))
-        const { conversationId } = data
+        const data = await dispatch(createNewConversationThunk(username))
+        // .then(dispatch(getConversationsThunk()))
+        const { conversation_id } = data[user.userId]
 
         closeModal()
-        return (<Redirect to={`/conversations/${conversationId}`} />)
+        return history.push(`/conversations/${conversation_id}`)
+        // return (<Redirect to={`/conversations/${conversation_id}`} />)
 
 
 
@@ -51,11 +54,12 @@ export default function CreateConversationModal({ users }) {
                     {users.map((user) => {
                         return (
                             <div>
-                                <input type="checkbox" value={user.username}
-                                    key={user.userId}
-                                    onChange={(e) => { setUsername(e.target.value) }}
-                                    checked={username === user.username}
-                                /> <label>{user.username}</label>
+                                <label>
+                                    <input type="checkbox" value={user.username}
+                                        key={user.userId}
+                                        onChange={(e) => { setUsername(e.target.value) }}
+                                        checked={username === user.username}
+                                    /> {user.username}</label>
                             </div>
                         )
                         // return (<input type="checkbox"

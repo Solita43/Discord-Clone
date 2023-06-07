@@ -4,16 +4,19 @@ import { useSelector, useDispatch } from "react-redux"
 import { getConversationsThunk, deleteConversationThunk } from "../../store/userconversations"
 import { getAllUsersThunk } from "../../store/users";
 import CreateConversationModal from "../CreateConversationModal";
+import ConversationMessages from "./ConversationMessages";
 import OpenModalButton from "../OpenModalButton";
 import './directMessages.css'
 export default function DirectMessages() {
 
     let dispatch = useDispatch()
     let userConversations = Object.values(useSelector((state) => state.userConversations))
+    userConversations = userConversations.sort((a, b) => {
+        return a.updated_at < b.updated_at ? 0 : -1
+    })
     let [isLoading, setIsLoading] = useState(true)
     let users = useSelector((state) => state.users)
     users = Object.values(users.allUsers)
-
     useEffect(() => {
         dispatch(getConversationsThunk()).then(dispatch(getAllUsersThunk())).then(setIsLoading(false))
     }, [])
@@ -40,6 +43,7 @@ export default function DirectMessages() {
                 </div>
 
                 {userConversations.map(conversation => {
+
                     return (
                         <div key={conversation.conversation_id} >
                             <NavLink to={`/conversations/${conversation['conversation_id']}`}>
