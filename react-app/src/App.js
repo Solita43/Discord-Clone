@@ -12,6 +12,7 @@ import ChannelList from "./components/ChannelList";
 import ChannelMessages from "./components/ChannelMessages";
 import ServerUserList from "./components/ServerUserList";
 import TitleBar from "./components/TitleBar"
+import ExploreServers from "./components/ExploreServers";
 // import CreateConversation from "./components/DirectMessages/CreateConversation";
 import LogoutNav from "./components/LogoutNav"
 
@@ -48,6 +49,9 @@ function App() {
               <ChannelList />
               <ChannelMessages />
               <ServerUserList />
+            </Route>
+            <Route exact path='/servers/explore'>
+              <ExploreServers />
             </Route>
           </Switch>
         </>

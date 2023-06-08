@@ -66,7 +66,7 @@ def get_all_servers():
 
 @server_routes.route('/<int:server_id>')
 @login_required
-def get_specific_server_slice(server_id): 
+def get_specific_server_slice(server_id):
     return {server_id: Server.query.get(server_id).single_to_dict()}
 
 
@@ -76,8 +76,9 @@ def get_servers_by_user():
     """
         Returns a list of all servers a user is apart of.
     """
+    servers = {server.id: server.to_dict() for server in Server.query.join(ServerUser).filter(ServerUser.user_id == current_user.id).all()}
     res = {
-        "Servers": {server.id: server.to_dict() for server in current_user.servers}
+        "Servers": servers
     }
 
 
@@ -121,7 +122,7 @@ def create_a_server():
         # Create a channel
         res.channels.append(Channel(group_id=res.groups[0].id, name='General'))
         db.session.commit()
-        res.default_channel_id= res.channels[0].id        
+        res.default_channel_id= res.channels[0].id
         serverOwner = ServerUser(user_id=current_user.id, server_id=res.id, role="owner")
         db.session.add(serverOwner)
         db.session.commit()
@@ -223,12 +224,12 @@ def add_user_to_server(server_id):
 
     # Validating that the currently logged in user has the authority to add
     # a user to the server.
-    logged_in_user = current_user.to_dict()
-    role = get_user_role(logged_in_user["userId"], server_id)
-    if role != "owner" and role != "admin":
-        return {
-            "message": "User is not authorized to add users to this server."
-        }
+    # logged_in_user = current_user.to_dict()
+    # role = get_user_role(logged_in_user["userId"], server_id)
+    # if role != "owner" and role != "admin":
+    #     return {
+    #         "message": "User is not authorized to add users to this server."
+    #     }
 
     # Getting the user and role data from the request.
     data = request.get_json()
@@ -248,10 +249,8 @@ def add_user_to_server(server_id):
         db.session.add(new_member)
         db.session.commit()
         return ServerUser.query.filter(ServerUser.user_id == new_user_id , ServerUser.server_id == server_id).first().to_dict()
-    elif form.errors:
-        return {
-            "message": form.errors
-        }
+    else:
+        return form.errors
 
 @server_routes.route('/<int:server_id>/users/<int:user_id>', methods=["PUT"])
 @login_required
@@ -265,7 +264,7 @@ def edit_server_user_role(server_id, user_id):
     Route: /<int:server_id>/users/<int:user_id>
 
 
-    Allows a server owner to update the role of a user to admin. 
+    Allows a server owner to update the role of a user to admin.
     """
 
     server = Server.query.get(server_id)
@@ -314,12 +313,12 @@ def get_members(serverId):
 
     res = {
         "Members": {user.id: {
-            "user_id": user.id, 
-            "server_id": user.server_id, 
-            "username": user.username, 
-            "role": user.role, 
-            "created_at": user.created_at, 
-            "imageUrl": user.imageUrl, 
+            "user_id": user.id,
+            "server_id": user.server_id,
+            "username": user.username,
+            "role": user.role,
+            "created_at": user.created_at,
+            "imageUrl": user.imageUrl,
             "status": user.status
         } for user in members}
     }
@@ -345,12 +344,12 @@ def delete_server_user(serverId, userId):
 
     # Find and delete the user to delete from server members
     user = ServerUser.query.filter(ServerUser.user_id == userId, ServerUser.server_id == serverId).one()
-    if role == "owner" and user.role == "owner": 
+    if role == "owner" and user.role == "owner":
         return {
             'errors': 'Owner can not delete owner'
         }
-    
-    if role == "admin" and user.role == "admin" or user.role == "owner": 
+
+    if role == "admin" and user.role == "admin" or user.role == "owner":
         return {
             'errors': 'admins can not delete admins/owners'
         }
