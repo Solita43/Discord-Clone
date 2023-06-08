@@ -2,5 +2,30 @@
   width: 296px;
   height: 60px;
   position: fixed;
-  bottom: 0;
+  bottom: 0px;
+  left: 72px;
+  background-color: #2A2A2E;
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+}
+
+.left-nav-bar {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+
+}
+
+.nav-user-profile-img {
+  width: 50px;
+  border-radius: 30px;
+}
+
+.nav-button {
+  cursor: pointer;
+}
+
+.nav-username {
+  color: white;
 }

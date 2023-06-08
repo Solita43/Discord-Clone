@@ -10,7 +10,6 @@ import './directMessages.css'
 import DropDownButton from "../DropDownButton";
 
 export default function DirectMessages() {
-
     let dispatch = useDispatch()
     let userConversations = Object.values(useSelector((state) => state.userConversations))
     userConversations = userConversations.sort((a, b) => {

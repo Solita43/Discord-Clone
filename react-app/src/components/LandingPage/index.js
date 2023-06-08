@@ -91,9 +91,27 @@ export default function LandingPage() {
                     </div>
 
 
-
-
-                    <div className="footer"></div>
+                    <div className="footer">
+                        <div className="footer-container">
+                            <h2>Meet the Developers</h2>
+                            <div className="coder-info">
+                                <img className="coder-image"></img>
+                                <p className="coder-name"></p>
+                            </div>
+                            <div className="coder-info">
+                                <img className="coder-image"></img>
+                                <p className="coder-name"></p>
+                            </div>
+                            <div className="coder-info">
+                                <img className="coder-image"></img>
+                                <p className="coder-name"></p>
+                            </div>
+                            <div className="coder-info">
+                                <img className="coder-image"></img>
+                                <p className="coder-name"></p>
+                            </div>
+                        </div>
+                    </div>
 
                 </div>
                 <div>
