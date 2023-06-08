@@ -27,3 +27,8 @@
   display: flex;
   position: relative;
 }
+
+#socket-container {
+  width: 100%;
+  margin-top: 3rem;
+}

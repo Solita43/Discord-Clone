@@ -79,14 +79,18 @@ html, body, #root {
 
 .tooltip::before,
 .tooltip::after {
-  --scale: 0;
+  /* --scale: 0; */
   --arrow-size: 12px;
   --tooltip-color: #232326;
   
   position: absolute;
+  display: none;
+  z-index: 3;
+
   top: 50%;
   left: 140%;
-  transform: translateY(-50%) scale(var(--scale));
+  transform: translateY(-50%) ;
+/* scale(var(--scale) */
 }
 
 .tooltip::before {
@@ -101,8 +105,9 @@ html, body, #root {
 
 .tooltip:hover::before,
 .tooltip:hover::after {
-  --scale: 1;
-  z-index: 2;
+  /* --scale: 1; */
+  z-index: 3;
+  display: block;
 }
 
 .tooltip::after {

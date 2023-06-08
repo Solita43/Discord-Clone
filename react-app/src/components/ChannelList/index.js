@@ -8,6 +8,7 @@ import EditChannelModal from "../EditChannelModal"
 import MenuDropdown from "../Navigation/MenuDropdown";
 import CreateChannelModal from "../CreateChannelModal";
 import DropDownButton from "../DropDownButton";
+import TitleBar from "../TitleBar";
 
 export default function ChannelList() {
   const params = useParams();
@@ -60,10 +61,11 @@ export default function ChannelList() {
 
   return (
     <>
+      <TitleBar serverId={serverId} title={displayName(allServers[serverId].name)} />
       <div id="conversations-container">
         {/* <div className="server-header"> */}
         {/* <h1 className="dm-title">{displayName(allServers[serverId].name)}</h1> */}
-          <DropDownButton serverId={serverId} title={displayName(allServers[serverId].name)} />
+          {/* <DropDownButton serverId={serverId} title={displayName(allServers[serverId].name)} /> */}
 
         {
           groupNames.map(name => {

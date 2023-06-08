@@ -104,7 +104,7 @@ export default function ChannelMessages() {
     if (isLoading) return (<div style={{width: "100%"}}></div>)
 
     return (
-        <div style={{width: "100%"}}>
+        <div id="socket-container">
             <div>
                 {messages && messages.map((message) => {
                     return (

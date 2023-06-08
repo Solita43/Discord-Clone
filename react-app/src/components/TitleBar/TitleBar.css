@@ -1,8 +1,32 @@
-#top-bar {
-    display: none;
-    height: 72px;
-    position: absolute;
-    z-index: 2;
-    background-color: var(--channel-nav);
-    width: 100vw;
+.top-bar {
+  display: flex;
+  height: 3rem;
+  position: absolute;
+  z-index: 0;
+  background-color: var(--channel-nav);
+  width: 100vw;
+  margin-left: 72px;
+  border-bottom: .1rem solid var(--left-right-nav);
+  box-shadow: var(--left-right-nav) .1rem .1rem .4rem ;
+}
+
+#channel-top-title {
+  display: flex;
+  align-items: center;
+  padding-left: 0.3rem;
+  width: 100%;
+  color: var(--text);
+  background-color: var(--center-page);
+}
+
+.top-title {
+  font-size: 1.3rem;
+  font-weight: 500;
+}
+
+.title-profile-img {
+  border-radius: 100%;
+  width: 3rem;
+  padding: .4rem;
+  height: auto;
 }

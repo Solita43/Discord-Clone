@@ -8,6 +8,7 @@ import ConversationMessages from "./ConversationMessages";
 import OpenModalButton from "../OpenModalButton";
 import './directMessages.css'
 import DropDownButton from "../DropDownButton";
+import TitleBar from "../TitleBar";
 
 export default function DirectMessages() {
 
@@ -32,8 +33,9 @@ export default function DirectMessages() {
     }
     return (
         <>
+            <TitleBar title="Direct Messages" users={users} />
             <div id="conversations-container">
-                <DropDownButton title="Direct Messages" />
+                {/* <DropDownButton title="Direct Messages" users={users} /> */}
 
 
 
