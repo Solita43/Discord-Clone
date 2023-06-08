@@ -44,9 +44,12 @@ function SignupFormModal() {
 				<h1 className="form-title">Sign Up</h1>
 				<form className="form-box" onSubmit={handleSubmit}>
 					<ul className="errors">
-						{errors.map((error, idx) => (
-							<li key={idx}>{error}</li>
-						))}
+						{Object.values(errors).map((error, idx) => {
+							console.log(error)
+							return (
+								<li key={idx}>{error}</li>
+							)
+						})}
 					</ul>
 					<label className="signup-labels">
 						First Name
