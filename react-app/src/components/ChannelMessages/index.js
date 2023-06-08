@@ -44,14 +44,16 @@ export default function ChannelMessages() {
     socket = io();
 
     socket.on("channel_message", (channel_message) => {
-      if (channelId == channel_message.channelId) {
-        setMessages((messages) => [...messages, channel_message]);
-      }
+    //   if (channelId == channel_message.channelId) {
+    //     setMessages((messages) => [...messages, channel_message]);
+    //   }
+        dispatch(getChannelMessagesThunk(channelId));
     });
     socket.on("delete_channel_message", (deleted_message) => {
-      setMessages((messages) => {
-        return messages.filter((message) => message.id !== deleted_message.id);
-      });
+    //   setMessages((messages) => {
+    //     return messages.filter((message) => message.id !== deleted_message.id);
+    //   });
+    dispatch(getChannelMessagesThunk(channelId));
     });
 
     socket.on("update_channel_message", (channel_message) => {

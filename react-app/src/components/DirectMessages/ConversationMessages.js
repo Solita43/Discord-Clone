@@ -51,14 +51,16 @@ export default function ConversationMessages() {
     socket = io();
     socket.on("direct_message", (direct_message) => {
       // when we recieve a chat add to our messages array in our usestate
-      setMessages((messages) => [...messages, direct_message]);
+    //   setMessages((messages) => [...messages, direct_message]);
       // updating store
+      dispatch(getConversationMessagesThunk(conversationId));
       dispatch(getConversationsThunk());
     });
     socket.on("delete_direct_message", (deleted_message) => {
-      setMessages((messages) => {
-        return messages.filter((message) => message.id !== deleted_message.id);
-      });
+    //   setMessages((messages) => {
+    //     return messages.filter((message) => message.id !== deleted_message.id);
+    //   });
+    dispatch(getConversationsThunk());
     });
 
     socket.on("update_direct_message", (update_direct_message) => {
