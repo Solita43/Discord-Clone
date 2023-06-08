@@ -21,7 +21,7 @@ export default function ServerUserList() {
 
 
     return (
-        <div className="channels-list-box">
+        <div id="conversations-container">
 
 
             <span>Owner</span>

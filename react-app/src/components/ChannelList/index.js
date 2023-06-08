@@ -7,6 +7,7 @@ import OpenModalButton from "../OpenModalButton";
 import EditChannelModal from "../EditChannelModal"
 import MenuDropdown from "../Navigation/MenuDropdown";
 import CreateChannelModal from "../CreateChannelModal";
+import DropDownButton from "../DropDownButton";
 
 export default function ChannelList() {
   const params = useParams();
@@ -34,20 +35,12 @@ export default function ChannelList() {
   }, [dispatch, serverId]);
 
   useEffect(() => {
-    setServerDetail(serverDetails);
+    setServerDetail(serverDetails)
   }, [serverDetails]);
-
-  const displayName = (name) => {
-    if (name.length > 12) {
-      return name.slice(0, 11) + "..."
-    }
-  }
 
 
   if (!serverDetails[serverId]) {
-    return (
-      <div className="channels-list-box"></div>
-    )
+    return <div id="conversations-container"></div>
   }
 
   const serverDisplay = serverDetails[serverId];
@@ -57,18 +50,59 @@ export default function ChannelList() {
   const groupIds = serverDetails[serverId].groupIds
   const defaultChannel = allServers[serverId].default_channel_id;
 
-
+  const displayName = (name) => {
+    if (name.length > 14) {
+      return name.slice(0, 14) + "..."
+    } else {
+      return name
+    }
+  }
 
   return (
+    <>
+      <div id="conversations-container">
+        {/* <div className="server-header"> */}
+        {/* <h1 className="dm-title">{displayName(allServers[serverId].name)}</h1> */}
+          <DropDownButton serverId={serverId} title={displayName(allServers[serverId].name)} />
 
-    <div className="channels-list-box">
-      {/* <div className="server-header"> */}
-      {/* <h1 className="dm-title">{displayName(allServers[serverId].name)}</h1> */}
-      <div className="server-menu">
-        <MenuDropdown serverId={serverId} serverName={allServers[serverId].name} />
+        {
+          groupNames.map(name => {
+            return (
+              <div key={name}>
+                <div className="group-container" onMouseOver={(e) => {
+                  const button = document.getElementById(`new-channel-button-${name}`)
+                  button.className = "edit-channel-name-button"
+                }} onMouseLeave={(e) => {
+                  const button = document.getElementById(`new-channel-button-${name}`)
+                  button.className = "hidden"
+                }}>
+                  {name}
+                  <OpenModalButton id={`new-channel-button-${name}`} buttonText={(<i className="fa-solid fa-plus add-channel"></i>)} className={"hidden"} modalComponent={<CreateChannelModal groupId={groupIds[name]} serverId={parseInt(serverId)} defaultChannel={defaultChannel} />} />
+                </div>
+                {Object.keys(channels[name]).map((channelName) => {
+                  return (
+                    <div className="channel-container" onMouseOver={(e) => {
+                      const button = document.getElementById(`channel-edit-${channelName}`)
+                      button.className = "edit-channel-name-button"
+                    }} onMouseLeave={(e) => {
+                      const button = document.getElementById(`channel-edit-${channelName}`)
+                      button.className = "hidden"
+                    }} onClick={() => history.push(`/channels/${serverId}/${channels[name][channelName].id}`)}>
+                      <span id="channel"><i class="fa-solid fa-hashtag"></i>{channelName}</span>
+                      <OpenModalButton id={`channel-edit-${channelName}`} buttonText={(<i class="fa-solid fa-gear"></i>) }className={"hidden"} modalComponent={<EditChannelModal channels={channels} channelName={channelName} groupNames={groupNames} groupIds={groupIds} defaultChannel={defaultChannel} />} />
+                    </div>
+                  )
+                })}
+              </div>
+            )
+          })
+        }
       </div>
-      {/* </div> */}
-      <ul>
+    </>);
+
+
+  {/* </div> */ }
+  {/* <ul>
         {groupNames.map((name) => {
           return (
             <>
@@ -101,8 +135,8 @@ export default function ChannelList() {
             </>
           );
         })}
-      </ul>
-    </div>
+      </ul> */}
 
-  );
+
+
 }

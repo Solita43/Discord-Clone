@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import OpenModalButton from "../OpenModalButton";
 import "./Navigation.css"
-import CreateServerModal from "../CreateServerModal"
 import DeleteServerModal from "../DeleteServerModal"
 import CreateGroupModal from "../CreateGroupModal";
 import EditServerModal from "../EditSeverModal"
@@ -41,34 +40,36 @@ function MenuDropdown({ serverId, serverName }) {
 
   return (
     <>
-      <button className="server-menu" onClick={openMenu}>
+      <div className="server-menu" onClick={openMenu}>
         <div className="server-header">
           <h1 className="server-title">{displayName(serverName)}</h1>
         </div>
         <div className="icon">
           <i className="fa-solid fa-chevron-down" />
         </div>
-      </button>
-      <ul className={ulClassName} ref={ulRef}>
-        <OpenModalButton
-          buttonText="Edit Server"
-          className="server-menu-buttons"
-          onItemClick={closeMenu}
-          modalComponent={<EditServerModal serverId={serverId} />}
-        />
-        <OpenModalButton
-          buttonText="Create Group"
-          className="server-menu-buttons"
-          onItemClick={closeMenu}
-          modalComponent={<CreateGroupModal title="Create Group" serverId={serverId} />}
-        />
-        <OpenModalButton
-          buttonText="Delete Server"
-          className="server-menu-buttons"
-          onItemClick={closeMenu}
-          modalComponent={<DeleteServerModal serverId={serverId} serverName={serverName} />}
-        />
-      </ul>
+      </div>
+      <div id="dropdown-container">
+        <div className={ulClassName} ref={ulRef}>
+          <OpenModalButton
+            buttonText="Edit Server"
+            className="server-menu-buttons"
+            onItemClick={closeMenu}
+            modalComponent={<EditServerModal serverId={serverId} />}
+          />
+          <OpenModalButton
+            buttonText="Create Group"
+            className="server-menu-buttons"
+            onItemClick={closeMenu}
+            modalComponent={<CreateGroupModal title="Create Group" serverId={serverId} />}
+          />
+          <OpenModalButton
+            buttonText="Delete Server"
+            className="server-menu-buttons"
+            onItemClick={closeMenu}
+            modalComponent={<DeleteServerModal serverId={serverId} serverName={serverName} />}
+          />
+        </div>
+      </div>
     </>
   );
 }
