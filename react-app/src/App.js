@@ -28,10 +28,8 @@ function App() {
     <>
       {isLoaded && (
         <>
-          <div id="bars">
-            <Navigation isLoaded={isLoaded} />
-            <TitleBar />
-          </div>
+          <Navigation isLoaded={isLoaded} />
+            {/* <TitleBar /> */}
           <LogoutNav />
           <Switch>
             <Route exact path="/home">

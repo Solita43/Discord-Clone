@@ -37,10 +37,11 @@ function Navigation({ isLoaded }) {
 
 
   return (
+  
     <div className="nav-root">
       <div className="server-nav-bar">
-        <ol>
-          <li className="tooltip" data-tooltip={"Direct Messages"}>
+        <div>
+          <div className="tooltip" data-tooltip={"Direct Messages"}>
             <a className="dm-anchor-tag">
               <div className="server-icons dm-div">
                 <img
@@ -50,10 +51,10 @@ function Navigation({ isLoaded }) {
                 />
               </div>
             </a>
-          </li>
+          </div>
           {Object.values(servers).map((server) => {
             return (
-              <li
+              <div
                 key={server.id}
                 className="tooltip"
                 data-tooltip={server.name}
@@ -61,19 +62,19 @@ function Navigation({ isLoaded }) {
                 <NavLink to={`/channels/${server.id}/${server.default_channel_id}`}>
                   <img className="server-icons" src={server.imageUrl} />
                 </NavLink>
-              </li>
+              </div>
             );
           })}
-          <li className="tooltip server icons" data-tooltip="Add a Server">
+          <div className="tooltip server icons" data-tooltip="Add a Server">
             <OpenModalButton id='create-a-server' modalComponent={<CreateServerModal title="Create a Server" />} buttonText={<i className="fa-solid fa-plus" id='create-a-server'></i>} />
-          </li>
-          <li className="tooltip server icons" data-tooltip="Explore Servers">
+          </div>
+          <div className="tooltip server icons" data-tooltip="Explore Servers">
             <NavLink to="/servers/explore">
               <button><i className="fa-solid fa-plus" id='create-a-server'></i></button>
 
             </NavLink>
-          </li>
-        </ol>
+          </div>
+        </div>
       </div>
     </div>
   );
