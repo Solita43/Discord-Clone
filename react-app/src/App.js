@@ -28,27 +28,36 @@ function App() {
     <>
       {isLoaded && (
         <>
-          <Navigation isLoaded={isLoaded} />
+          {/* <Navigation isLoaded={isLoaded} /> */}
             {/* <TitleBar /> */}
-          <LogoutNav />
+          
           <Switch>
             <Route exact path="/home">
+            <Navigation isLoaded={isLoaded} />
               <DirectMessages />
+              <LogoutNav />
               {/* <CreateConversation /> */}
             </Route>
             <Route exact path="/conversations">
+            <Navigation isLoaded={isLoaded} />
               <DirectMessages />
+              <LogoutNav />
             </Route>
             <Route exact path="/conversations/:conversationId">
+            <Navigation isLoaded={isLoaded} />
               <DirectMessages />
               <ConversationMessages />
+              <LogoutNav />
             </Route>
             <Route exact path="/channels/:serverId/:channelId">
+            <Navigation isLoaded={isLoaded} />
               <ChannelList />
               <ChannelMessages />
               <ServerUserList />
+              <LogoutNav />
             </Route>
             <Route exact path='/servers/explore'>
+            <Navigation isLoaded={isLoaded} />
               <ExploreServers />
             </Route>
           </Switch>

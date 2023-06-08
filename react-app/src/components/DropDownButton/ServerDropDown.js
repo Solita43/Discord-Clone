@@ -4,7 +4,8 @@ import DeleteServerModal from "../DeleteServerModal"
 import CreateGroupModal from "../CreateGroupModal";
 import EditServerModal from "../EditSeverModal"
 
-function ServerDropDown(serverId, serverName, closeMenu) {
+function ServerDropDown({serverId, serverName, closeMenu}) {
+
     return (
         <>
             <OpenModalButton

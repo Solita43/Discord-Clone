@@ -41,7 +41,7 @@ export default function ChannelList() {
 
 
   if (!serverDetails[serverId]) {
-    return <div id="conversations-container"></div>
+    return (<div id="conversations-container"></div>)
   }
 
   const serverDisplay = serverDetails[serverId];
@@ -49,8 +49,10 @@ export default function ChannelList() {
 
   const groupNames = Object.keys(channels);
   const groupIds = serverDetails[serverId].groupIds
-  const defaultChannel = allServers[serverId].default_channel_id;
-
+  let defaultChannel;
+if(allServers[serverId]){
+  defaultChannel = allServers[serverId].default_channel_id
+}
   const displayName = (name) => {
     if (name.length > 14) {
       return name.slice(0, 14) + "..."
@@ -62,7 +64,7 @@ export default function ChannelList() {
   return (
     <>
       <TitleBar serverId={serverId} title={displayName(allServers[serverId].name)} />
-      <div id="conversations-container">
+      <div id="conversations-container" className="channel-list-scroll">
         {/* <div className="server-header"> */}
         {/* <h1 className="dm-title">{displayName(allServers[serverId].name)}</h1> */}
           {/* <DropDownButton serverId={serverId} title={displayName(allServers[serverId].name)} /> */}

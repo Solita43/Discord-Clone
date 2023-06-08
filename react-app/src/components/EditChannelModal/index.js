@@ -9,8 +9,6 @@ import { channelEdit, deleteChannel, serverDetailsGet } from "../../store/server
 
 export default function EditChannelModal(props) {
     const { channels, channelName, groupNames, groupIds, defaultChannel } = props;
-    console.log(defaultChannel)
-    console.log(groupIds)
     const dispatch = useDispatch();
     const [errors, setErrors] = useState([]);
     let channelInfo = {};
@@ -32,7 +30,6 @@ export default function EditChannelModal(props) {
         e.preventDefault();
         const channelId = channelInfo.id;
         const groupId = groupIds[groupName];
-        console.log("groupId", groupId)
         const body = {
             "groupId": groupId,
             "serverId": channelInfo.server_id,
@@ -52,7 +49,6 @@ export default function EditChannelModal(props) {
     const deleteChannelFunction = async (e) => {
         e.preventDefault(); 
         const channelId = channelInfo.id;
-        console.log("Deleting Channel lolz", channelId)
         const data = await dispatch(deleteChannel(channelId))
         if (data) {
             setErrors(data); 

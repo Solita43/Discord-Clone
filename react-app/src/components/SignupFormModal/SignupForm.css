@@ -3,7 +3,7 @@
   flex-direction: column;
   align-items: center;
   width: 558px;
-  height: 710px;
+  height: auto;
   box-sizing: border-box;
   border-radius: 35px;
   background-color: #33343d;

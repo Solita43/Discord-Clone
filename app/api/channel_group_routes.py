@@ -12,16 +12,12 @@ def index(serverId):
 
     role = get_user_role(current_user.id, serverId)
     if role != "owner" and role != 'admin':
-        return {'errors': ['Forbidden']}, 403
+        return {"errors":"Must be an owner or admin to create a channel group"}, 403
     
     data = request.get_json()
     groups = {group.name for group in Server.query.get(serverId).groups}
     if data["name"] in groups:
-        return {
-                "errors": {
-                    "name": "Group with that name already exists on this server"
-                }
-        }
+        return {"errors":"A group with that name already exists on the server"}, 403
     
     form = ChannelGroupForm()
     form['csrf_token'].data = request.cookies['csrf_token']

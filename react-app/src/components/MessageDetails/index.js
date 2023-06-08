@@ -45,14 +45,15 @@ export default function MessageDetails({ message }) {
     // }
 
 
-    return (<div key={message.id}>
-        <div>
-            {message.UserInfo.username}
+    return (<div className="container-messages" key={message.id}>
+        <div className="message-user-img">
             <img className="dm-profile-img" src={message.UserInfo.userIcon}></img>
-
         </div>
-        <p>{message.updatedAt}</p>
-        <div>
+        <div className="message-info">
+            <div className="message-user-info">
+            {message.UserInfo.username}
+            <p className="message-time-updated">{message.updatedAt}</p>
+            </div>
             {message.message}
             {/* <button
                 onClick={() => buttonClick(message.id)}

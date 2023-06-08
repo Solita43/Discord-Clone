@@ -7,7 +7,6 @@ import { channelEdit, deleteChannel, serverDetailsGet, createChannel } from "../
 
 export default function CreateChannelModal(props) {
     const { groupId, serverId, defaultChannel } = props
-    console.log(groupId, serverId)
     const [errors, setErrors] = useState([]);
     const [name, setName] = useState("");
     const history = useHistory();
@@ -24,10 +23,7 @@ export default function CreateChannelModal(props) {
             isPrivate: false
         }
         const data = await dispatch(createChannel(body));
-        // if (data) {
-        //     setErrors(data);
-        // } else {
-        console.log(data)
+        
         if (typeof data.name !== "string") {
             setErrors(data)
         } else {
@@ -35,7 +31,6 @@ export default function CreateChannelModal(props) {
             closeModal();
             history.push(`/channels/${serverId}/${data.id}`)
         }
-        // }
     }
 
 

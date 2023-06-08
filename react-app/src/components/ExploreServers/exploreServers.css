@@ -9,6 +9,7 @@
   align-items: center;
   /* grid-template-columns: 1fr 1fr 1fr 1fr; */
   margin: auto;
+  
 }
 
 .server-container {
@@ -21,6 +22,7 @@
 .server-container-bottom {
   display: flex;
   flex-direction: column;
+  color: white;
   flex-wrap: wrap;
   height: 50px;
 }
@@ -31,4 +33,5 @@
 }
 #explore-container {
   width: 100%;
+  background-color: var(--channel-nav);
 }

@@ -20,6 +20,10 @@
   gap: .5rem;
 }
 
+.channel-list-scroll {
+  overflow: scroll; 
+}
+
 /* .group-container {
  
   padding: .5rem;

@@ -81,14 +81,7 @@
   left: 1482px;
 }
 
-.footer {
-  background-color: #33343d;
-  width: 100%;
-  height: 10rem;
-  position: fixed;
-  bottom: 0;
-  z-index: 2;
-}
+
 
 .profile-dropdown {
   position: absolute;

@@ -26,7 +26,7 @@ def create_channel():
     role = get_user_role(current_user.id, serverId)
 
     if role != "owner" and role != 'admin':
-        return {'errors': ['Forbidden']}, 403
+        return {"errors":"Must be an owner or admin to create a channel"}, 403
     
     form = ChannelForm()
     form['csrf_token'].data = request.cookies['csrf_token']
@@ -62,7 +62,7 @@ def edit_channel(channelId):
     role = get_user_role(current_user.id, serverId)
 
     if role != "owner" and role != 'admin':
-        return {'errors': ['Forbidden']}, 403
+        return {"errors":"Must be an owner or admin to edit a channel"}, 403
     
     form = ChannelForm()
     edit_channel = Channel.query.get(channelId); 
@@ -96,7 +96,7 @@ def delete_channel(channelId):
     role = get_user_role(current_user.id, channel.server_id)
 
     if role != "owner" and role != 'admin':
-        return {'errors': ['Forbidden']}, 403
+        return {"errors":"Must be an owner or admin to delete a channel"}, 403
     
     db.session.delete(channel)
     db.session.commit()

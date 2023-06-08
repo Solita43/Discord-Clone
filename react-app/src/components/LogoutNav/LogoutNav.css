@@ -1,5 +1,5 @@
 .bottom-nav {
-  width: 296px;
+  width: 240px;
   height: 60px;
   position: fixed;
   bottom: 0px;
@@ -8,6 +8,7 @@
   display: flex;
   justify-content: space-between;
   padding: 10px;
+  align-items: center;
 }
 
 .left-nav-bar {
@@ -18,14 +19,21 @@
 }
 
 .nav-user-profile-img {
-  width: 50px;
+  width: 40px;
   border-radius: 30px;
 }
 
 .nav-button {
   cursor: pointer;
+  background-color: #65656b5b;
+  border-radius: 15px;
+  color: white;
+  width: 90px;
+  border: none;
+  height: 34px;
 }
 
 .nav-username {
   color: white;
+  font-size:14px;
 }

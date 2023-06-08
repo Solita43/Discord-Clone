@@ -4,7 +4,7 @@
   position: absolute;
   z-index: 0;
   background-color: var(--channel-nav);
-  width: 100vw;
+  width: calc(100% - 72px);
   margin-left: 72px;
   border-bottom: .1rem solid var(--left-right-nav);
   box-shadow: var(--left-right-nav) .1rem .1rem .4rem ;
@@ -29,4 +29,8 @@
   width: 3rem;
   padding: .4rem;
   height: auto;
+}
+
+i.fa-solid.fa-hashtag.title-icon {
+  font-size: 1.5rem;
 }

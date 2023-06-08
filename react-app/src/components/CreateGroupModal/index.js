@@ -11,7 +11,6 @@ export default function CreateGroupModal({ serverId }) {
     const history = useHistory();
     const dispatch = useDispatch();
     const { closeModal } = useModal();
-
     const handleSubmit = async (e) => {
         e.preventDefault();
         const data = await dispatch(createChannelGroupThunk({
@@ -23,7 +22,8 @@ export default function CreateGroupModal({ serverId }) {
         if (data) {
             setErrors(data); 
         } else {
-            dispatch(serverDetailsGet(serverId.serverId));
+            
+            dispatch(serverDetailsGet(serverId));
             closeModal()
         }
 

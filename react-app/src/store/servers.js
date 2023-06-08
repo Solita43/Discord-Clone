@@ -69,7 +69,6 @@ export const addServerUserThunk = (id, body) => async dispatch => {
         body: JSON.stringify(body)
     })
     const data = await res.json()
-    console.log("DATA", data);
     if (res.ok) {
         return data
     }
@@ -175,24 +174,21 @@ export const createChannel = (body) => async (dispatch) => {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(body)
     })
+    const data = await res.json(); 
     if (res.ok) {
-        const data = await res.json()
         return data
     } else {
-        const data = await res.json();
         return data;
     }
 }
 
 export const createChannelGroupThunk = (data) => async (dispatch) => {
-    console.log(data)
-    const res = await fetch(`/api/channelGroups/${data.serverId.serverId}`, {
+    const res = await fetch(`/api/channelGroups/${data.serverId}`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(data)
     })
     const errors = await res.json(); 
-    console.log(errors)
 
     if (res.ok) {
         return null; 

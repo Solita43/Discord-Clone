@@ -14,11 +14,15 @@ export default function ServerUserList() {
     }
 
     const allUsers = serverDetails[serverId].users;
-    const users = serverDetails[serverId].userRoles.users;
-    const admins = serverDetails[serverId].userRoles.admins;
-    const owner = serverDetails[serverId].userRoles.owner;
-    console.log(users, admins, owner)
-
+    const users = serverDetails[serverId].userRoles.users.sort((a, b) => {
+        return b - a
+    });
+    const admins = serverDetails[serverId].userRoles.admins.sort((a, b) => {
+        return b - a
+    });
+    const owner = serverDetails[serverId].userRoles.owner.sort((a, b) => {
+        return b - a
+    });
 
     return (
         <div id="conversations-container" className="server-user-list">

@@ -14,18 +14,12 @@ export default function CreateConversationModal({ users }) {
     const { closeModal } = useModal();
     const handleSubmit = async (e) => {
         let user = users.find(user => user.username === username)
-        // console.log("This is our user: ", user)
         e.preventDefault();
         const data = await dispatch(createNewConversationThunk(username))
-        // .then(dispatch(getConversationsThunk()))
         const { conversation_id } = data[user.userId]
 
         closeModal()
         return history.push(`/conversations/${conversation_id}`)
-        // return (<Redirect to={`/conversations/${conversation_id}`} />)
-
-
-
     }
 
     // dispatch to create a new conversation
@@ -34,9 +28,9 @@ export default function CreateConversationModal({ users }) {
     return (
         // make it so that you have an input field and uner you display all users in a multiple select
         <>
-            <div >
-                <h1 className="form-title"></h1>
-                <form onSubmit={handleSubmit}>
+            <div id="form-container">
+                <h1 className="form-title">Create a Conversation</h1>
+                <form className="form-box" onSubmit={handleSubmit}>
 
                     <label className="signup-labels">
                         User
@@ -54,8 +48,8 @@ export default function CreateConversationModal({ users }) {
                     {users.map((user) => {
                         return (
                             <div>
-                                <label>
-                                    <input type="checkbox" value={user.username}
+                                <label className="create-convo-label">
+                                    <input type="checkbox" className="create-convo-checkbox" value={user.username}
                                         key={user.userId}
                                         onChange={(e) => { setUsername(e.target.value) }}
                                         checked={username === user.username}
@@ -68,7 +62,7 @@ export default function CreateConversationModal({ users }) {
                         // </input>)
                     })}
                     <div>
-                        <button type="submit">Create DM</button>
+                        <button id="form-button" type="submit">Create DM</button>
                     </div>
 
                 </form>

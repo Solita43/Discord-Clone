@@ -48,7 +48,7 @@ def delete_message(data):
 def update_direct_message(data):
     message = DirectMessage.query.get(data['messageId'])
     message.message = data['message']
-    message.updated_at = datetime.utcnow()
+    # message.updated_at = datetime.utcnow()
     temp = message.to_dict()
     # print("TEMP MESSAGE",temp)
     db.session.commit()
@@ -90,7 +90,7 @@ def update_channel_message(data):
     #turn to a to_dict to send over
     message = ChannelMessage.query.get(data['message_id'])
     message.message = data['message']
-    message.updated_at = datetime.utcnow()
+    # message.updated_at = datetime.utcnow()
     temp = message.to_dict()
     db.session.commit()
     emit("update_channel_message",temp,broadcast=True)

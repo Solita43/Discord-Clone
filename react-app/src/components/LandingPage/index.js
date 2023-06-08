@@ -24,7 +24,6 @@ export default function LandingPage() {
 
     const root = window.document.getElementById('root')
     root.style.display = 'block'
-    // console.log("ROOT", root.style);
 
 
     return (
@@ -94,21 +93,24 @@ export default function LandingPage() {
                     <div className="footer">
                         <div className="footer-container">
                             <h2>Meet the Developers</h2>
+                            <div className="developer-info-boxes">
                             <div className="coder-info">
                                 <img className="coder-image"></img>
-                                <p className="coder-name"></p>
+                                <p className="coder-name">Benjamin Wilson</p>
                             </div>
                             <div className="coder-info">
                                 <img className="coder-image"></img>
-                                <p className="coder-name"></p>
+                                <p className="coder-name">Melinda Cortez</p>
                             </div>
                             <div className="coder-info">
                                 <img className="coder-image"></img>
-                                <p className="coder-name"></p>
+                                <p className="coder-name">Beverly Duran</p>
                             </div>
                             <div className="coder-info">
                                 <img className="coder-image"></img>
-                                <p className="coder-name"></p>
+                                <p className="coder-name">Jay Levin</p>
+                            </div>
+
                             </div>
                         </div>
                     </div>

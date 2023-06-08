@@ -21,10 +21,12 @@
  * A few things we learned:
     * How to build out a backend API server using Python
     * Collaboration skills
-    * Ways React allows multiple developers to divide up a project in to more manageable chunks. 
+    * Leveraging web sockets to support chat messages
+    * Ways React allows multiple developers to divide up a project in to more manageable chunks and components. 
 
  * A few skills we improved upon: 
-   * We greatly improved our skills with Redux in terms of building out a store and ensuring the reducers give new memory addresses to updated data. 
+   * We greatly improved our skills with Redux in terms of building out a store, determining optimal data structures, and ensuring the reducers give new memory addresses to updated data. 
+  
    
  
 
@@ -43,7 +45,7 @@
  * SQAlchemy: https://www.sqlalchemy.org/
  * Flask: https://flask.palletsprojects.com/en/2.3.x/
  * WTForms: https://wtforms.readthedocs.io/en/3.0.x/
- *  
+
 
 ## Features
 
@@ -54,8 +56,14 @@
 
 <!-- TODO: Include icons and links to your RELEVANT, PROFESSIONAL 'DEV-ORIENTED' social media. LinkedIn and dev.to are minimum. -->
   * Jay Levin: 
+    * LinkedIn: https://www.linkedin.com/in/jay-levin/
+    * GitHub:https://github.com/jaylevin96
   * Beverly Duran: 
-  * Melinda Cortez: 
+    * LinkedIn: https://www.linkedin.com/in/beverly-duran/
+    * GitHub: https://github.com/duranbeverly
+  * Melinda Cortez:
+    * LinkedIn: https://www.linkedin.com/in/melinda-cortez-3581b0139/
+    * GitHub: https://github.com/Solita43
   * Benjamin Wilson: 
     * LinkedIn: https://www.linkedin.com/in/benjamin-wilson-2a39ab271/
     * Git Hub: https://github.com/BenjaminWilson13

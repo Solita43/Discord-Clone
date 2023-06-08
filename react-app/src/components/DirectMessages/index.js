@@ -50,7 +50,7 @@ export default function DirectMessages() {
                                         <p className="dm-username">{conversation.username}</p>
                                     </div>
                                     <div className="dm-right">
-                                        <i className="fa-solid fa-xmark"
+                                        <i id="delete-convo" className="fa-solid fa-xmark"
                                             onClick={() => deleteConversation(conversation.conversation_id, conversation.userId)}
 
                                         ></i>

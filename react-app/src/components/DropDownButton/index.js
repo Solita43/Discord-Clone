@@ -33,11 +33,20 @@ function DropDownButton({ serverId, title, users}) {
     const ulClassName = "server-dropdown" + (showMenu ? "" : " hidden");
     const closeMenu = () => setShowMenu(false);
 
+    
+    const displayName = (name) => {
+        if (name.length > 14) {
+          return name.slice(0, 14) + "..."
+        } else {
+          return name
+        }
+      }
+
     return (
         <>
             <div className={title === "Direct Messages" ? "dm-title-div": "dropdown-title-div"} onClick={openMenu}>
                 <div>
-                    <h1 className="dropdown-title">{title}</h1>
+                    <h1 className="dropdown-title">{title === "Direct Messages" ? "Direct Messages": displayName(title) }</h1>
                 </div>
                 {title === "Direct Messages" ? <OpenModalButton buttonText={<i className="fa-solid fa-plus" id="dm-plus"></i>} className="dropdown-icon-plus" modalComponent={< CreateConversationModal users={users} />} /> :
                  (<div className="dropdown-icon">
@@ -49,7 +58,7 @@ function DropDownButton({ serverId, title, users}) {
             </div>
             <div id="dropdown-container">
                 <div className={ulClassName} ref={ulRef}>
-                    {title === "Direct Messages" ? null : <ServerDropDown serverId={serverId} serverName={title} closeMenu={closeMenu} />}
+                    {title === "Direct Messages" ? null : <ServerDropDown serverId={serverId} serverName={title} closeMenu={closeMenu} ulRef={ulRef} />}
                 </div>
             </div>
         </>

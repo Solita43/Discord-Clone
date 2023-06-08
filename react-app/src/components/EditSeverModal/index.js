@@ -8,26 +8,30 @@ import { serverPost, serverEdit } from "../../store/servers";
 function EditServerModal({serverId}) {
     const server = useSelector(state => state.servers.AllServers[serverId])
     const dispatch = useDispatch(); 
-    const [name, setName] = useState(server.name);
+    const [name, setName] = useState(null);
+    if (server && !name) {
+        setName(server.name)
+    }
 	const { closeModal } = useModal();
     const history = useHistory(); 
-
-    console.log("MODAL SERVER", server)
 
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         
-        const server = {
+        const updated = {
             name
         }
             
-        dispatch(serverEdit(server, serverId))
+        dispatch(serverEdit(updated, serverId))
+
         
         closeModal()
         
         
     }
+
+    
 
     return (
         <div id="delete-form-container">

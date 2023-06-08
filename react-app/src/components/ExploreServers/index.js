@@ -35,12 +35,18 @@ export default function ExploreServers() {
                             <img className="explore-server-image" src={server.imageUrl}></img>
                             <div className="server-container-bottom">
                                 <div>{server.name}</div>
-                                <div>{server.userCount} users</div>
+                                <div>{server.userCount} {server.userCount>1? "users":"user"}</div>
 
 
                                 {!(server.id in userServers) && (<div>
                                     <OpenModalButton modalComponent={< JoinServerModal server={server} />} buttonText="Join" />
                                 </div>)}
+                                {server.id in userServers && 
+                                
+                                (<button onClick={()=>{
+                                    return history.push(`/channels/${server.id}/${server.default_channel_id}`)
+                                }}
+                                >Launch Server</button>)}
 
                             </div>
                         </div>

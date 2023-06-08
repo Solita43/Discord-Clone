@@ -26,11 +26,12 @@ html, body, #root {
 .server-nav-bar > ol {
   display: flex;
   flex-direction: column;
-  gap: .3rem;
+  gap: .5rem;
   list-style: none;
   padding: 0;
   margin: 0; 
   z-index: 0;
+
 }
 
 .server-nav-bar > ol::-webkit-scrollbar {
@@ -40,6 +41,7 @@ html, body, #root {
 .server-icons {
   width: 3rem;
   height: 3rem;
+  margin-top: .5rem;
   border-radius: 100%;
   background-color: #313137;
 }
@@ -204,7 +206,7 @@ li.top-right-nav {
   flex-direction: column;
   left: 20%;
   width: fit-content;
-  border: solid red 2px;
+  /* border: solid red 2px; */
   padding: .6rem;
   gap: .5rem;
   background-color: var(--modal-background);
@@ -220,3 +222,4 @@ li.top-right-nav {
 .hidden {
   display: none;
 }
+

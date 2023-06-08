@@ -21,7 +21,6 @@ function SignupFormModal() {
 	const handleSubmit = async (e) => {
 		e.preventDefault();
 		if (password === confirmPassword) {
-			console.log(firstname, lastname);
 			const data = await dispatch(signUp(username, email, password, firstname, lastname));
 
 			if (data) {
@@ -45,7 +44,6 @@ function SignupFormModal() {
 				<form className="form-box" onSubmit={handleSubmit}>
 					<ul className="errors">
 						{Object.values(errors).map((error, idx) => {
-							console.log(error)
 							return (
 								<li key={idx}>{error}</li>
 							)

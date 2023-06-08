@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { NavLink, Redirect, useHistory } from "react-router-dom";
+import { NavLink, Redirect, useHistory, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import "./Navigation.css";
 import { userServersGet } from "../../store/servers";
@@ -9,6 +9,9 @@ import { getConversationsThunk } from '../../store/userconversations';
 
 function Navigation({ isLoaded }) {
   const dispatch = useDispatch();
+  const params = useParams()
+  const {serverId} = params
+  console.log("server",params)
   const sessionUser = useSelector(state => state.session.user);
   const servers = useSelector(state => state.servers.AllServers);
   const history = useHistory();
@@ -53,6 +56,7 @@ function Navigation({ isLoaded }) {
             </a>
           </div>
           {Object.values(servers).map((server) => {
+
             return (
               <div
                 key={server.id}
@@ -60,17 +64,19 @@ function Navigation({ isLoaded }) {
                 data-tooltip={server.name}
               >
                 <NavLink to={`/channels/${server.id}/${server.default_channel_id}`}>
-                  <img className="server-icons" src={server.imageUrl} />
+                  <img className="server-icons" src={server.imageUrl}
+                  style={serverId == server.id ? {border:"2px solid white" ,borderRadius: "15px"}: {}}
+                  />
                 </NavLink>
               </div>
             );
           })}
-          <div className="tooltip server icons" data-tooltip="Add a Server">
+          <div className="tooltip server-icons" data-tooltip="Add a Server">
             <OpenModalButton id='create-a-server' modalComponent={<CreateServerModal title="Create a Server" />} buttonText={<i className="fa-solid fa-plus" id='create-a-server'></i>} />
           </div>
-          <div className="tooltip server icons" data-tooltip="Explore Servers">
+          <div className="tooltip server-icons" data-tooltip="Explore Servers">
             <NavLink to="/servers/explore">
-              <button><i className="fa-solid fa-plus" id='create-a-server'></i></button>
+              <button id='create-a-server'><i className="fa-solid fa-compass" id='create-a-server'></i></button>
 
             </NavLink>
           </div>
