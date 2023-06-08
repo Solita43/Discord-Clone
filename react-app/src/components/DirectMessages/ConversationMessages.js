@@ -106,12 +106,11 @@ export default function ConversationMessages() {
         e.preventDefault();
 
         if (chatInput.length > 255 || chatInput.length < 1) {
-            errors = {}
-            errors.chat = "Message must be between 1 and 255"
-            setErrors(errors);
-            return null
+            setErrors({ chat: "Message must be between 1 and 255" });
+            return
         }
         else {
+            setErrors("")
             socket.emit("direct_message", {
                 message: chatInput,
                 conversation_id: conversationId,
@@ -204,6 +203,7 @@ export default function ConversationMessages() {
 
             </div >
 
+            {errors && <p className="errors">{errors.chat}</p>}
             <form className="message-input-form" onSubmit={sendChat}>
                 <textarea className="message-input"
                     placeholder={`Message @${username}`}

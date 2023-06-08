@@ -7,9 +7,10 @@ import "./LogoutNav.css"
 
 export default function LogoutNav() {
     const history = useHistory();
+    const dispatch = useDispatch();
     const logout = (e) => {
         e.preventDefault()
-        dispatchEvent(sessionActions.logout())
+        dispatch(sessionActions.logout())
         history.push("/")
     }
     const sessionUser = useSelector(state => state.session.user)
@@ -17,8 +18,10 @@ export default function LogoutNav() {
     return (
         <>
             <div className="bottom-nav">
-                <img className="nav-user-profile-img" src={sessionUser.userIcon} />
-                <p className="nav-username">{sessionUser.username}</p>
+                <div className="left-nav-bar">
+                    <img className="nav-user-profile-img" src={sessionUser.userIcon} />
+                    <p className="nav-username">{sessionUser.username}</p>
+                </div>
                 <button className="nav-button" onClick={logout}>Log Out</button>
             </div>
 

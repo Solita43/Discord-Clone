@@ -105,7 +105,13 @@ a {
 .message-input {
   width: 100%;
 }
+
 .message-input-form {
   margin-top: 1em;
   width: 90%;
+}
+
+
+.errors {
+  font-size: 10px;
 }
