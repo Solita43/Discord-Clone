@@ -1,24 +1,70 @@
-.channel-list-wrapper {
+/* .channel-list-wrapper {
   display: grid;
   grid-template-columns: 2fr 5fr 1fr;
-}
+} */
 
 .hidden {
   display: none;
 }
 
-.channels-list-box {
+.group-container,
+.channel-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: .5rem;
+  color: var(--text);
+  font-size: .8rem;
+  cursor: pointer;
+  border-radius: .3rem;
+  gap: .5rem;
+}
+
+/* .group-container {
+ 
+  padding: .5rem;
+  color: var(--text);
+  font-size: .8rem;
+  cursor: pointer;
+} */
+
+.fa-hashtag {
+  font-size: .8rem;
+  padding-right: 0.2rem;
+  margin: 0;
+  color: var(--text);
+
+}
+
+/* .channel-container {
+
+  padding: .5rem;
+  color: var(--text);
+  font-size: .8rem;
+  cursor: pointer;
+  border-radius: .3rem;
+
+} */
+
+.group-container:hover,
+.channel-container:hover {
+  background-color: var(--hover-channel);
+
+
+}
+
+/* .channels-list-box {
   display: flex;
   flex-direction: column;
   width: 240px;
   background-color: var(--channel-nav);
   color: white;
   align-items: flex-start;
-  padding-top: .5rem;
+  padding-top: 0.5rem;
   padding-left: 1rem;
-}
+} */
 
-.channel-group-name {
+/* .channel-group-name {
   position: relative;
   font-weight: bold;
   font-size: 15px;
@@ -27,18 +73,17 @@
   padding-top: 1rem;
   padding-bottom: 0.5rem;
   width: 100%;
-}
+} */
 
-ul {
+/* ul {
   width: 100%;
-}
+} */
 
 .channel-name {
   position: relative;
   list-style: none;
   font-size: 12px;
   padding-left: 0.5rem;
-  padding-bottom: 0.8rem;
 }
 
 .channel-name:hover {
@@ -47,13 +92,17 @@ ul {
 }
 
 .edit-channel-name-button {
-  position: absolute;
-  left: 125px; 
-  bottom: 10px;
-  background-color: white;
+  margin-left: 0;
+  padding: 0;
+  background-color: var(--hover-channel);
   color: black;
-  border: 0; 
+  border: none;
   width: max-content;
+}
+
+.fa-gear,
+.add-channel {
+  font-size: .6rem;
 }
 
 .server-header {
@@ -68,9 +117,8 @@ ul {
   cursor: pointer;
   background-color: var(--channel-nav);
   border: none;
-  padding: .3rem;
+  padding: 0.3rem;
   width: 93%;
-  position: relative;
 }
 
 .server-menu:hover {
@@ -79,15 +127,19 @@ ul {
 
 .fa-chevron-down {
   font-size: 11px;
-
 }
 
 .icon {
   margin-left: auto;
+  position: relative;
 }
 
 .server-title {
   font-weight: 300;
   font-size: 18px;
   color: white;
+}
+
+#dropdown-container {
+  position: relative;
 }

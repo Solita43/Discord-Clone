@@ -7,6 +7,8 @@ import CreateConversationModal from "../CreateConversationModal";
 import ConversationMessages from "./ConversationMessages";
 import OpenModalButton from "../OpenModalButton";
 import './directMessages.css'
+import DropDownButton from "../DropDownButton";
+
 export default function DirectMessages() {
 
     let dispatch = useDispatch()
@@ -18,7 +20,7 @@ export default function DirectMessages() {
     let users = useSelector((state) => state.users)
     users = Object.values(users.allUsers)
     useEffect(() => {
-        dispatch(getConversationsThunk()).then(dispatch(getAllUsersThunk())).then(setIsLoading(false))
+        dispatch(getConversationsThunk()).then(dispatch(getAllUsersThunk())).then(() => setIsLoading(false))
     }, [])
 
     const deleteConversation = (id, userId) => {
@@ -31,16 +33,10 @@ export default function DirectMessages() {
     return (
         <>
             <div id="conversations-container">
-                <div className="dm-title-div">
-                    <h1 className="dm-title">Direct Messages</h1>
-                    <OpenModalButton
-                        buttonText="+"
-                        // onItemClick={closeMenu}
-                        className="add-conversation"
-                        modalComponent={< CreateConversationModal users={users} />}
-                    />
+                <DropDownButton title="Direct Messages" />
 
-                </div>
+
+
 
                 {userConversations.map(conversation => {
 

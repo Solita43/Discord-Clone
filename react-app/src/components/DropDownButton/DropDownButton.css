@@ -1,0 +1,34 @@
+.dropdown-title-div {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+  background-color: var(--channel-nav);
+  border: none;
+  padding: 0.3rem;
+  width: 93%;
+  border-bottom: 1px solid black;
+  cursor: pointer;
+
+}
+
+.dropdown-title-div:hover {
+  background-color: var(--hover-channel);
+}
+
+.dropdown-title {
+  gap: 1rem;
+  max-width: fit-content;
+  font-size: 1.3rem;
+  font-weight: 300;
+  color: white;
+}
+
+.dropdown-icon {
+  margin-left: auto;
+  position: relative;
+}
+
+.fa-chevron-down {
+  font-size: 11px;
+}
