@@ -67,6 +67,12 @@ function Navigation({ isLoaded }) {
           <li className="tooltip server icons" data-tooltip="Add a Server">
             <OpenModalButton id='create-a-server' modalComponent={<CreateServerModal title="Create a Server" />} buttonText={<i className="fa-solid fa-plus" id='create-a-server'></i>} />
           </li>
+          <li className="tooltip server icons" data-tooltip="Explore Servers">
+            <NavLink to="/servers/explore">
+              <button><i className="fa-solid fa-plus" id='create-a-server'></i></button>
+
+            </NavLink>
+          </li>
         </ol>
       </div>
     </div>

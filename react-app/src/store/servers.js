@@ -1,15 +1,24 @@
 const GET_USER_SERVERS = "servers/GET_USER_SERVERS";
+const GET_ALL_SERVERS = "servers/GET_ALL_SERVERS"
 const GET_DETAILS = "servers/GET_DETAILS";
 const POST_NEW_SERVER = "servers/POST_NEW_SERVER";
 const EDIT_SERVER = "servers/EDIT_SERVER";
 const DELETE_SERVER = "servers/DELETE_SERVER";
-const POST_NEW_GROUP = "servers/POST_NEW_GROUP"
+const ADD_SERVER_USER = "servers/ADD_USER"
+
 
 
 const getUserServers = (serverList) => ({
     type: GET_USER_SERVERS,
     payload: serverList
 })
+const getAllServers = (data) => {
+    return {
+        type: GET_ALL_SERVERS,
+        data
+
+    }
+}
 
 const getDetails = (server) => ({
     type: GET_DETAILS,
@@ -31,16 +40,10 @@ const deleteServer = (serverId) => ({
     payload: serverId
 })
 
-const postGroup = (data) => {
-    return {
-        type: POST_NEW_GROUP,
-        data
-    }
-}
 
 export const userServersGet = (userId) => async (dispatch) => {
     const res = await fetch(`/api/servers/users`)
-    console.log(res.body)
+
     const data = await res.json();
     if (res.ok) {
         dispatch(getUserServers(data));
@@ -49,7 +52,31 @@ export const userServersGet = (userId) => async (dispatch) => {
         return data;
     }
 }
-
+export const getServersThunk = () => async dispatch => {
+    const res = await fetch(`/api/servers/`)
+    const data = await res.json()
+    if (res.ok) {
+        dispatch(getAllServers(data))
+    }
+    else {
+        return data
+    }
+}
+export const addServerUserThunk = (id, body) => async dispatch => {
+    const res = await fetch(`/api/servers/${id}/users`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(body)
+    })
+    const data = await res.json()
+    console.log("DATA", data);
+    if (res.ok) {
+        return data
+    }
+    else {
+        return data.errors
+    }
+}
 export const serverDetailsGet = (serverId) => async (dispatch) => {
     const res = await fetch(`/api/servers/${serverId}`);
     const data = await res.json();
@@ -175,15 +202,23 @@ export const createChannelGroupThunk = (data) => async dispatch => {
 
 const initialState = {
     AllServers: {},
+    ServerList: {},
     ServerDetails: {}
 }
 
 export default function reducer(state = initialState, action) {
-    const newState = { ...state, AllServers: { ...state.AllServers }, ServerDetails: { ...state.ServerDetails } };
+    const newState = { ...state, ServerList: { ...state.ServerList }, AllServers: { ...state.AllServers }, ServerDetails: { ...state.ServerDetails } };
     switch (action.type) {
         case GET_USER_SERVERS:
             newState.AllServers = { ...action.payload.Servers };
             return newState;
+        case GET_ALL_SERVERS:
+            let serverArr = action.data.servers
+            for (let server of serverArr) {
+
+                newState.ServerList[server.id] = server
+            }
+            return newState
         case GET_DETAILS:
             newState.ServerDetails = { ...newState.ServerDetails, ...action.payload };
             return newState;

@@ -1,0 +1,34 @@
+#servers-list-container {
+  display: flex;
+  flex-direction: row;
+  column-gap: 1em;
+  row-gap: 2em;
+  flex-wrap: wrap;
+  width: fit-content;
+  justify-content: center;
+  align-items: center;
+  /* grid-template-columns: 1fr 1fr 1fr 1fr; */
+  margin: auto;
+}
+
+.server-container {
+  display: flex;
+  flex-direction: column;
+  width: max-content;
+  align-items: flex-start;
+  align-self: center;
+}
+.server-container-bottom {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  height: 50px;
+}
+.explore-server-image {
+  width: 240px;
+  height: auto;
+  border-radius: 10px;
+}
+#explore-container {
+  width: 100%;
+}
