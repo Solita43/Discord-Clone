@@ -24,6 +24,7 @@ export default function ConversationMessages() {
   let [messages, setMessages] = useState([]);
   let [chatInput, setChatInput] = useState("");
   let [errors, setErrors] = useState({});
+  
 
   let username;
   for (let key in conversationList) {
@@ -53,7 +54,8 @@ export default function ConversationMessages() {
       // when we recieve a chat add to our messages array in our usestate
     //   setMessages((messages) => [...messages, direct_message]);
       // updating store
-      dispatch(getConversationMessagesThunk(conversationId));
+      
+      dispatch(getConversationMessagesThunk(direct_message.conversationId));
       dispatch(getConversationsThunk());
     });
     socket.on("delete_direct_message", (deleted_message) => {
@@ -64,7 +66,7 @@ export default function ConversationMessages() {
     });
 
     socket.on("update_direct_message", (update_direct_message) => {
-      dispatch(getConversationMessagesThunk(conversationId));
+      dispatch(getConversationMessagesThunk(update_direct_message.conversationId));
     });
 
     // when component unmount, disconnect

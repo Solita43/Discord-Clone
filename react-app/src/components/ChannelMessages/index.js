@@ -15,6 +15,8 @@ export default function ChannelMessages() {
 
   let { channelId, serverId } = params;
 
+  console.log("PARAMS => ", channelId)
+
   let channels = useSelector((state) => state.channels);
   let servers = useSelector((state) => state.servers.ServerDetails);
   let server = servers[serverId];
@@ -44,19 +46,22 @@ export default function ChannelMessages() {
     socket = io();
 
     socket.on("channel_message", (channel_message) => {
-    //   if (channelId == channel_message.channelId) {
-    //     setMessages((messages) => [...messages, channel_message]);
-    //   }
-        dispatch(getChannelMessagesThunk(channelId));
+      //   if (channelId == channel_message.channelId) {
+      //     setMessages((messages) => [...messages, channel_message]);
+      //   }
+      channelId = channel_message.channelId
+      dispatch(getChannelMessagesThunk(channelId));
     });
     socket.on("delete_channel_message", (deleted_message) => {
-    //   setMessages((messages) => {
-    //     return messages.filter((message) => message.id !== deleted_message.id);
-    //   });
-    dispatch(getChannelMessagesThunk(channelId));
+      //   setMessages((messages) => {
+      //     return messages.filter((message) => message.id !== deleted_message.id);
+      //   });
+      channelId = deleted_message.channelId
+      dispatch(getChannelMessagesThunk(channelId));
     });
 
     socket.on("update_channel_message", (channel_message) => {
+      channelId = channel_message.channelId
       dispatch(getChannelMessagesThunk(channelId));
     });
 
@@ -113,19 +118,19 @@ export default function ChannelMessages() {
             {messages &&
               messages.map((message) => {
                 return (
-                  <div className="group-messages-buttons"onMouseOver={() => {
+                  <div className="group-messages-buttons" onMouseOver={() => {
                     const buttonbox = document.getElementById(message.id);
                     if (buttonbox) {
                       buttonbox.className = "message-update-buttons"
                     }
-                  }} 
-                  onMouseLeave={() => {
-                    const buttonbox = document.getElementById(message.id);
-                    if (buttonbox) {
-                      buttonbox.className = "hidden"
-                    }
                   }}
-                >
+                    onMouseLeave={() => {
+                      const buttonbox = document.getElementById(message.id);
+                      if (buttonbox) {
+                        buttonbox.className = "hidden"
+                      }
+                    }}
+                  >
                     <MessageDetails key={message.id} message={message} />
 
                     {message.userId === currentUser.userId && (
