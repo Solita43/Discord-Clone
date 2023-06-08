@@ -21,7 +21,7 @@ export default function ServerUserList() {
 
 
     return (
-        <div id="conversations-container">
+        <div id="conversations-container" className="server-user-list">
 
 
             <span>Owner</span>
@@ -35,7 +35,7 @@ export default function ServerUserList() {
 
 
 
-            <span>Admins</span>
+            {admins.length > 0 ? <span>Admins</span> : null}
             {admins.map((userId) => {
                 return (
                     <div className="conversation-user-container">
@@ -50,7 +50,7 @@ export default function ServerUserList() {
 
 
 
-            <span>Users</span>
+            {users.length > 0 ? <span>Users</span> : null}
             {users.map((userId) => {
                 return (
                     <div className="conversation-user-container">

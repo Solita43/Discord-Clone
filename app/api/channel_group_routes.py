@@ -35,4 +35,4 @@ def index(serverId):
         return newGroup.to_dict()
     else:
         errors = form.errors
-        return errors
+        return errors, 400

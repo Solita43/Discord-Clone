@@ -14,15 +14,18 @@ export default function CreateGroupModal({ serverId }) {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        dispatch(createChannelGroupThunk({
+        const data = await dispatch(createChannelGroupThunk({
             serverId,
             name
-
         }))
 
-        dispatch(serverDetailsGet(serverId))
-
-        closeModal()
+        
+        if (data) {
+            setErrors(data); 
+        } else {
+            dispatch(serverDetailsGet(serverId.serverId));
+            closeModal()
+        }
 
 
         // dispatch to create a group if no errors
@@ -42,7 +45,7 @@ export default function CreateGroupModal({ serverId }) {
                     </ul>
                     <label className="signup-labels">
                         Group Name
-                        <input type="text" className="input-area" value={name} onChange={(e) => setName(e.target.value)} required />
+                        <input type="text" className="input-area" maxLength="25" minLength="5" value={name} onChange={(e) => setName(e.target.value)} required />
                     </label>
                     <button id="form-button" type="submit">Create Group</button>
                 </form>

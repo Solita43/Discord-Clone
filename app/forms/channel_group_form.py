@@ -1,6 +1,6 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, IntegerField
-from wtforms.validators import DataRequired, ValidationError
+from wtforms.validators import DataRequired, ValidationError, Length
 from app.models import Server
 
 def server_id_exists(form, field):
@@ -11,4 +11,4 @@ def server_id_exists(form, field):
 
 class ChannelGroupForm(FlaskForm):
     server_id = IntegerField("Server ID", validators=[DataRequired(),server_id_exists])
-    name = StringField("Channel Group Name", validators=[DataRequired()])
+    name = StringField("Channel Group Name", validators=[DataRequired(), Length(min=5, max=25, message="Name must be between 5 and 25 characters long")])

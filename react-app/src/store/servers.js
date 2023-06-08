@@ -150,7 +150,6 @@ export const createChannel = (body) => async (dispatch) => {
     })
     if (res.ok) {
         const data = await res.json()
-        console.log("DATA", data)
         return data
     } else {
         const data = await res.json();
@@ -158,16 +157,20 @@ export const createChannel = (body) => async (dispatch) => {
     }
 }
 
-export const createChannelGroupThunk = (data) => async dispatch => {
-    const res = await fetch(`/api/channelGroups/${data.serverId}`, {
+export const createChannelGroupThunk = (data) => async (dispatch) => {
+    console.log(data)
+    const res = await fetch(`/api/channelGroups/${data.serverId.serverId}`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(data)
     })
+    const errors = await res.json(); 
+    console.log(errors)
 
     if (res.ok) {
-        // dispatch(postGroup(data))
-        return data
+        return null; 
+    } else {
+        return errors; 
     }
 }
 

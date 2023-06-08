@@ -27,9 +27,14 @@ export default function CreateChannelModal(props) {
         // if (data) {
         //     setErrors(data);
         // } else {
-        dispatch(serverDetailsGet(serverId));
-        closeModal();
-        history.push(`/channels/${serverId}/${data.id}`)
+        console.log(data)
+        if (typeof data.name !== "string") {
+            setErrors(data)
+        } else {
+            dispatch(serverDetailsGet(serverId));
+            closeModal();
+            history.push(`/channels/${serverId}/${data.id}`)
+        }
         // }
     }
 
@@ -46,7 +51,7 @@ export default function CreateChannelModal(props) {
                     </ul>
                     <label className="signup-labels">
                         Channel Name
-                        <input type="text" className="input-area" value={name} onChange={(e) => setName(e.target.value)} required />
+                        <input type="text" className="input-area" maxLength="25" minLength="5" value={name} onChange={(e) => setName(e.target.value)} required />
                     </label>
                     <button id="form-button" type="submit">Create Channel</button>
                 </form>

@@ -12,3 +12,18 @@
 .user-box:hover {
     background-color: wheat;
 }
+
+.server-user-list {
+    overflow: auto;
+    scrollbar-width: 0;
+    scroll-behavior: smooth;
+}
+
+.server-user-list > span {
+    color: white
+}
+
+::-webkit-scrollbar {
+    width: 0px;
+}
+
