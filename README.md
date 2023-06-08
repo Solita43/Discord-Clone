@@ -1,171 +1,65 @@
-# Flask React Project
+# Discordia
 
-This is the starter for the Flask React project.
+## Table of Contents
 
-## Getting started
-1. Clone this repository (only this branch)
+- [Discordia](#discordia)
+  - [Table of Contents](#table-of-contents)
+  - [Overview](#overview)
+    - [Built With](#built-with)
+  - [Features](#features)
+  - [Contact](#contact)
+  - [Acknowledgements](#acknowledgements)
 
-2. Install dependencies
-
-      ```bash
-      pipenv install -r requirements.txt
-      ```
-
-3. Create a **.env** file based on the example with proper settings for your
-   development environment
-
-4. Make sure the SQLite3 database connection URL is in the **.env** file
-
-5. This starter organizes all tables inside the `flask_schema` schema, defined
-   by the `SCHEMA` environment variable.  Replace the value for
-   `SCHEMA` with a unique name, **making sure you use the snake_case
-   convention**.
-
-6. Get into your pipenv, migrate your database, seed your database, and run your Flask app
-
-   ```bash
-   pipenv shell
-   ```
-
-   ```bash
-   flask db upgrade
-   ```
-
-   ```bash
-   flask seed all
-   ```
-
-   ```bash
-   flask run
-   ```
-
-7. To run the React App in development, checkout the [README](./react-app/README.md) inside the `react-app` directory.
+## Overview
 
 
-## Deployment through Render.com
+ * Here is a link to the live demo: https://discordia-dz4f.onrender.com/
 
-First, refer to your Render.com deployment articles for more detailed
-instructions about getting started with [Render.com], creating a production
-database, and deployment debugging tips.
+ * This was a collaborative effort between 4 people: Beverly Duran, Jay Levin, Melinda Cortez, and Benjamin Wilson. 
+ We had a relatively short amount of time to build out this project and worked closely together to make sure were staying on track. 
 
-From the [Dashboard], click on the "New +" button in the navigation bar, and
-click on "Web Service" to create the application that will be deployed.
+ * A few things we learned:
+    * How to build out a backend API server using Python
+    * Collaboration skills
+    * Ways React allows multiple developers to divide up a project in to more manageable chunks. 
 
-Look for the name of the application you want to deploy, and click the "Connect"
-button to the right of the name.
+ * A few skills we improved upon: 
+   * We greatly improved our skills with Redux in terms of building out a store and ensuring the reducers give new memory addresses to updated data. 
+   
+ 
 
-Now, fill out the form to configure the build and start commands, as well as add
-the environment variables to properly deploy the application.
+<!-- TODO: Add a screenshot of the live project.
+    1. Link to a 'live demo.'
+    2. Describe your overall experience in a couple of sentences.
+    3. List a few specific technical things that you learned or improved on.
+    4. Share any other tips or guidance for others attempting this or something similar.
+ -->
 
-### Part A: Configure the Start and Build Commands
+### Built With
 
-Start by giving your application a name.
+<!-- TODO: List any MAJOR libraries/frameworks (e.g. React, Tailwind) with links to their homepages. -->
+ * React: https://react.dev/
+ * Redux: https://redux.js.org/
+ * SQAlchemy: https://www.sqlalchemy.org/
+ * Flask: https://flask.palletsprojects.com/en/2.3.x/
+ * WTForms: https://wtforms.readthedocs.io/en/3.0.x/
+ *  
 
-Leave the root directory field blank. By default, Render will run commands from
-the root directory.
+## Features
 
-Make sure the Environment field is set set to "Python 3", the Region is set to
-the location closest to you, and the Branch is set to "main".
+<!-- TODO: List what specific 'user problems' that this application solves. -->
+ * Real time chat between users. Either groups of users chatting simultaneously in a server or directly with one another through direct messaging. 
 
-Next, add your Build command. This is a script that should include everything
-that needs to happen _before_ starting the server.
+## Contact
 
-For your Flask project, enter the following command into the Build field, all in
-one line:
+<!-- TODO: Include icons and links to your RELEVANT, PROFESSIONAL 'DEV-ORIENTED' social media. LinkedIn and dev.to are minimum. -->
+  * Jay Levin: 
+  * Beverly Duran: 
+  * Melinda Cortez: 
+  * Benjamin Wilson: 
+    * LinkedIn: https://www.linkedin.com/in/benjamin-wilson-2a39ab271/
+    * Git Hub: https://github.com/BenjaminWilson13
 
-```shell
-# build command - enter all in one line
-npm install --prefix react-app &&
-npm run build --prefix react-app &&
-pip install -r requirements.txt &&
-pip install psycopg2 &&
-flask db upgrade &&
-flask seed all
-```
+## Acknowledgements
 
-This script will install dependencies for the frontend, and run the build
-command in the __package.json__ file for the frontend, which builds the React
-application. Then, it will install the dependencies needed for the Python
-backend, and run the migration and seed files.
-
-Now, add your start command in the Start field:
-
-```shell
-# start script
-gunicorn app:app
-```
-
-_If you are using websockets, use the following start command instead for increased performance:_
-
-`gunicorn --worker-class eventlet -w 1 app:app`
-
-### Part B: Add the Environment Variables
-
-Click on the "Advanced" button at the bottom of the form to configure the
-environment variables your application needs to access to run properly. In the
-development environment, you have been securing these variables in the __.env__
-file, which has been removed from source control. In this step, you will need to
-input the keys and values for the environment variables you need for production
-into the Render GUI.
-
-Click on "Add Environment Variable" to start adding all of the variables you
-need for the production environment.
-
-Add the following keys and values in the Render GUI form:
-
-- SECRET_KEY (click "Generate" to generate a secure secret for production)
-- FLASK_ENV production
-- FLASK_APP app
-- SCHEMA (your unique schema name, in snake_case)
-- REACT_APP_BASE_URL (use render.com url, located at top of page, similar to
-  https://this-application-name.onrender.com)
-
-In a new tab, navigate to your dashboard and click on your Postgres database
-instance.
-
-Add the following keys and values:
-
-- DATABASE_URL (copy value from Internal Database URL field)
-
-_Note: Add any other keys and values that may be present in your local __.env__
-file. As you work to further develop your project, you may need to add more
-environment variables to your local __.env__ file. Make sure you add these
-environment variables to the Render GUI as well for the next deployment._
-
-Next, choose "Yes" for the Auto-Deploy field. This will re-deploy your
-application every time you push to main.
-
-Now, you are finally ready to deploy! Click "Create Web Service" to deploy your
-project. The deployment process will likely take about 10-15 minutes if
-everything works as expected. You can monitor the logs to see your build and
-start commands being executed, and see any errors in the build process.
-
-When deployment is complete, open your deployed site and check to see if you
-successfully deployed your Flask application to Render! You can find the URL for
-your site just below the name of the Web Service at the top of the page.
-
-[Render.com]: https://render.com/
-[Dashboard]: https://dashboard.render.com/
-
-
-Running setup.py install for netifaces: started
-Jun 5 03:35:28 PM      Running setup.py install for netifaces: finished with status 'error'
-Jun 5 03:35:28 PM      ERROR: Command errored out with exit status 1:
-Jun 5 03:35:28 PM       command: /opt/render/project/src/.venv/bin/python -u -c 'import sys, setuptools, tokenize; sys.argv[0] = '"'"'/tmp/pip-install-e4sitjoe/netifaces/setup.py'"'"'; __file__='"'"'/tmp/pip-install-e4sitjoe/netifaces/setup.py'"'"';f=getattr(tokenize, '"'"'open'"'"', open)(__file__);code=f.read().replace('"'"'\r\n'"'"', '"'"'\n'"'"');f.close();exec(compile(code, __file__, '"'"'exec'"'"'))' install --record /tmp/pip-record-4t3yc__p/install-record.txt --single-version-externally-managed --compile --install-headers /opt/render/project/src/.venv/include/site/python3.7/netifaces
-Jun 5 03:35:28 PM           cwd: /tmp/pip-install-e4sitjoe/netifaces/
-Jun 5 03:35:28 PM      Complete output (11 lines):
-Jun 5 03:35:28 PM      Traceback (most recent call last):
-Jun 5 03:35:28 PM        File "<string>", line 1, in <module>
-Jun 5 03:35:28 PM        File "/opt/render/project/src/.venv/lib/python3.7/site-packages/setuptools/__init__.py", line 12, in <module>
-Jun 5 03:35:28 PM          from setuptools.extension import Extension
-Jun 5 03:35:28 PM        File "/opt/render/project/src/.venv/lib/python3.7/site-packages/setuptools/extension.py", line 7, in <module>
-Jun 5 03:35:28 PM          from setuptools.dist import _get_unpatched
-Jun 5 03:35:28 PM        File "/opt/render/project/src/.venv/lib/python3.7/site-packages/setuptools/dist.py", line 16, in <module>
-Jun 5 03:35:28 PM          import pkg_resources
-Jun 5 03:35:28 PM        File "/opt/render/project/src/.venv/lib/python3.7/site-packages/pkg_resources.py", line 1479, in <module>
-Jun 5 03:35:28 PM          register_loader_type(importlib_bootstrap.SourceFileLoader, DefaultProvider)
-Jun 5 03:35:28 PM      AttributeError: module 'importlib._bootstrap' has no attribute 'SourceFileLoader'
-Jun 5 03:35:28 PM      ----------------------------------------
-Jun 5 03:35:28 PM  ERROR: Command errored out with exit status 1: /opt/render/project/src/.venv/bin/python -u -c 'import sys, setuptools, tokenize; sys.argv[0] = '"'"'/tmp/pip-install-e4sitjoe/netifaces/setup.py'"'"'; __file__='"'"'/tmp/pip-install-e4sitjoe/netifaces/setup.py'"'"';f=getattr(tokenize, '"'"'open'"'"', open)(__file__);code=f.read().replace('"'"'\r\n'"'"', '"'"'\n'"'"');f.close();exec(compile(code, __file__, '"'"'exec'"'"'))' install --record /tmp/pip-record-4t3yc__p/install-record.txt --single-version-externally-managed --compile --install-headers /opt/render/project/src/.venv/include/site/python3.7/netifaces Check the logs for full command output.
-Jun 5 03:35:28 PM  WARNING: You are using pip version 20.1.1; however, version 23.1.2 is available.
-Jun 5 03:35:28 PM  You should consider upgrading via the '/opt/render/project/src/.venv/bin/python -m pip install --upgrade pip' command.
+<!-- TODO: List any blog posts, tutorials or plugins that you may have used to complete the project. Only list those that had a significant impact. Obviously, we all 'Google' stuff while working on our things, but maybe something in particular stood out as a 'major contributor' to your skill set for this project. -->
