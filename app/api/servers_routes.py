@@ -191,9 +191,7 @@ def delete_server_by_id(server_id):
         }
     role = get_user_role(current_user.id, server_id)
     if role != "owner":
-        return {
-            "message": "Insufficient permission to delete this server."
-        }
+        return {'errors': 'Insufficient permission to delete this server'}, 403
     db.session.delete(server)
     db.session.commit()
     return {

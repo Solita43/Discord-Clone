@@ -20,7 +20,7 @@
   --check-box: #29cc7a;
   --main-button-blue: #5865f2;
   --main-button-gray: #33343d;
-  --main-button-red: #ef4343;
+  --main-button-red:#da373c;
   --input-text-messages: #d4d4d4;
   --input-messages-background: #65656c83;
   --message-hover: #2e3035;
@@ -101,7 +101,7 @@ textarea{
 }
 
 .message-update-buttons {
-  /* display: flex; 
+  /* display: flex;
   gap: 5px; */
 }
 
@@ -155,7 +155,7 @@ textarea{
 }
 
 .coder-layout-info {
-  display:flex; 
+  display:flex;
 
 }
 
@@ -173,12 +173,12 @@ textarea{
   border-radius: 10px;
   padding: 1rem;
   column-gap:.5rem;
-  
+
 }
 
 .coder-info {
   /* border: 1px solid var(--center-page); */
-  flex: 1; 
+  flex: 1;
 }
 
 .coder-info-right {
@@ -215,4 +215,3 @@ textarea{
   border-color: var(--input-text-messages); /* Light grey border color on focus */
   outline: none;
 }
-
