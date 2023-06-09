@@ -11,6 +11,7 @@ const getChannelMessages = (data, channelId) => {
 export const getChannelMessagesThunk = (channelId) => async dispatch => {
     const res = await fetch(`/api/channelMessages/${channelId}`)
     const data = await res.json()
+    console.log(data)
     if (res.ok) {
         dispatch(getChannelMessages(data, channelId))
         return data
@@ -26,6 +27,7 @@ export default function reducer(state = initialState, action) {
             let channelId = action.channelId
             let data = action.data
             newState[channelId] = data
+            console.log(state === newState)
             return newState
         default:
             return state
