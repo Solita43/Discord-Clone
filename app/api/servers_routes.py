@@ -159,23 +159,22 @@ def edit_server(serverId):
     if role != "owner":
         return {'errors': ['Only owners may edit']}, 403
 
-    data = request.get_json()
     form = ServerForm()
     form['csrf_token'].data = request.cookies['csrf_token']
-    form.name.data = data['name']
-    if "imageUrl" in data:
-        form.imageURL.data = data["imageUrl"]
     form.owner_id.data = current_user.id
-    if form.validate():
-        server = Server.query.get(serverId)
-        server.name = data["name"]
-        if "imageUrl" in data:
-            server.imageUrl = data["imageUrl"]
-        db.session.commit()
-        return server.to_dict()
-    else:
-        errors = form.errors
-        return errors, 400
+    if "imageURL" in form.data:
+        if form.validate():
+            
+            image = form.data["imageURL"]
+            server = Server.query.get(serverId)
+            server.name = data["name"]
+            if "imageUrl" in data:
+                server.imageUrl = data["imageUrl"]
+            db.session.commit()
+            return server.to_dict()
+        else:
+            errors = form.errors
+            return errors, 400
 
 
 

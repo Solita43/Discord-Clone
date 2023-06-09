@@ -89,7 +89,7 @@ export const serverDetailsGet = (serverId) => async (dispatch) => {
 }
 
 export const serverPost = (formData) => async (dispatch) => {
-    console.log("in the server store form Data: ". formData)
+    console.log("in the server store form Data: ".formData)
     const res = await fetch("/api/servers/", {
         method: "POST",
         body: formData
@@ -102,15 +102,14 @@ export const serverPost = (formData) => async (dispatch) => {
         dispatch(postServer(data))
         return data
     } else {
-        return {error: data.name[0]}
+        return { error: data.name[0] }
     }
 }
 
-export const serverEdit = (updated, serverId) => async (dispatch) => {
+export const serverEdit = (formData, serverId) => async (dispatch) => {
     const res = await fetch(`/api/servers/${serverId}`, {
         method: "PUT",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(updated)
+        body: formData
     })
 
     const data = await res.json();

@@ -80,13 +80,30 @@ function SignupFormModal() {
 							required
 						/>
 					</label>
+
 					<label className="signup-labels">
 						Email
 						<input
 							type="text"
 							className="input-area"
 							value={email}
-							onChange={(e) => setEmail(e.target.value)}
+							onChange={(e) => {
+								if (!email.includes('@')) {
+									setErrors(prev => {
+										let err = { ...prev }
+										err.email = "Not a valid email"
+										return err;
+									})
+								} else {
+									setErrors(prev => {
+										let err = { ...prev }
+										delete err.email
+										return err
+									})
+
+								}
+								setEmail(e.target.value)
+							}}
 							required
 						/>
 					</label>
@@ -115,7 +132,22 @@ function SignupFormModal() {
 							type="password"
 							className="input-area"
 							value={password}
-							onChange={(e) => setPassword(e.target.value)}
+							onChange={(e) => {
+								if (e.target.value.trim().length < 8) {
+									setErrors(prev => {
+										const err = { ...prev };
+										err.passwordLength = "Password must be 8 characters or more."
+										return err;
+									})
+								} else {
+									setErrors(prev => {
+										const err = { ...prev }
+										delete err.passwordLength;
+										return err;
+									})
+								}
+								setPassword(e.target.value.trim())
+							}}
 							required
 						/>
 					</label>
@@ -125,7 +157,22 @@ function SignupFormModal() {
 							type="password"
 							className="input-area"
 							value={confirmPassword}
-							onChange={(e) => setConfirmPassword(e.target.value)}
+							onChange={(e) => {
+								if (password !== e.target.value.trim()) {
+									setErrors(prev => {
+										const err = { ...prev }
+										err.confirmPassword = "Confirm Password field must be the same as the Password field"
+										return err;
+									});
+								} else {
+									setErrors(prev => {
+										const err = { ...prev }
+										delete err.confirmPassword;
+										return err;
+									})
+								}
+								setConfirmPassword(e.target.value.trim())
+							}}
 							required
 						/>
 					</label>
