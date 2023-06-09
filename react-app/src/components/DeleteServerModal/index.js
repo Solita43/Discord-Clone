@@ -25,7 +25,7 @@ function DeleteServerModal({ serverId, serverName }) {
                     setError(data.errors)
                     return
                 }
-                history.push('/home')
+                history.push('/')
                 closeModal()
             })
         }
