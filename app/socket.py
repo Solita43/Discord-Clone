@@ -1,5 +1,5 @@
 from flask_socketio import SocketIO, emit
-from .models import DirectMessage, DirectMessageConversation, DirectMessageReaction, db, ChannelMessage
+from .models import DirectMessage, DirectMessageConversation, DirectMessageReaction, db, ChannelMessage, User
 import os
 from datetime import datetime
 
@@ -13,7 +13,6 @@ else:
 
 # create your socketIO instance
 socketio = SocketIO(cors_allowed_origin=origins)
-
 
 # handle direct messages - parameter is bananable but must use the same in the front end
 @socketio.on("direct_message")

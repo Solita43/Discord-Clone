@@ -35,8 +35,8 @@ function DropDownButton({ serverId, title, users}) {
 
     
     const displayName = (name) => {
-        if (name.length > 14) {
-          return name.slice(0, 14) + "..."
+        if (name.length > 15) {
+          return name.slice(0, 15) + "..."
         } else {
           return name
         }

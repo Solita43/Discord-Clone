@@ -22,7 +22,7 @@ function ServerDropDown({serverId, serverName, closeMenu}) {
             />
             <OpenModalButton
                 buttonText="Delete Server"
-                className="server-menu-buttons"
+                className="server-menu-buttons  delete-button"
                 onItemClick={closeMenu}
                 modalComponent={<DeleteServerModal serverId={serverId} serverName={serverName} />}
             />

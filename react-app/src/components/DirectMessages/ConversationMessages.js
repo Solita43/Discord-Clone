@@ -44,7 +44,11 @@ export default function ConversationMessages() {
 
   useEffect(() => {
     if (conversation && Object.keys(conversation).length)
-      setMessages(conversation.messages);
+      setMessages(conversation.messages.sort((a,b)=>{
+        if (a.id < b.id){
+            return -1
+        }
+      }));
   }, [conversations]);
 
   // open socket with useEffect

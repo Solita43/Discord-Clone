@@ -52,7 +52,8 @@ export default function MessageDetails({ message }) {
         <div className="message-info">
             <div className="message-user-info">
             {message.UserInfo.username}
-            <p className="message-time-updated">{message.updatedAt}</p>
+            {/* changed to view date in correct time zone  */}
+            <p className="message-time-updated">{new Date(message.updatedAt + " UTC").toLocaleString()}</p> 
             </div>
             {message.message}
             {/* <button

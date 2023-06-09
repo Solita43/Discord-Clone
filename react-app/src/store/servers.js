@@ -98,13 +98,13 @@ export const serverPost = (server) => async (dispatch) => {
     })
 
     const data = await res.json();
-
+    console.log("data", data)
 
     if (res.ok) {
         dispatch(postServer(data))
         return data
     } else {
-        return data
+        return {error: data.name[0]}
     }
 }
 

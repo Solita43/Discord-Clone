@@ -107,7 +107,15 @@
 .fa-gear,
 .add-channel {
   font-size: .6rem;
+  background-color: var(--hover-channel);
+  
 }
+
+.gear_channel {
+  background-color: var(--hover-channel);
+
+}
+
 
 .server-header {
   gap: 1rem;

@@ -63,7 +63,7 @@ if(allServers[serverId]){
 
   return (
     <>
-      <TitleBar serverId={serverId} title={displayName(allServers[serverId].name)} />
+      <TitleBar serverId={serverId} title={allServers[serverId].name} />
       <div id="conversations-container" className="channel-list-scroll">
         {/* <div className="server-header"> */}
         {/* <h1 className="dm-title">{displayName(allServers[serverId].name)}</h1> */}
@@ -92,8 +92,8 @@ if(allServers[serverId]){
                       const button = document.getElementById(`channel-edit-${channelName}`)
                       button.className = "hidden"
                     }} onClick={() => history.push(`/channels/${serverId}/${channels[name][channelName].id}`)}>
-                      <span id="channel"><i class="fa-solid fa-hashtag"></i>{channelName}</span>
-                      <OpenModalButton id={`channel-edit-${channelName}`} buttonText={(<i class="fa-solid fa-gear"></i>) }className={"hidden"} modalComponent={<EditChannelModal channels={channels} channelName={channelName} groupNames={groupNames} groupIds={groupIds} defaultChannel={defaultChannel} />} />
+                      <span id="channel" style={channelName == serverDisplay.channelIds[channelId] ? {color: "white", fontWeight: "bold"}: {}}><i class="fa-solid fa-hashtag"></i>{channelName}</span>
+                      <OpenModalButton id={`channel-edit-${channelName}`} buttonText={(<i class="fa-solid fa-gear" style={{backgroundColor: "var(--channel-hover)", fontSize:".8rem"}}></i>) }className={"hidden"} modalComponent={<EditChannelModal channels={channels} channelName={channelName} groupNames={groupNames} groupIds={groupIds} defaultChannel={defaultChannel} />} />
                     </div>
                   )
                 })}

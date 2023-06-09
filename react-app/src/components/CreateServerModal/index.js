@@ -17,16 +17,17 @@ function CreateServerModal( { title, serverId } ) {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-            if (name.length > 30) {
-                setError("Name can not be longer than 25 characters.")
-                return 
-            }
-        
-            dispatch(serverPost({name})).then((server) => {
-            closeModal()
-            history.push(`/channels/${server.id}/${server.default_channel_id}`)
-            
-        })
+        if (name.length > 30) {
+            setError("Name can not be longer than 25 characters.")
+            return 
+        }
+        const data = await dispatch(serverPost({name}))
+        if (data.error) {
+            setError(data.error)
+        } else {
+            history.push(`/channels/${data.id}/${data.default_channel_id}`)
+            closeModal(); 
+        }
         
         
     }

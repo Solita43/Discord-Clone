@@ -6,20 +6,24 @@ import { userServersGet } from "../../store/servers";
 import CreateServerModal from "../CreateServerModal";
 import OpenModalButton from "../OpenModalButton";
 import { getConversationsThunk } from '../../store/userconversations';
+import { io } from "socket.io-client";
 
 function Navigation({ isLoaded }) {
   const dispatch = useDispatch();
   const params = useParams()
-  const {serverId} = params
-  console.log("server",params)
+  const {serverId, conversationId} = params; 
+  const socket = io(); 
+
+  
   const sessionUser = useSelector(state => state.session.user);
   const servers = useSelector(state => state.servers.AllServers);
   const history = useHistory();
-
+  
   const conversations = Object.values(useSelector(state => state.userConversations))
   let firstConversation = conversations.sort((a, b) => {
     return a.updated_at < b.updated_at ? 0 : -1
   })
+
   if (firstConversation.length) {
 
     firstConversation = firstConversation[0].conversation_id
@@ -44,14 +48,15 @@ function Navigation({ isLoaded }) {
     <div className="nav-root">
       <div className="server-nav-bar">
         <div>
-          <div className="tooltip" data-tooltip={"Direct Messages"}>
-            <a className="dm-anchor-tag">
-              <div className="server-icons dm-div">
-                <img
+          <div className="tooltip" data-tooltip={"Direct Messages"} style={{paddingBottom: ".3rem", borderBottom: ".1rem solid var(--center-page)"}}>
+            <a className="dm-anchor-tag" >
+              <div className="server-icons dm-div" style={conversationId ? {backgroundColor: "var(--main-button-blue)" , borderRadius: "15px"} : {}}>
+              <i class="fa-solid fa-gamepad" onClick={() => history.push(`/conversations/${firstConversation}`)} style={{color:"var(--text)", fontSize: "1.8rem"}}></i>
+                {/* <img
                   className="dm-img"
                   src="https://img.icons8.com/?size=512&id=aqOnqIFQZ4_I&format=png"
                   onClick={() => history.push(`/conversations/${firstConversation}`)}
-                />
+                /> */}
               </div>
             </a>
           </div>

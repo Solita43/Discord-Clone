@@ -9,6 +9,7 @@ function EditServerModal({serverId}) {
     const server = useSelector(state => state.servers.AllServers[serverId])
     const dispatch = useDispatch(); 
     const [name, setName] = useState(null);
+    const [errors, setErrors] = useState([]); 
     if (server && !name) {
         setName(server.name)
     }
@@ -23,10 +24,13 @@ function EditServerModal({serverId}) {
             name
         }
             
-        dispatch(serverEdit(updated, serverId))
+        const data = await dispatch(serverEdit(updated, serverId))
 
-        
-        closeModal()
+        if (data) {
+            setErrors(data)
+        } else {
+            closeModal()
+        }
         
         
     }
@@ -37,6 +41,11 @@ function EditServerModal({serverId}) {
         <div id="delete-form-container">
             <h1 className="form-title">Edit Server</h1>
             <form onSubmit={handleSubmit} className="form-box">
+            <ul className="errors">
+                        {Object.values(errors).map((error, idx) => (
+                            <li key={idx}>{error}</li>
+                        ))}
+                    </ul>
                 <label className="signup-labels">
                     Server Name
                     <input 
@@ -45,6 +54,8 @@ function EditServerModal({serverId}) {
                         className="input-area" 
                         onChange={(e) => setName(e.target.value)}
                         required
+                        minLength="5"
+                        maxLength="25"
                     />
                 </label>
                 <button id="form-button" type="submit">Edit Server</button>

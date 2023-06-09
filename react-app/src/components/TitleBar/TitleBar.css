@@ -1,6 +1,6 @@
 .top-bar {
   display: flex;
-  height: 3rem;
+  height: 3.6rem;
   position: absolute;
   z-index: 0;
   background-color: var(--channel-nav);
@@ -13,7 +13,8 @@
 #channel-top-title {
   display: flex;
   align-items: center;
-  padding-left: 0.3rem;
+  padding-left: 1rem;
+  gap: .3rem;
   width: 100%;
   color: var(--text);
   background-color: var(--center-page);

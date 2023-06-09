@@ -38,7 +38,11 @@ export default function ChannelMessages() {
   }, [channelId]);
   useEffect(() => {
     if (channels[channelId]) {
-      setMessages(channels[channelId]);
+      setMessages(channels[channelId].sort((a,b)=>{
+        if(a.id < b.id){
+            return -1
+        }
+      }));
     }
   }, [channels]);
 

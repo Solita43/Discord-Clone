@@ -129,7 +129,7 @@ def create_a_server():
         return res.to_dict()
     else:
         errors = form.errors
-        return errors
+        return errors, 400
 
 @server_routes.route('/<int:serverId>', methods=["PUT"])
 @login_required
@@ -146,7 +146,7 @@ def edit_server(serverId):
     """
     role = get_user_role(current_user.id, serverId)
     if role != "owner":
-        return {'errors': ['Forbidden']}, 403
+        return {'errors': ['Only owners may edit']}, 403
 
     data = request.get_json()
     form = ServerForm()
@@ -164,7 +164,7 @@ def edit_server(serverId):
         return server.to_dict()
     else:
         errors = form.errors
-        return errors
+        return errors, 400
 
 
 

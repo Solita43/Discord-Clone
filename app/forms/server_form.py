@@ -14,7 +14,7 @@ def user_id_exists(form, field):
 
 
 class ServerForm(FlaskForm):
-    name = StringField("Server name", validators=[DataRequired()])
+    name = StringField("Server name", validators=[DataRequired(), Length(min=5, max=25, message="Server Name must be between 5 and 25 characters")])
     # imageURL = URLField("imageURL", validators=[DataRequired()])
     imageURL = FileField("Image File", validators=[FileAllowed(list(ALLOWED_EXTENSIONS))])
     owner_id = IntegerField("Owner", validators=[DataRequired(), user_id_exists])
