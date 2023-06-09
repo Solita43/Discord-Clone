@@ -27,7 +27,7 @@ def online_user(data):
     user = User.query.get(data)
     user.status = "online"
 
-    emit("newUser", [data, "online"], broadcast=True)
+    emit("updateUser", [data, "online"], broadcast=True)
 
     db.session.commit()
 
