@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Route, Switch } from "react-router-dom";
 import SignupFormPage from "./components/SignupFormPage";
 import LoginFormPage from "./components/LoginFormPage";
@@ -21,6 +21,7 @@ function App() {
   const dispatch = useDispatch();
   const [isLoaded, setIsLoaded] = useState(false);
   const [socket, setSocket] = useState(null);
+  const sessionUser = useSelector(state => state.session.user);
   useEffect(() => {
     dispatch(authenticate()).then(() => setIsLoaded(true));
   }, [dispatch, authenticate]);
@@ -31,6 +32,13 @@ function App() {
               socket.disconnect()
           })
   }, [io])
+
+  useEffect(() => {
+    if (sessionUser && socket) {
+      console.log("asdf~~~~~~~~~")
+      socket.on("connect", [sessionUser.id, Date.now()])
+    }
+  }, [socket, sessionUser])
   return (
     <>
       {isLoaded && (

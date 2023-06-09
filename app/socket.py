@@ -19,6 +19,7 @@ online_users = {};
 
 @socketio.on("newUser")
 def online_user(data): 
+
     online_users[data[0]] = data[1]
     user = User.query.get(data[0])
     user.status = "true"
@@ -27,7 +28,7 @@ def online_user(data):
 @socketio.on("disconnect")
 def offline_user(): 
     for key, value in online_users.items(): 
-        if round(time()*1000) - value > 30000: 
+        if round(time()*1000) - value > 1800000: 
             user = User.query.get(key)
             user.status = 'false'
             db.session.commit()

@@ -15,6 +15,7 @@ function SignupFormModal() {
 	const [lastname, setLastname] = useState('')
 	const [password, setPassword] = useState("");
 	const [confirmPassword, setConfirmPassword] = useState("");
+	const [image, setImage] = useState("")
 	const [errors, setErrors] = useState([]);
 	const { closeModal } = useModal();
 
@@ -41,7 +42,7 @@ function SignupFormModal() {
 		<>
 			<div id="form-container">
 				<h1 className="form-title">Sign Up</h1>
-				<form className="form-box" onSubmit={handleSubmit}>
+				<form className="form-box" onSubmit={handleSubmit} encType="multipart/form-data">
 					<ul className="errors">
 						{Object.values(errors).map((error, idx) => {
 							return (
@@ -87,6 +88,14 @@ function SignupFormModal() {
 							value={username}
 							onChange={(e) => setUsername(e.target.value)}
 							required
+						/>
+					</label>
+					<label className="signup-image">
+						Image icons
+						<input
+						type="text"
+						value={image}
+						onChange={(e) => setImage(e.target.value)}
 						/>
 					</label>
 					<label className="signup-labels">
