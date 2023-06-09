@@ -10,11 +10,9 @@ function EditServerModal({ serverId }) {
     const dispatch = useDispatch();
     const [name, setName] = useState(null);
     const [image, setImage] = useState(null);
-    const [currentImage, setCurrentImage] = useState(null);
     const [errors, setErrors] = useState([]);
     if (server && !name) {
         setName(server.name);
-        setCurrentImage(server.imageUrl);
     }
 
     const { closeModal } = useModal();
@@ -27,7 +25,6 @@ function EditServerModal({ serverId }) {
         const formData = new FormData()
         formData.append("imageURL", image)
         formData.append("name", name)
-        formData.append("currentImage", currentImage)
 
         const data = await dispatch(serverEdit(formData, serverId))
 
