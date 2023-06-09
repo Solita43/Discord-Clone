@@ -13,7 +13,7 @@ export default function ChannelMessages() {
 
   let { channelId, serverId } = params;
 
-  console.log("PARAMS => ", channelId)
+  // console.log("PARAMS => ", channelId)
 
   let channels = useSelector((state) => state.channels);
   let servers = useSelector((state) => state.servers.ServerDetails);

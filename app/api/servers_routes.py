@@ -1,8 +1,9 @@
-from flask import Blueprint, jsonify, session, request, redirect
-from flask_login import current_user, login_user, logout_user, login_required
+from flask import Blueprint, request, make_response
+from flask_login import current_user, login_required
 from app.models import Server, ServerUser, User, db, Channel, ChannelGroup
 from app.forms import ServerUserForm, ServerForm
 from app.api.utils import get_user_role
+from app.api.AWS_helpers import upload_file_to_s3, get_unique_filename
 
 server_routes = Blueprint('servers', __name__)
 
@@ -102,34 +103,44 @@ def create_a_server():
         }
 
     """
-    data = request.get_json()
+    # data = request.get_json()
+
     form = ServerForm()
     form['csrf_token'].data = request.cookies['csrf_token']
-    form.name.data = data['name']
-    if "imageUrl" in data:
-        form.imageURL.data = data["imageUrl"]
     form.owner_id.data = current_user.id
-
+    # form.name.data = data['name']
 
     if form.validate():
 
-        res = Server(**data, owner_id=current_user.id)
-        db.session.add(res)
-        db.session.commit()
-        #create a channel group
-        newGroup = ChannelGroup(server_id=res.id, name="text-channels")
-        db.session.add(newGroup)
-        # Create a channel
-        res.channels.append(Channel(group_id=res.groups[0].id, name='General'))
-        db.session.commit()
-        res.default_channel_id= res.channels[0].id
-        serverOwner = ServerUser(user_id=current_user.id, server_id=res.id, role="owner")
-        db.session.add(serverOwner)
-        db.session.commit()
-        return res.to_dict()
-    else:
-        errors = form.errors
-        return errors, 400
+        if "imageURL" in request.files:
+            print("FORM DATA ===============>>", form.data)
+        #     form.imageURL.data = data["imageUrl"]
+            image = form.data["imageURL"]
+            image.filename = get_unique_filename(image.filename)
+            upload = upload_file_to_s3(image)
+            if 'url' not in upload:
+                return "invalid url"
+            else:
+                res = Server(
+                    name=form.data["name"],
+                    owner_id=current_user.id,
+                    imageUrl=upload["url"]
+                    )
+
+                db.session.add(res)
+                db.session.commit()
+                #create a channel group
+                newGroup = ChannelGroup(server_id=res.id, name="text-channels")
+                db.session.add(newGroup)
+                # Create a channel
+                res.channels.append(Channel(group_id=res.groups[0].id, name='General'))
+                db.session.commit()
+                res.default_channel_id= res.channels[0].id
+                serverOwner = ServerUser(user_id=current_user.id, server_id=res.id, role="owner")
+                db.session.add(serverOwner)
+                db.session.commit()
+                return res.to_dict()
+
 
 @server_routes.route('/<int:serverId>', methods=["PUT"])
 @login_required

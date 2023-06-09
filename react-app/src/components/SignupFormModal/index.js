@@ -30,7 +30,7 @@ function SignupFormModal() {
 			formData.append("first_name", firstname);
 			formData.append("last_name", lastname);
 			formData.append("password", password);
-			console.log("this is the form data image: ", formData.get("image"))
+			// console.log("this is the form data image: ", formData.get("image"))
 
 			const data = await dispatch(signUp(formData))
 
