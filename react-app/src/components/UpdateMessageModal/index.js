@@ -3,16 +3,15 @@ import { useModal } from "../../context/Modal"
 import { io } from 'socket.io-client'
 
 let socket;
-export default function UpdateMessageModal({ message, isChannel }) {
+export default function UpdateMessageModal({ message, isChannel, socket }) {
     let [newChat, setNewChat] = useState(message.message)
     const { closeModal } = useModal()
 
 
     useEffect(() => {
-        socket = io();
 
         return (() => {
-            socket.disconnect()
+            
         })
     }, [])
 

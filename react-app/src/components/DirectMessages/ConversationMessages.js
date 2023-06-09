@@ -12,7 +12,7 @@ import UpdateMessageModal from "../UpdateMessageModal";
 // initialize socket variable outside of component
 let socket;
 
-export default function ConversationMessages() {
+export default function ConversationMessages({socket}) {
   let dispatch = useDispatch();
   const params = useParams();
   let { conversationId } = params;
@@ -53,7 +53,6 @@ export default function ConversationMessages() {
 
   // open socket with useEffect
   useEffect(() => {
-    socket = io();
     socket.on("direct_message", (direct_message) => {
       // when we recieve a chat add to our messages array in our usestate
     //   setMessages((messages) => [...messages, direct_message]);
@@ -75,7 +74,7 @@ export default function ConversationMessages() {
 
     // when component unmount, disconnect
     return () => {
-      socket.disconnect();
+      
     };
   }, []);
 
@@ -158,7 +157,7 @@ export default function ConversationMessages() {
                         // onItemClick={closeMenu}
                         className="update-conversation"
                         modalComponent={
-                          <UpdateMessageModal message={message} />
+                          <UpdateMessageModal message={message} socket={socket}/>
                         }
                       />
                     </div>

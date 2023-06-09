@@ -15,49 +15,56 @@ import TitleBar from "./components/TitleBar"
 import ExploreServers from "./components/ExploreServers";
 // import CreateConversation from "./components/DirectMessages/CreateConversation";
 import LogoutNav from "./components/LogoutNav"
+import { io } from "socket.io-client";
 
 function App() {
   const dispatch = useDispatch();
   const [isLoaded, setIsLoaded] = useState(false);
-
+  const [socket, setSocket] = useState(null);
   useEffect(() => {
     dispatch(authenticate()).then(() => setIsLoaded(true));
   }, [dispatch, authenticate]);
 
+  useEffect(() => {
+    setSocket(io())
+    return (() => {
+              socket.disconnect()
+          })
+  }, [io])
   return (
     <>
       {isLoaded && (
         <>
           {/* <Navigation isLoaded={isLoaded} /> */}
-            {/* <TitleBar /> */}
-          
+          {/* <TitleBar /> */}
+
           <Switch>
             <Route exact path="/home">
-            <Navigation isLoaded={isLoaded} />
+              <Navigation isLoaded={isLoaded} socket={socket} />
               <DirectMessages />
               <LogoutNav />
               {/* <CreateConversation /> */}
             </Route>
             <Route exact path="/conversations">
-            <Navigation isLoaded={isLoaded} />
+              <Navigation isLoaded={isLoaded} socket={socket} />
               <DirectMessages />
               <LogoutNav />
             </Route>
             <Route exact path="/conversations/:conversationId">
-            <Navigation isLoaded={isLoaded} />
-              <DirectMessages />
-              <ConversationMessages />
+              <Navigation isLoaded={isLoaded} socket={socket} />
+              <DirectMessages socket={socket} />
+              <ConversationMessages socket={socket} />
               <LogoutNav />
             </Route>
             <Route exact path="/channels/:serverId/:channelId">
-            <Navigation isLoaded={isLoaded} />
+              <Navigation isLoaded={isLoaded} socket={socket} />
               <ChannelList />
-              <ChannelMessages />
+              <ChannelMessages socket={socket} />
               <ServerUserList />
               <LogoutNav />
             </Route>
             <Route exact path='/servers/explore'>
-            <Navigation isLoaded={isLoaded} />
+              <Navigation isLoaded={isLoaded} socket={socket} />
               <ExploreServers />
             </Route>
           </Switch>

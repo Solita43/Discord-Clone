@@ -7,9 +7,7 @@ import UpdateMessageModal from "../UpdateMessageModal";
 import MessageDetails from "../MessageDetails";
 import OpenModalButton from "../OpenModalButton";
 
-let socket;
-
-export default function ChannelMessages() {
+export default function ChannelMessages({socket}) {
   let dispatch = useDispatch();
   let params = useParams();
 
@@ -47,7 +45,6 @@ export default function ChannelMessages() {
   }, [channels]);
 
   useEffect(() => {
-    socket = io();
 
     socket.on("channel_message", (channel_message) => {
       //   if (channelId == channel_message.channelId) {
@@ -69,9 +66,7 @@ export default function ChannelMessages() {
       dispatch(getChannelMessagesThunk(channelId));
     });
 
-    return () => {
-      socket.disconnect();
-    };
+    
   }, []);
 
   const handleEnter = (e) => {
@@ -147,6 +142,7 @@ export default function ChannelMessages() {
                             <UpdateMessageModal
                               isChannel={true}
                               message={message}
+                              socket={socket}
                             />
                           }
                           buttonText={<i class="fa-solid fa-gear"></i>}

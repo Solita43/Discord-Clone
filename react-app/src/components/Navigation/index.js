@@ -8,11 +8,11 @@ import OpenModalButton from "../OpenModalButton";
 import { getConversationsThunk } from '../../store/userconversations';
 import { io } from "socket.io-client";
 
-function Navigation({ isLoaded }) {
+function Navigation({ isLoaded, socket }) {
   const dispatch = useDispatch();
   const params = useParams()
   const { serverId, conversationId } = params;
-  const socket = io();
+  console.log(socket)
 
 
   const sessionUser = useSelector(state => state.session.user);
