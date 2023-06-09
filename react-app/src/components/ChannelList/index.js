@@ -85,15 +85,15 @@ if(allServers[serverId]){
                 </div>
                 {Object.keys(channels[name]).map((channelName) => {
                   return (
-                    <div className="channel-container" onMouseOver={(e) => {
+                    <div key={channelName} className="channel-container" onMouseOver={(e) => {
                       const button = document.getElementById(`channel-edit-${channelName}`)
                       button.className = "edit-channel-name-button"
                     }} onMouseLeave={(e) => {
                       const button = document.getElementById(`channel-edit-${channelName}`)
                       button.className = "hidden"
                     }} onClick={() => history.push(`/channels/${serverId}/${channels[name][channelName].id}`)}>
-                      <span id="channel" style={channelName == serverDisplay.channelIds[channelId] ? {color: "white", fontWeight: "bold"}: {}}><i class="fa-solid fa-hashtag"></i>{channelName}</span>
-                      <OpenModalButton id={`channel-edit-${channelName}`} buttonText={(<i class="fa-solid fa-gear" style={{backgroundColor: "var(--channel-hover)", fontSize:".8rem"}}></i>) }className={"hidden"} modalComponent={<EditChannelModal channels={channels} channelName={channelName} groupNames={groupNames} groupIds={groupIds} defaultChannel={defaultChannel} />} />
+                      <span id="channel" style={channelName == serverDisplay.channelIds[channelId] ? {color: "white", fontWeight: "bold"}: {}}><i className="fa-solid fa-hashtag"></i>{channelName}</span>
+                      <OpenModalButton id={`channel-edit-${channelName}`} buttonText={(<i className="fa-solid fa-gear" style={{backgroundColor: "var(--channel-hover)", fontSize:".8rem"}}></i>) }className={"hidden"} modalComponent={<EditChannelModal channels={channels} channelName={channelName} groupNames={groupNames} groupIds={groupIds} defaultChannel={defaultChannel} />} />
                     </div>
                   )
                 })}

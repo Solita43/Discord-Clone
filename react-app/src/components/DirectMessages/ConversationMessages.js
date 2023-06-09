@@ -136,6 +136,7 @@ export default function ConversationMessages() {
             {messages.map((message) => {
               return (
                 <div
+                  key={message.id}
                   className="group-messages-buttons"
                   onMouseOver={() => {
                     const buttonbox = document.getElementById(message.id);
@@ -153,10 +154,10 @@ export default function ConversationMessages() {
                         className="delete-message-button"
                         onClick={() => deleteChat(message.id)}
                       >
-                        <i class="fa-solid fa-trash-can"></i>
+                        <i className="fa-solid fa-trash-can"></i>
                       </button>
                       <OpenModalButton
-                        buttonText={<i class="fa-solid fa-gear"></i>}
+                        buttonText={<i className="fa-solid fa-gear"></i>}
                         // onItemClick={closeMenu}
                         className="update-conversation"
                         modalComponent={

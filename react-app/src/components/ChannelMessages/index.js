@@ -115,7 +115,7 @@ export default function ChannelMessages() {
             {messages &&
               messages.map((message) => {
                 return (
-                  <div className="group-messages-buttons" onMouseOver={() => {
+                  <div key={message.id} className="group-messages-buttons" onMouseOver={() => {
                     const buttonbox = document.getElementById(message.id);
                     if (buttonbox) {
                       buttonbox.className = "message-update-buttons"
@@ -133,7 +133,7 @@ export default function ChannelMessages() {
                     {message.userId === currentUser.userId && (
                       <div id={message.id} className="hidden">
                         <button className="delete-message-button" onClick={() => deleteChat(message.id)}>
-                          <i class="fa-solid fa-trash-can"></i>
+                          <i className="fa-solid fa-trash-can"></i>
                         </button>
                         <OpenModalButton
                           modalComponent={
@@ -142,7 +142,7 @@ export default function ChannelMessages() {
                               message={message}
                             />
                           }
-                          buttonText={<i class="fa-solid fa-gear"></i>}
+                          buttonText={<i className="fa-solid fa-gear"></i>}
                           className={"update-conversation"}
                         />
                       </div>

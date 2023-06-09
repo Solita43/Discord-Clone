@@ -64,7 +64,7 @@ function Navigation({ isLoaded }) {
           <div className="tooltip" data-tooltip={"Direct Messages"} style={{ paddingBottom: ".3rem", borderBottom: ".1rem solid var(--center-page)" }}>
             <a className="dm-anchor-tag" >
               <div className="server-icons dm-div" style={conversationId ? { backgroundColor: "var(--main-button-blue)", borderRadius: "15px" } : {}}>
-                <i class="fa-solid fa-gamepad" onClick={() => history.push(`/conversations/${firstConversation}`)} style={{ color: "var(--text)", fontSize: "1.8rem" }}></i>
+                <i className="fa-solid fa-gamepad" onClick={() => history.push(`/conversations/${firstConversation}`)} style={{ color: "var(--text)", fontSize: "1.8rem" }}></i>
                 {/* <img
                   className="dm-img"
                   src="https://img.icons8.com/?size=512&id=aqOnqIFQZ4_I&format=png"
