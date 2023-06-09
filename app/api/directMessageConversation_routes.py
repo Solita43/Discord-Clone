@@ -190,7 +190,7 @@ def create_direct_conversation():
     # check if the conversation ids match at all indicating they already have an active chat
     for id in convo_ids_for_current_user:
         if id in convo_ids_friend:
-            return("You already have a conversation with this user")
+            return{"errors":"You already have a conversation with this user"}
 
     # format the user
     user_friend = {

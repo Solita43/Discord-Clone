@@ -19,6 +19,11 @@ export default function CreateConversationModal({ users }) {
         let user = users.find(user => user.username === username)
         e.preventDefault();
         const data = await dispatch(createNewConversationThunk(username))
+        if (data.errors) {
+            console.log(data);
+            setErrors(data.errors)
+            return
+        }
         const { conversation_id } = data[user.userId]
 
         closeModal()
@@ -39,7 +44,7 @@ export default function CreateConversationModal({ users }) {
         <>
             <div id="form-container">
                 <h1 className="form-title">Create a Conversation</h1>
-                {errors && <p className="errors">{errors.conversation}</p>}
+                {errors && <p className="errors">{errors}</p>}
                 <form id="convo-form" className="form-box" onSubmit={handleSubmit}>
 
                     <label className="signup-labels">

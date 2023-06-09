@@ -1,4 +1,3 @@
-
 .nav-root {
   box-sizing: border-box;
   height: 100%;
@@ -6,8 +5,10 @@
   background-color: #232326;
 }
 
-html, body, #root {
-  height: 100%
+html,
+body,
+#root {
+  height: 100%;
 }
 
 #root {
@@ -19,6 +20,7 @@ html, body, #root {
   display: flex;
   flex-direction: column;
   align-items: center;
+
   width: 72px;
   height: 100%;
 }
@@ -26,12 +28,11 @@ html, body, #root {
 .server-nav-bar > ol {
   display: flex;
   flex-direction: column;
-  gap: .5rem;
+  gap: 0.5rem;
   list-style: none;
   padding: 0;
-  margin: 0; 
+  margin: 0;
   z-index: 0;
-
 }
 
 .server-nav-bar > ol::-webkit-scrollbar {
@@ -41,16 +42,16 @@ html, body, #root {
 .server-icons {
   width: 3rem;
   height: 3rem;
-  margin-top: .5rem;
+  margin-top: 0.5rem;
   border-radius: 100%;
   background-color: #313137;
 }
 
 .server-nav-bar > ol > li {
-  position: relative; 
+  position: relative;
 }
 
-.server-icons:hover { 
+.server-icons:hover {
   border-radius: 15px;
   background-color: var(--main-button-blue);
 }
@@ -61,24 +62,22 @@ html, body, #root {
   display: flex;
   justify-content: center;
   align-items: center;
-  color: #29CC7A;
+  color: #29cc7a;
   background-color: #313137;
   border-radius: 100%;
-  font-size: 1.3rem;  
+  font-size: 1.3rem;
   border: none;
 }
 
 #create-a-server:hover {
   border-radius: 30%;
-  background-color: #29CC7A;
+  background-color: #29cc7a;
   color: white;
-
 }
 
 .tooltip {
   position: relative;
   cursor: pointer;
-
 }
 
 .tooltip::before,
@@ -86,24 +85,24 @@ html, body, #root {
   /* --scale: 0; */
   --arrow-size: 12px;
   --tooltip-color: #232326;
-  
+
   position: absolute;
   display: none;
   z-index: 3;
 
   top: 50%;
   left: 140%;
-  transform: translateY(-50%) ;
-/* scale(var(--scale) */
+  transform: translateY(-50%);
+  /* scale(var(--scale) */
 }
 
 .tooltip::before {
   content: attr(data-tooltip);
   color: white;
-  font-size: .7rem;
-  padding: .5rem;
+  font-size: 0.7rem;
+  padding: 0.5rem;
   width: max-content;
-  border-radius: .4rem;
+  border-radius: 0.4rem;
   background-color: var(--tooltip-color);
 }
 
@@ -115,14 +114,13 @@ html, body, #root {
 }
 
 .tooltip::after {
-  content: '';
+  content: "";
   left: 103%;
   border: var(--arrow-size) solid transparent;
   border-right-color: var(--tooltip-color);
 }
 
 .dm-img {
-  
   height: 2.3rem;
 }
 
@@ -134,11 +132,10 @@ html, body, #root {
 
 .discordia-title {
   text-decoration: none;
-  font-family: 'Montserrat', sans-serif;
+  font-family: "Montserrat", sans-serif;
   font-size: 40px;
   color: white;
   margin-left: 10px;
-
 }
 
 .top-nav {
@@ -147,7 +144,7 @@ html, body, #root {
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  background-color: #404EED;
+  background-color: #404eed;
   padding: 20px;
 }
 
@@ -155,7 +152,6 @@ li.top-right-nav {
   display: flex;
   align-items: center;
   gap: 2rem;
-
 }
 
 .fa-solid {
@@ -185,7 +181,7 @@ li.top-right-nav {
   height: 68px;
   border-radius: 35px;
   border: 3px solid white;
-  background-color: #404EED;
+  background-color: #404eed;
   color: white;
   font-size: 20px;
   font-weight: 500;
@@ -193,14 +189,12 @@ li.top-right-nav {
 }
 
 .welcome-user {
-  color: white
+  color: white;
 }
 
 .user-email {
   color: white;
 }
-
-
 
 .hidden {
   display: none;
@@ -209,4 +203,3 @@ li.top-right-nav {
 .fa-gamepad {
   background-color: transparent;
 }
-
