@@ -25,7 +25,7 @@ function TitleBar({ title, users }) {
         <div className="top-bar">
             <DropDownButton serverId={serverId} title={title} users={users} />
             <div id="channel-top-title">
-                {conversationId ? (<img className="title-profile-img" src={conversation.userIcon}></img>) : <i class="fa-solid fa-hashtag title-icon"></i>}
+                {conversationId ? (<img className="title-profile-img" src={conversation.userIcon}></img>) : <i className="fa-solid fa-hashtag title-icon"></i>}
                 <h1 className="top-title">{header}</h1>
             </div>
         </div>

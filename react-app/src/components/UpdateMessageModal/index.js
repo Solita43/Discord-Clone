@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { useModal } from "../../context/Modal"
-import { io } from 'socket.io-client'
+import { useModal } from "../../context/Modal"; 
+import { socket } from "../../socket";
 
-let socket;
-export default function UpdateMessageModal({ message, isChannel, socket }) {
+
+export default function UpdateMessageModal({ message, isChannel }) {
     let [newChat, setNewChat] = useState(message.message)
     const { closeModal } = useModal()
 

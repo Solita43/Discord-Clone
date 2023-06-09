@@ -6,13 +6,14 @@ import { userServersGet } from "../../store/servers";
 import CreateServerModal from "../CreateServerModal";
 import OpenModalButton from "../OpenModalButton";
 import { getConversationsThunk } from '../../store/userconversations';
-import { io } from "socket.io-client";
+import { getUsersOnlineStatus, userOnlineStatusUpdate } from "../../store/onlineStatusStore";
+import { socket } from "../../socket";
 
-function Navigation({ isLoaded, socket }) {
+function Navigation({ isLoaded }) {
   const dispatch = useDispatch();
   const params = useParams()
   const { serverId, conversationId } = params;
-  console.log(socket)
+
 
 
   const sessionUser = useSelector(state => state.session.user);
@@ -35,16 +36,19 @@ function Navigation({ isLoaded, socket }) {
     if (sessionUser) {
       dispatch(userServersGet(sessionUser.userId))
       dispatch(getConversationsThunk())
+      dispatch(getUsersOnlineStatus())
     }
   }, [sessionUser, dispatch])
 
   useEffect(() => {
     const userId = sessionUser.userId;
+
     socket.emit("newUser", [userId, Date.now()])
     socket.on("newUser", (user) => {
-      
+      dispatch(userOnlineStatusUpdate(user))
     })
-  }, [])
+
+  }, [dispatch])
   if (!isLoaded) return (<Redirect to="/" />)
   if (!servers) return null;
   const root = window.document.getElementById('root')
@@ -60,7 +64,7 @@ function Navigation({ isLoaded, socket }) {
           <div className="tooltip" data-tooltip={"Direct Messages"} style={{ paddingBottom: ".3rem", borderBottom: ".1rem solid var(--center-page)" }}>
             <a className="dm-anchor-tag" >
               <div className="server-icons dm-div" style={conversationId ? { backgroundColor: "var(--main-button-blue)", borderRadius: "15px" } : {}}>
-                <i class="fa-solid fa-gamepad" onClick={() => history.push(`/conversations/${firstConversation}`)} style={{ color: "var(--text)", fontSize: "1.8rem" }}></i>
+                <i className="fa-solid fa-gamepad" onClick={() => history.push(`/conversations/${firstConversation}`)} style={{ color: "var(--text)", fontSize: "1.8rem" }}></i>
                 {/* <img
                   className="dm-img"
                   src="https://img.icons8.com/?size=512&id=aqOnqIFQZ4_I&format=png"

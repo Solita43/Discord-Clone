@@ -11,6 +11,7 @@ from .models import db, User
 from .api.user_routes import user_routes
 from .api.auth_routes import auth_routes
 from .api.servers_routes import server_routes
+from .api.online_status_routes import online_status_routes
 from .api.channel_routes import channel_routes
 from .api.directMessageConversation_routes import conversation_routes
 from .api.channel_message_routes import channel_message_routes
@@ -42,6 +43,7 @@ app.register_blueprint(conversation_routes, url_prefix='/api/conversations')
 app.register_blueprint(channel_message_routes, url_prefix='/api/channelMessages')
 app.register_blueprint(channel_routes, url_prefix="/api/channels")
 app.register_blueprint(channel_group_routes, url_prefix='/api/channelGroups')
+app.register_blueprint(online_status_routes, url_prefix="/api/onlineStatus")
 db.init_app(app)
 Migrate(app, db)
 
