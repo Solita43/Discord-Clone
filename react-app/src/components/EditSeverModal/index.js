@@ -23,7 +23,9 @@ function EditServerModal({ serverId }) {
         e.preventDefault();
 
         const formData = new FormData()
-        formData.append("imageURL", image)
+        if (image) {
+            formData.append("imageURL", image)
+        }
         formData.append("name", name)
 
         const data = await dispatch(serverEdit(formData, serverId))
