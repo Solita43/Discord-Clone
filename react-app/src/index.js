@@ -29,10 +29,6 @@ function Root() {
 			<Provider store={store}>
 				<BrowserRouter>
 					<Switch>
-						<Route exact path="/">
-							<LandingPage />
-							<Modal />
-						</Route>
 						<Route>
 							<App />
 							<Modal />

@@ -37,18 +37,21 @@ function Navigation({ isLoaded }) {
       dispatch(userServersGet(sessionUser.userId))
       dispatch(getConversationsThunk())
       dispatch(getUsersOnlineStatus())
+      socket.emit("newUser", sessionUser.userId)
     }
   }, [sessionUser, dispatch])
 
   useEffect(() => {
     const userId = sessionUser.userId;
 
-    socket.emit("newUser", [userId, Date.now()])
     socket.on("newUser", (user) => {
+      console.log(user)
       dispatch(userOnlineStatusUpdate(user))
     })
 
-  }, [dispatch])
+    return () => socket.disconnect()
+
+  }, [sessionUser])
   if (!isLoaded) return (<Redirect to="/" />)
   if (!servers) return null;
   const root = window.document.getElementById('root')

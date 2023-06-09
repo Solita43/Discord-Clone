@@ -6,7 +6,7 @@ import "./ServerUserLIst.css";
 export default function ServerUserList() {
     const { channelId, serverId } = useParams();
     const serverDetails = useSelector((state) => state.servers.ServerDetails);
-
+    const userStatuses = useSelector((state) => state.onlineStatus.UserStatus)
 
 
     if (!serverDetails[serverId] || !Object.keys(serverDetails[serverId]).length) {
@@ -23,7 +23,9 @@ export default function ServerUserList() {
     const owner = serverDetails[serverId].userRoles.owner.sort((a, b) => {
         return b - a
     });
-
+    let ownerObj = allUsers[owner[0]]
+    let ownerStatus = userStatuses[ownerObj.userId] === "online" ? true : false
+    console.log("OWNER", ownerObj);
     return (
         <div id="conversations-container" className="server-user-list">
 
@@ -31,8 +33,12 @@ export default function ServerUserList() {
             <span>Owner</span>
             <div className="conversation-user-container">
                 <div className="dm-left">
-                    <img className="dm-profile-img" src={allUsers[owner[0]].userIcon}></img>
-                    <p className="dm-username">{allUsers[owner[0]].username}</p>
+                    <img className="dm-profile-img" src={allUsers[owner[0]].userIcon}
+                        style={ownerStatus ? { border: "2px solid green" } : {}}
+                    ></img>
+                    <p className="dm-username">{allUsers[owner[0]].username}
+                        {ownerStatus && (<span className="online-status">Online</span>)}
+                    </p>
                 </div>
             </div>
 
@@ -41,11 +47,21 @@ export default function ServerUserList() {
 
             {admins.length > 0 ? <span>Admins</span> : null}
             {admins.map((userId) => {
+                let status = userStatuses[userId]
+                let online = false;
+                if (status === "online") {
+                    online = true
+                }
                 return (
                     <div className="conversation-user-container">
                         <div className="dm-left">
-                            <img className="dm-profile-img" src={allUsers[userId].userIcon}></img>
-                            <p className="dm-username">{allUsers[userId].username}</p>
+                            <img className="dm-profile-img" src={allUsers[userId].userIcon}
+                                style={online ? { border: "2px solid green" } : {}}
+
+                            ></img>
+                            <p className="dm-username">{allUsers[userId].username}
+                                {online && (<span className="online-status">Online</span>)}
+                            </p>
                         </div>
                     </div>
                 )
@@ -56,11 +72,20 @@ export default function ServerUserList() {
 
             {users.length > 0 ? <span>Users</span> : null}
             {users.map((userId) => {
+                let status = userStatuses[userId]
+                let online = false;
+                if (status === "online") {
+                    online = true
+                }
                 return (
                     <div className="conversation-user-container">
                         <div className="dm-left">
-                            <img className="dm-profile-img" src={allUsers[userId].userIcon}></img>
-                            <p className="dm-username">{allUsers[userId].username}</p>
+                            <img className="dm-profile-img" src={allUsers[userId].userIcon}
+                                style={online ? { border: "2px solid green" } : {}}
+                            ></img>
+                            <p className="dm-username">{allUsers[userId].username}
+                                {online && (<span className="online-status">Online</span>)}
+                            </p>
                         </div>
                     </div>
                 )

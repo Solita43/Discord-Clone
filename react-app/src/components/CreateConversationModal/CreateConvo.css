@@ -1,0 +1,28 @@
+.users-list-container {
+  overflow-y: scroll;
+  height: 250px;
+  margin-bottom: 2em;
+  width: 60%;
+}
+.users-list {
+  color: white;
+  /* text-align: right; */
+}
+
+.user-list-details {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 1em 0;
+}
+.user-list-details div {
+  display: flex;
+  align-items: center;
+  gap: 0.75em;
+}
+#form-container #convo-form {
+  align-items: center;
+}
+#convo-form button {
+  width: 200px;
+}

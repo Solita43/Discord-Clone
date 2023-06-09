@@ -46,6 +46,7 @@ export default function ChannelMessages() {
   }, [channels]);
 
   useEffect(() => {
+    socket.emit("newUser", currentUser.userId)
     socket.on("channel_message", (channel_message) => {
       //   if (channelId == channel_message.channelId) {
       //     setMessages((messages) => [...messages, channel_message]);
@@ -77,13 +78,15 @@ export default function ChannelMessages() {
   const sendChat = (e) => {
     e.preventDefault();
     if (chatInput.length > 255 || chatInput < 1) {
-      setErrors({ chat: "Message must be between 1 and 255" });
+      setErrors({ chat: "Message must be between 1 and 255 characters" });
+      return
     } else {
       socket.emit("channel_message", {
         message: chatInput,
         user_id: currentUser.userId,
         channel_id: channelId,
       });
+      socket.emit("newUser", currentUser.userId)
     }
 
     setChatInput("");
@@ -93,12 +96,14 @@ export default function ChannelMessages() {
     socket.emit("delete_channel_message", {
       message_id: messageId,
     });
+    socket.emit("newUser", currentUser.userId)
   };
 
   if (isLoading) return <div className="socket-container"></div>;
 
   return (
     <div className="socket-container">
+      {errors && <p className="errors">{errors.chat}</p>}
       <form className="channel-message-input-form" onSubmit={sendChat}>
         <textarea
           className="message-input"

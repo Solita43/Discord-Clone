@@ -11,7 +11,7 @@
   --login-logout-button: #65656c;
   --modal-background: #33343d;
   --modal-input: #232326;
-  --left-right-nav:#1e1f22;
+  --left-right-nav: #1e1f22;
   --channel-nav: #2b2d31;
   --center-page: #313338;
   --user-info: #2a2a2e;
@@ -20,15 +20,14 @@
   --check-box: #29cc7a;
   --main-button-blue: #5865f2;
   --main-button-gray: #33343d;
-  --main-button-red:#da373c;
+  --main-button-red: #da373c;
   --input-text-messages: #d4d4d4;
   --input-messages-background: #65656c83;
   --message-hover: #2e3035;
 }
 
 body {
-  background-color: var(--center-page)
-
+  background-color: var(--center-page);
 }
 
 #bars {
@@ -53,32 +52,30 @@ body {
   overflow: hidden scroll;
   display: flex;
   flex-direction: column-reverse;
-
 }
 
 .channel-messages-input-form {
-  border: solid
+  border: solid;
 }
 
-textarea{
-  resize:none
+textarea {
+  resize: none;
 }
 
 .message-user-img {
-
 }
 
 .message-info {
-
+  word-wrap: break-word;
+  width: 500px;
 }
 
 .container-messages {
   display: flex;
-  gap: .8rem;
-
+  gap: 0.8rem;
 }
 
-.message-time-updated{
+.message-time-updated {
   font-size: 10px;
 }
 
@@ -92,8 +89,8 @@ textarea{
   margin: 1rem 0;
   display: flex;
   justify-content: space-between;
-  padding: .8rem;
-  border-radius: .7rem;
+  padding: 0.8rem;
+  border-radius: 0.7rem;
 }
 
 .group-messages-buttons:hover {
@@ -107,7 +104,7 @@ textarea{
 
 .delete-message-button {
   border: none;
-  background-color: var(--center-page) ;
+  background-color: var(--center-page);
   margin-right: 5px;
   color: var(--hover-channel);
 }
@@ -119,14 +116,13 @@ textarea{
 .fa-trash-can {
   font-size: 15px;
   color: var(--main-button-red);
-  background-color: var(--center-page) ;
+  background-color: var(--center-page);
 }
 
 .fa-gear {
   font-size: 15px;
-  background-color: var(--center-page) ;
+  background-color: var(--center-page);
 }
-
 
 .footer {
   background-color: #33343d;
@@ -140,7 +136,7 @@ textarea{
 }
 
 .developer-info-boxes {
-  display:flex;
+  display: flex;
   justify-content: space-between;
   height: 100%;
   gap: 1rem;
@@ -150,30 +146,28 @@ textarea{
 
 .coder-title {
   font-weight: 200;
-  margin-top: .5rem;
+  margin-top: 0.5rem;
   font-size: 20px;
 }
 
 .coder-layout-info {
-  display:flex;
-
+  display: flex;
 }
 
-.coder-name{
+.coder-name {
   font-size: 14px;
 }
 
-.coder-info-wrapper{
+.coder-info-wrapper {
   display: flex;
   flex-direction: row;
   justify-content: center;
   align-content: center;
-  align-items:center;
+  align-items: center;
   background-color: var(--modal-input);
   border-radius: 10px;
   padding: 1rem;
-  column-gap:.5rem;
-
+  column-gap: 0.5rem;
 }
 
 .coder-info {
@@ -182,7 +176,6 @@ textarea{
 }
 
 .coder-info-right {
-
 }
 .coder-link {
   font-size: 12px;
@@ -195,9 +188,9 @@ textarea{
 }
 
 .coder-contact-info {
-  display:flex;
-  gap: .5rem;
-  margin-top: .2rem;
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 0.2rem;
 }
 
 .footer-container {
@@ -208,10 +201,12 @@ textarea{
   border-radius: 10px;
   background-color: var(--input-messages-background);
   padding: 15px;
-  color: var(--input-text-messages)
+  color: var(--input-text-messages);
 }
 
 .message-input:focus {
-  border-color: var(--input-text-messages); /* Light grey border color on focus */
+  border-color: var(
+    --input-text-messages
+  ); /* Light grey border color on focus */
   outline: none;
 }

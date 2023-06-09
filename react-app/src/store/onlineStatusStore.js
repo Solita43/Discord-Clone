@@ -16,7 +16,8 @@ const usersStatus = (users) => ({
 
 
 export const userOnlineStatusUpdate = (user) => async (dispatch) => {
-    await dispatch(updateUser(user))
+    console.log(user)
+    dispatch(updateUser(user))
     return null;
 }
 
@@ -39,24 +40,24 @@ const initialState = {
 }
 
 export default function reducer(state = initialState, action) {
-    const newState = { ...state, UserStatus: { ...state.ServerList } }
+    const newState = { ...state, UserStatus: { ...state.UserStatus } }
     switch (action.type) {
         case UPDATE_USER:
             /*
-                expected: [<userId>, "status"] 
+                expected: [<userId>, "status"]
             */
+            console.log(action.payload)
             newState.UserStatus[action.payload[0]] = action.payload[1];
             return newState;
         case GET_USERS_STATUS_LIST:
-            /* 
+            /*
                 expected: {
-                    <userId>: "status", 
+                    <userId>: "status",
                     <userId>: "status"
                 }
             */
-            
             newState.UserStatus = { ...action.payload }
-            return newState; 
+            return newState;
         default:
             return state;
     }
