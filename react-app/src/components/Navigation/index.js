@@ -37,10 +37,13 @@ function Navigation({ isLoaded, socket }) {
       dispatch(getConversationsThunk())
     }
   }, [sessionUser, dispatch])
+
   useEffect(() => {
     const userId = sessionUser.userId;
     socket.emit("newUser", [userId, Date.now()])
-  
+    socket.on("newUser", (user) => {
+      
+    })
   }, [])
   if (!isLoaded) return (<Redirect to="/" />)
   if (!servers) return null;
