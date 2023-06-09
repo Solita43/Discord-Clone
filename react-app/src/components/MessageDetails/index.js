@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from "react"
-import { io } from 'socket.io-client'
 // import Picker from '@emoji-mart/react'
 // import data from '@emoji-mart/data'
 import { useSelector } from "react-redux"
 
-let socket;
+
 export default function MessageDetails({ message }) {
 
     let [emojiList, setEmojiList] = useState({})

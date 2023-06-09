@@ -6,13 +6,14 @@ import { userServersGet } from "../../store/servers";
 import CreateServerModal from "../CreateServerModal";
 import OpenModalButton from "../OpenModalButton";
 import { getConversationsThunk } from '../../store/userconversations';
-import { io } from "socket.io-client";
+import { getUsersOnlineStatus, userOnlineStatusUpdate } from "../../store/onlineStatusStore";
+import { socket } from "../../socket";
 
-function Navigation({ isLoaded, socket }) {
+function Navigation({ isLoaded }) {
   const dispatch = useDispatch();
   const params = useParams()
   const { serverId, conversationId } = params;
-  console.log(socket)
+
 
 
   const sessionUser = useSelector(state => state.session.user);
@@ -35,16 +36,19 @@ function Navigation({ isLoaded, socket }) {
     if (sessionUser) {
       dispatch(userServersGet(sessionUser.userId))
       dispatch(getConversationsThunk())
+      dispatch(getUsersOnlineStatus())
     }
   }, [sessionUser, dispatch])
 
   useEffect(() => {
     const userId = sessionUser.userId;
+
     socket.emit("newUser", [userId, Date.now()])
     socket.on("newUser", (user) => {
-      
+      dispatch(userOnlineStatusUpdate(user))
     })
-  }, [])
+
+  }, [dispatch])
   if (!isLoaded) return (<Redirect to="/" />)
   if (!servers) return null;
   const root = window.document.getElementById('root')

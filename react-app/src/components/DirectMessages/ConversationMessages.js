@@ -4,15 +4,14 @@ import { useSelector, useDispatch } from "react-redux";
 import { getConversationMessagesThunk } from "../../store/userConversationMessages";
 import { getConversationsThunk } from "../../store/userconversations";
 import OpenModalButton from "../OpenModalButton";
-import { io } from "socket.io-client";
 import "./directMessages.css";
 import MessageDetails from "../MessageDetails";
 import UpdateMessageModal from "../UpdateMessageModal";
+import { socket } from "../../socket";
 
 // initialize socket variable outside of component
-let socket;
 
-export default function ConversationMessages({socket}) {
+export default function ConversationMessages() {
   let dispatch = useDispatch();
   const params = useParams();
   let { conversationId } = params;
@@ -24,7 +23,8 @@ export default function ConversationMessages({socket}) {
   let [messages, setMessages] = useState([]);
   let [chatInput, setChatInput] = useState("");
   let [errors, setErrors] = useState({});
-  
+
+
 
   let username;
   for (let key in conversationList) {
@@ -44,28 +44,30 @@ export default function ConversationMessages({socket}) {
 
   useEffect(() => {
     if (conversation && Object.keys(conversation).length)
-      setMessages(conversation.messages.sort((a,b)=>{
-        if (a.id < b.id){
-            return -1
+      setMessages(conversation.messages.sort((a, b) => {
+        if (a.id < b.id) {
+          return -1
         }
       }));
   }, [conversations]);
 
   // open socket with useEffect
   useEffect(() => {
+
+
     socket.on("direct_message", (direct_message) => {
       // when we recieve a chat add to our messages array in our usestate
-    //   setMessages((messages) => [...messages, direct_message]);
+      //   setMessages((messages) => [...messages, direct_message]);
       // updating store
-      
+
       dispatch(getConversationMessagesThunk(direct_message.conversationId));
       dispatch(getConversationsThunk());
     });
     socket.on("delete_direct_message", (deleted_message) => {
-    //   setMessages((messages) => {
-    //     return messages.filter((message) => message.id !== deleted_message.id);
-    //   });
-    dispatch(getConversationsThunk());
+      //   setMessages((messages) => {
+      //     return messages.filter((message) => message.id !== deleted_message.id);
+      //   });
+      dispatch(getConversationsThunk());
     });
 
     socket.on("update_direct_message", (update_direct_message) => {
@@ -73,8 +75,9 @@ export default function ConversationMessages({socket}) {
     });
 
     // when component unmount, disconnect
+
     return () => {
-      
+
     };
   }, []);
 
@@ -137,7 +140,7 @@ export default function ConversationMessages({socket}) {
                   onMouseOver={() => {
                     const buttonbox = document.getElementById(message.id);
                     if (buttonbox) buttonbox.className = "message-update-buttons";
-                  }} 
+                  }}
                   onMouseLeave={() => {
                     const buttonbox = document.getElementById(message.id);
                     if (buttonbox) buttonbox.className = "hidden";
@@ -157,7 +160,7 @@ export default function ConversationMessages({socket}) {
                         // onItemClick={closeMenu}
                         className="update-conversation"
                         modalComponent={
-                          <UpdateMessageModal message={message} socket={socket}/>
+                          <UpdateMessageModal message={message} />
                         }
                       />
                     </div>

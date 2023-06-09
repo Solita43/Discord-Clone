@@ -2,12 +2,12 @@ import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { getChannelMessagesThunk } from "../../store/channels";
-import { io } from "socket.io-client";
 import UpdateMessageModal from "../UpdateMessageModal";
 import MessageDetails from "../MessageDetails";
 import OpenModalButton from "../OpenModalButton";
+import { socket } from "../../socket";
 
-export default function ChannelMessages({socket}) {
+export default function ChannelMessages() {
   let dispatch = useDispatch();
   let params = useParams();
 
@@ -19,6 +19,7 @@ export default function ChannelMessages({socket}) {
   let servers = useSelector((state) => state.servers.ServerDetails);
   let server = servers[serverId];
   let channelName;
+
   if (server) {
     channelName = server["channelIds"][channelId];
   }
@@ -36,16 +37,15 @@ export default function ChannelMessages({socket}) {
   }, [channelId]);
   useEffect(() => {
     if (channels[channelId]) {
-      setMessages(channels[channelId].sort((a,b)=>{
-        if(a.id < b.id){
-            return -1
+      setMessages(channels[channelId].sort((a, b) => {
+        if (a.id < b.id) {
+          return -1
         }
       }));
     }
   }, [channels]);
 
   useEffect(() => {
-
     socket.on("channel_message", (channel_message) => {
       //   if (channelId == channel_message.channelId) {
       //     setMessages((messages) => [...messages, channel_message]);
@@ -65,8 +65,6 @@ export default function ChannelMessages({socket}) {
       channelId = channel_message.channelId
       dispatch(getChannelMessagesThunk(channelId));
     });
-
-    
   }, []);
 
   const handleEnter = (e) => {
@@ -142,7 +140,6 @@ export default function ChannelMessages({socket}) {
                             <UpdateMessageModal
                               isChannel={true}
                               message={message}
-                              socket={socket}
                             />
                           }
                           buttonText={<i class="fa-solid fa-gear"></i>}
