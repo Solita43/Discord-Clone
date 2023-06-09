@@ -2,6 +2,7 @@ from flask_socketio import SocketIO, emit
 from .models import DirectMessage, DirectMessageConversation, DirectMessageReaction, db, ChannelMessage, User
 import os
 from datetime import datetime
+from time import time
 
 
 
@@ -13,6 +14,24 @@ else:
 
 # create your socketIO instance
 socketio = SocketIO(cors_allowed_origin=origins)
+
+online_users = {}; 
+
+@socketio.on("newUser")
+def online_user(data): 
+    online_users[data[0]] = data[1]
+    user = User.query.get(data[0])
+    user.status = "true"
+    db.session.commit()
+
+@socketio.on("disconnect")
+def offline_user(): 
+    for key, value in online_users.items(): 
+        if round(time()*1000) - value > 30000: 
+            user = User.query.get(key)
+            user.status = 'false'
+            db.session.commit()
+
 
 # handle direct messages - parameter is bananable but must use the same in the front end
 @socketio.on("direct_message")
