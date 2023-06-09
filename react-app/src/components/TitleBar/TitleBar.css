@@ -1,6 +1,6 @@
 .top-bar {
   display: flex;
-  height: 3.6rem;
+  height: 55px;
   position: absolute;
   z-index: 0;
   background-color: var(--channel-nav);
@@ -34,4 +34,16 @@
 
 i.fa-solid.fa-hashtag.title-icon {
   font-size: 1.5rem;
+}
+
+.dm-bar {
+  color: var(--text);
+  background-color: #1e1f22;
+  padding: 0.4rem;
+  border-radius: 0.3rem;
+  border: none;
+  width: 100%;
+  text-align: left;
+  margin: 0 0.4rem;
+  cursor: pointer;
 }

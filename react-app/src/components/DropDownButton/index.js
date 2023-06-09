@@ -46,9 +46,9 @@ function DropDownButton({ serverId, title, users}) {
         <>
             <div className={title === "Direct Messages" ? "dm-title-div": "dropdown-title-div"} onClick={openMenu}>
                 <div>
-                    <h1 className="dropdown-title">{title === "Direct Messages" ? "Direct Messages": displayName(title) }</h1>
+                    {title === "Direct Messages" ? null : (<h1 className="dropdown-title">{displayName(title)}</h1>) }
                 </div>
-                {title === "Direct Messages" ? <OpenModalButton buttonText={<i className="fa-solid fa-plus" id="dm-plus"></i>} className="dropdown-icon-plus" modalComponent={< CreateConversationModal users={users} />} /> :
+                {title === "Direct Messages" ? <OpenModalButton buttonText="Start a conversation" className="dm-bar" modalComponent={< CreateConversationModal users={users} />} /> :
                  (<div className="dropdown-icon">
                     <i className="fa-solid fa-chevron-down" />
                 </div>)}

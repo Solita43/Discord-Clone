@@ -96,41 +96,57 @@ export default function LandingPage() {
                             <div className="developer-info-boxes">
                             <div className="coder-info">
                                 <div className="coder-info-wrapper">
-                                <img src="https://res.cloudinary.com/dnzxq7dgk/image/upload/v1686271883/P2/ben-banner_vle0nz.png" className="coder-image"></img>
-                                <p className="coder-name">Benjamin Wilson</p>
-                                <div className="coder-contact-info">
-                                    <a className="coder-link" href="https://www.linkedin.com/in/benjamin-wilson-2a39ab271/">LinkedIn</a>
-                                    <a className="coder-link" href="https://github.com/BenjaminWilson13">Git Hub</a>
-                                </div>
+                                 
+                                    <img src="https://res.cloudinary.com/dnzxq7dgk/image/upload/v1686271883/P2/ben-banner_vle0nz.png" className="coder-image"></img>
+                                        <div className="coder-info-right">
+                                            <p className="coder-name">Benjamin Wilson</p>
+                                            <div className="coder-contact-info">
+                                                <a className="coder-link" href="https://www.linkedin.com/in/benjamin-wilson-2a39ab271/">LinkedIn</a>
+                                                <span>|</span>
+                                                <a className="coder-link" href="https://github.com/BenjaminWilson13">Git Hub</a>
+                                            </div>
+                                        </div>
+                                   
                                 </div>
                             </div>
                             <div className="coder-info">
                             <div className="coder-info-wrapper">
                                 <img className="coder-image" src="https://res.cloudinary.com/dnzxq7dgk/image/upload/v1686271951/P2/mel-banner_wjcicw.png"></img>
+                                <div className="coder-info-right">
                                 <p className="coder-name">Melinda Cortez</p>
                                 <div className="coder-contact-info">
-                                    <a className="coder-link" href="https://www.linkedin.com/in/benjamin-wilson-2a39ab271/">LinkedIn</a>
-                                    < a className="coder-link" href="https://github.com/BenjaminWilson13">Git Hub</a>
+                                    <a className="coder-link" href="https://www.linkedin.com/in/melinda-cortez-3581b0139/">LinkedIn</a>
+                                    <span>|</span>
+                                    < a className="coder-link" href="https://github.com/Solita43">Git Hub</a>
+                                </div>
+
                                 </div>
                                 </div>
                             </div>
                             <div className="coder-info">
                             <div className="coder-info-wrapper">
                                 <img src="https://res.cloudinary.com/dnzxq7dgk/image/upload/v1686271970/P2/bev-banner_ocoqn8.png" className="coder-image"></img>
+                                <div className="coder-info-right">
                                 <p className="coder-name">Beverly Duran</p>
                                 <div className="coder-contact-info">
-                                    <a className="coder-link" href="https://www.linkedin.com/in/benjamin-wilson-2a39ab271/">LinkedIn</a>
-                                    < a className="coder-link" href="https://github.com/BenjaminWilson13">Git Hub</a>
+                                    <a className="coder-link" href="https://www.linkedin.com/in/beverly-duran/">LinkedIn</a>
+                                    <span>|</span>
+                                    < a className="coder-link" href="https://github.com/duranbeverly">Git Hub</a>
+                                </div>
+
                                 </div>
                                 </div>
                             </div>
                             <div className="coder-info">
                             <div className="coder-info-wrapper">
                                 <img src="https://res.cloudinary.com/dnzxq7dgk/image/upload/v1686271920/P2/jay-banner_kcxgwe.png" className="coder-image"></img>
+                                <div className="coder-info-right">
                                 <p className="coder-name">Jay Levin</p>
                                 <div className="coder-contact-info">
-                                    <a className="coder-link" href="https://www.linkedin.com/in/benjamin-wilson-2a39ab271/">LinkedIn</a>
-                                    < a className="coder-link" href="https://github.com/BenjaminWilson13">Git Hub</a>
+                                    <a className="coder-link" href="https://www.linkedin.com/in/jay-levin/">LinkedIn</a>
+                                    <span>|</span>
+                                    <a className="coder-link" href="https://github.com/jaylevin96">Git Hub</a>
+                                </div>
                                 </div>
                                 </div>
                             </div>
