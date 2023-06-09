@@ -165,7 +165,6 @@ def edit_server(serverId):
     form.owner_id.data = current_user.id
     if form.validate():
         if "imageURL" in form.data and form.data["imageURL"] != None:
-            print("FORM DATA ====> ", form.data)
             remove_file_from_s3(server.imageUrl)
 
             image = form.data["imageURL"]

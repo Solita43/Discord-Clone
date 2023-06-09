@@ -50,11 +50,11 @@ function EditServerModal({ serverId }) {
                         <li key={idx}>{error}</li>
                     ))}
                 </ul>
-                <label className="signup-labels">
-                    Image icons
+                <label className="image-upload">
+                    <span className="image-upload-label">Change your server image!</span>
                     <input
                         type="file"
-                        className="input-area"
+                        className="image-upload-input"
                         accept="image/*"
                         onChange={(e) => setImage(e.target.files[0])}
                     />

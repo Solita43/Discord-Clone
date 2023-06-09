@@ -4,7 +4,6 @@ import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 import { useDispatch } from "react-redux";
 import { Redirect } from 'react-router-dom'
 import { createNewConversationThunk, getConversationsThunk } from "../../store/userconversations";
-
 import "./CreateConvo.css"
 
 export default function CreateConversationModal({ users }) {
@@ -47,9 +46,9 @@ export default function CreateConversationModal({ users }) {
 
                     {users.map((user) => {
                         return (
-                            <div>
-                                <label className="create-convo-label">
-                                    <input type="checkbox" className="create-convo-checkbox" value={user.username}
+                            <div id="create-convo-users">
+                                <label id="create-convo-label">
+                                    <input type="checkbox" id="create-convo-checkbox" value={user.username}
                                         key={user.userId}
                                         onChange={(e) => { setUsername(e.target.value) }}
                                         checked={username === user.username}
@@ -61,7 +60,7 @@ export default function CreateConversationModal({ users }) {
                         //     onClick = {(e) => setUsername(e.target.value)}
                         // </input>)
                     })}
-                    <div>
+                    <div id="create-convo-button-div">
                         <button id="form-button" type="submit">Create DM</button>
                     </div>
 

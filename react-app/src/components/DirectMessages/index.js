@@ -13,7 +13,7 @@ import TitleBar from "../TitleBar";
 export default function DirectMessages() {
     let dispatch = useDispatch()
     let params = useParams()
-    let {conversationId} = params
+    let { conversationId } = params
     let userConversations = Object.values(useSelector((state) => state.userConversations))
     userConversations = userConversations.sort((a, b) => {
         return a.updated_at < b.updated_at ? 0 : -1
@@ -49,7 +49,7 @@ export default function DirectMessages() {
                                 <div className="conversation-user-container">
                                     <div className="dm-left">
                                         <img className="dm-profile-img" src={conversation.userIcon}
-                                        style={conversation.conversation_id == conversationId ? {border:"2px solid white",borderRadius:"15px"}:{} }
+                                            style={conversation.conversation_id == conversationId ? { border: "2px solid white", borderRadius: "15px" } : {}}
                                         ></img>
                                         <p className="dm-username">{conversation.username}</p>
                                     </div>
