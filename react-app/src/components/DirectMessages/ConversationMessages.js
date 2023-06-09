@@ -12,167 +12,170 @@ import { socket } from "../../socket";
 // initialize socket variable outside of component
 
 export default function ConversationMessages() {
-  let dispatch = useDispatch();
-  const params = useParams();
-  let { conversationId } = params;
-  let conversations = useSelector((state) => state.userConversationMessages);
-  let conversationList = useSelector((state) => state.userConversations);
-  let currentUser = useSelector((state) => state.session.user);
-  let conversation = conversations[conversationId];
-  let [isLoading, setIsLoading] = useState(true);
-  let [messages, setMessages] = useState([]);
-  let [chatInput, setChatInput] = useState("");
-  let [errors, setErrors] = useState({});
+    let dispatch = useDispatch();
+    const params = useParams();
+    let { conversationId } = params;
+    let conversations = useSelector((state) => state.userConversationMessages);
+    let conversationList = useSelector((state) => state.userConversations);
+    let currentUser = useSelector((state) => state.session.user);
+    let conversation = conversations[conversationId];
+    let [isLoading, setIsLoading] = useState(true);
+    let [messages, setMessages] = useState([]);
+    let [chatInput, setChatInput] = useState("");
+    let [errors, setErrors] = useState({});
 
 
 
-  let username;
-  for (let key in conversationList) {
-    if (
-      conversationList[key] &&
-      conversationList[key].conversation_id == conversationId
-    ) {
-      username = conversationList[key].username;
-    }
-  }
-
-  useEffect(() => {
-    dispatch(getConversationMessagesThunk(conversationId)).then(() =>
-      setIsLoading(false)
-    );
-  }, [conversationId]);
-
-  useEffect(() => {
-    if (conversation && Object.keys(conversation).length)
-      setMessages(conversation.messages.sort((a, b) => {
-        if (a.id < b.id) {
-          return -1
+    let username;
+    for (let key in conversationList) {
+        if (
+            conversationList[key] &&
+            conversationList[key].conversation_id == conversationId
+        ) {
+            username = conversationList[key].username;
         }
-      }));
-  }, [conversations]);
+    }
 
-  // open socket with useEffect
-  useEffect(() => {
+    useEffect(() => {
+        dispatch(getConversationMessagesThunk(conversationId)).then(() =>
+            setIsLoading(false)
+        );
+    }, [conversationId]);
+
+    useEffect(() => {
+        if (conversation && Object.keys(conversation).length)
+            setMessages(conversation.messages.sort((a, b) => {
+                if (a.id < b.id) {
+                    return -1
+                }
+            }));
+    }, [conversations]);
+
+    // open socket with useEffect
+    useEffect(() => {
 
 
-    socket.on("direct_message", (direct_message) => {
-      // when we recieve a chat add to our messages array in our usestate
-      //   setMessages((messages) => [...messages, direct_message]);
-      // updating store
+        socket.on("direct_message", (direct_message) => {
+            // when we recieve a chat add to our messages array in our usestate
+            //   setMessages((messages) => [...messages, direct_message]);
+            // updating store
 
-      dispatch(getConversationMessagesThunk(direct_message.conversationId));
-      dispatch(getConversationsThunk());
-    });
-    socket.on("delete_direct_message", (deleted_message) => {
-      //   setMessages((messages) => {
-      //     return messages.filter((message) => message.id !== deleted_message.id);
-      //   });
-      dispatch(getConversationsThunk());
-    });
+            dispatch(getConversationMessagesThunk(direct_message.conversationId));
+            dispatch(getConversationsThunk());
+        });
+        socket.on("delete_direct_message", (deleted_message) => {
+            //   setMessages((messages) => {
+            //     return messages.filter((message) => message.id !== deleted_message.id);
+            //   });
+            // dispatch(getConversationsThunk());
+            dispatch(getConversationMessagesThunk(deleted_message.conversationId))
+        });
 
-    socket.on("update_direct_message", (update_direct_message) => {
-      dispatch(getConversationMessagesThunk(update_direct_message.conversationId));
-    });
+        socket.on("update_direct_message", (update_direct_message) => {
+            dispatch(getConversationMessagesThunk(update_direct_message.conversationId));
+        });
 
-    // when component unmount, disconnect
+        // when component unmount, disconnect
 
-    return () => {
+        return () => {
 
+        };
+    }, []);
+
+    if (isLoading) return <div id="direct-messages-view"></div>;
+    // send chat messages through web socket
+    const sendChat = (e) => {
+        e.preventDefault();
+
+        if (chatInput.length > 255 || chatInput.length < 1) {
+            setErrors({ chat: "Message must be between 1 and 255 characters" });
+            return;
+        } else {
+            setErrors("");
+            socket.emit("direct_message", {
+                message: chatInput,
+                conversation_id: conversationId,
+                user_id: currentUser.userId,
+            });
+            setChatInput("");
+            socket.emit("newUser", currentUser.userId)
+        }
     };
-  }, []);
+    const handleEnter = (e) => {
+        if (e.key === "Enter" && !e.shiftKey) {
+            sendChat(e);
+        }
+    };
 
-  if (isLoading) return <div id="direct-messages-view"></div>;
-  // send chat messages through web socket
-  const sendChat = (e) => {
-    e.preventDefault();
-
-    if (chatInput.length > 255 || chatInput.length < 1) {
-      setErrors({ chat: "Message must be between 1 and 255" });
-      return;
-    } else {
-      setErrors("");
-      socket.emit("direct_message", {
-        message: chatInput,
-        conversation_id: conversationId,
-        user_id: currentUser.userId,
-      });
-      setChatInput("");
+    const deleteChat = (messageId) => {
+        socket.emit("delete_direct_message", {
+            messageId,
+        });
+        socket.emit("newUser", currentUser.userId)
+    };
+    if (isLoading || !conversation) {
+        return <div id="direct-messages-view"></div>;
     }
-  };
-  const handleEnter = (e) => {
-    if (e.key === "Enter" && !e.shiftKey) {
-      sendChat(e);
-    }
-  };
 
-  const deleteChat = (messageId) => {
-    socket.emit("delete_direct_message", {
-      messageId,
-    });
-  };
-  if (isLoading || !conversation) {
-    return <div id="direct-messages-view"></div>;
-  }
-
-  return (
-    <div className="socket-container">
-      {errors && <p className="errors">{errors.chat}</p>}
-      <form className="channel-message-input-form" onSubmit={sendChat}>
-        <textarea
-          className="message-input"
-          placeholder={`Message @${username}`}
-          value={chatInput}
-          onChange={(e) => setChatInput(e.target.value)}
-          onKeyPress={handleEnter}
-        >
-          {" "}
-        </textarea>
-      </form>
-
-      <div id="messages-scroll">
-        <div>
-          {!messages.length && <h4>No messages yet...</h4>}
-          <div className="test">
-            {messages.map((message) => {
-              return (
-                <div
-                  key={message.id}
-                  className="group-messages-buttons"
-                  onMouseOver={() => {
-                    const buttonbox = document.getElementById(message.id);
-                    if (buttonbox) buttonbox.className = "message-update-buttons";
-                  }}
-                  onMouseLeave={() => {
-                    const buttonbox = document.getElementById(message.id);
-                    if (buttonbox) buttonbox.className = "hidden";
-                  }}
+    return (
+        <div className="socket-container">
+            {errors && <p className="errors">{errors.chat}</p>}
+            <form className="channel-message-input-form" onSubmit={sendChat}>
+                <textarea
+                    className="message-input"
+                    placeholder={`Message @${username}`}
+                    value={chatInput}
+                    onChange={(e) => setChatInput(e.target.value)}
+                    onKeyPress={handleEnter}
                 >
-                  <MessageDetails key={message.id} message={message} />
-                  {message.userId === currentUser.userId && (
-                    <div id={message.id} className="hidden">
-                      <button
-                        className="delete-message-button"
-                        onClick={() => deleteChat(message.id)}
-                      >
-                        <i className="fa-solid fa-trash-can"></i>
-                      </button>
-                      <OpenModalButton
-                        buttonText={<i className="fa-solid fa-gear"></i>}
-                        // onItemClick={closeMenu}
-                        className="update-conversation"
-                        modalComponent={
-                          <UpdateMessageModal message={message} />
-                        }
-                      />
-                    </div>
-                  )}
-                </div>
-              );
-            })}
-          </div>
-        </div>
+                    {" "}
+                </textarea>
+            </form>
 
-        {/* <div>
+            <div id="messages-scroll">
+                <div>
+                    {!messages.length && <h4>No messages yet...</h4>}
+                    <div className="test">
+                        {messages.map((message) => {
+                            return (
+                                <div
+                                    key={message.id}
+                                    className="group-messages-buttons"
+                                    onMouseOver={() => {
+                                        const buttonbox = document.getElementById(message.id);
+                                        if (buttonbox) buttonbox.className = "message-update-buttons";
+                                    }}
+                                    onMouseLeave={() => {
+                                        const buttonbox = document.getElementById(message.id);
+                                        if (buttonbox) buttonbox.className = "hidden";
+                                    }}
+                                >
+                                    <MessageDetails key={message.id} message={message} />
+                                    {message.userId === currentUser.userId && (
+                                        <div id={message.id} className="hidden">
+                                            <button
+                                                className="delete-message-button"
+                                                onClick={() => deleteChat(message.id)}
+                                            >
+                                                <i className="fa-solid fa-trash-can"></i>
+                                            </button>
+                                            <OpenModalButton
+                                                buttonText={<i className="fa-solid fa-gear"></i>}
+                                                // onItemClick={closeMenu}
+                                                className="update-conversation"
+                                                modalComponent={
+                                                    <UpdateMessageModal message={message} />
+                                                }
+                                            />
+                                        </div>
+                                    )}
+                                </div>
+                            );
+                        })}
+                    </div>
+                </div>
+
+                {/* <div>
                 {messages.map((message) => {
                     let showEmojiList = emojiList[message.id]
                     return (<div key={message.id}>
@@ -205,7 +208,7 @@ export default function ConversationMessages() {
                 })}
 
             </div> */}
-      </div>
-    </div>
-  );
+            </div>
+        </div>
+    );
 }

@@ -11,10 +11,10 @@ import LandingPage from "./components/LandingPage";
 import ChannelList from "./components/ChannelList";
 import ChannelMessages from "./components/ChannelMessages";
 import ServerUserList from "./components/ServerUserList";
-import TitleBar from "./components/TitleBar"
+import TitleBar from "./components/TitleBar";
 import ExploreServers from "./components/ExploreServers";
 // import CreateConversation from "./components/DirectMessages/CreateConversation";
-import LogoutNav from "./components/LogoutNav"
+import LogoutNav from "./components/LogoutNav";
 import { io } from "socket.io-client";
 import { createNewSocket } from "./store/onlineStatusStore";
 
@@ -34,6 +34,9 @@ function App() {
           {/* <TitleBar /> */}
 
           <Switch>
+            <Route exact path="/">
+              <LandingPage />
+            </Route>
             <Route exact path="/home">
               <Navigation isLoaded={isLoaded} />
               <DirectMessages />
@@ -58,7 +61,7 @@ function App() {
               <ServerUserList />
               <LogoutNav />
             </Route>
-            <Route exact path='/servers/explore'>
+            <Route exact path="/servers/explore">
               <Navigation isLoaded={isLoaded} />
               <ExploreServers />
             </Route>

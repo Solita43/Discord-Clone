@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useModal } from "../../context/Modal"; 
+import { useModal } from "../../context/Modal";
 import { socket } from "../../socket";
 
 
@@ -11,7 +11,7 @@ export default function UpdateMessageModal({ message, isChannel }) {
     useEffect(() => {
 
         return (() => {
-            
+
         })
     }, [])
 
@@ -36,6 +36,7 @@ export default function UpdateMessageModal({ message, isChannel }) {
                 messageId: message.id
             })
         }
+
         closeModal()
 
     }
@@ -57,7 +58,9 @@ export default function UpdateMessageModal({ message, isChannel }) {
             <button
                 onClick={closeModal}
             >Cancel</button>
-            <button type="submit">Submit</button>
+            <button type="submit"
+                disabled={newChat === ''}
+            >Submit</button>
 
         </form>
     </div>)
