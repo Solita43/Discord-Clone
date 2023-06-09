@@ -15,14 +15,24 @@ function SignupFormModal() {
 	const [lastname, setLastname] = useState('')
 	const [password, setPassword] = useState("");
 	const [confirmPassword, setConfirmPassword] = useState("");
-	const [image, setImage] = useState("")
+	const [image, setImage] = useState(null)
 	const [errors, setErrors] = useState([]);
 	const { closeModal } = useModal();
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
 		if (password === confirmPassword) {
-			const data = await dispatch(signUp(username, email, password, firstname, lastname));
+			// const data = await dispatch(signUp(username, email, password, firstname, lastname));
+			const formData = new FormData();
+			formData.append("image", image);
+			formData.append("username", username);
+			formData.append("email", email);
+			formData.append("first_name", firstname);
+			formData.append("last_name", lastname);
+			formData.append("password", password);
+			console.log("this is the form data image: ", formData.get("image"))
+
+			const data = await dispatch(signUp(formData))
 
 			if (data) {
 				setErrors(data);
@@ -90,12 +100,13 @@ function SignupFormModal() {
 							required
 						/>
 					</label>
-					<label className="signup-image">
+					<label className="signup-labels">
 						Image icons
 						<input
-						type="text"
-						value={image}
-						onChange={(e) => setImage(e.target.value)}
+							type="file"
+							className="input-area"
+							accept="image/*"
+							onChange={(e) => setImage(e.target.files[0])}
 						/>
 					</label>
 					<label className="signup-labels">
