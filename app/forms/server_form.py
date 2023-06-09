@@ -1,9 +1,9 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, IntegerField, BooleanField, URLField
-from wtforms.validators import DataRequired, Email, ValidationError, Length
+from wtforms import StringField, IntegerField
+from wtforms.validators import DataRequired,  ValidationError, Length
 from app.models import User
 from app.api.AWS_helpers import ALLOWED_EXTENSIONS
-from flask_wtf.file import FileField, FileAllowed, FileRequired
+from flask_wtf.file import FileField, FileAllowed
 
 
 def user_id_exists(form, field):
@@ -16,5 +16,5 @@ def user_id_exists(form, field):
 class ServerForm(FlaskForm):
     name = StringField("Server name", validators=[DataRequired(), Length(min=5, max=25, message="Server Name must be between 5 and 25 characters")])
     # imageURL = URLField("imageURL", validators=[DataRequired()])
-    imageURL = FileField("Image File", validators=[FileAllowed(list(ALLOWED_EXTENSIONS))])
+    imageURL = FileField("image", validators=[FileAllowed(list(ALLOWED_EXTENSIONS))])
     owner_id = IntegerField("Owner", validators=[DataRequired(), user_id_exists])

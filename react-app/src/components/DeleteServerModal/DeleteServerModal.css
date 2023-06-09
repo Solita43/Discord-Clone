@@ -2,9 +2,54 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: auto;
+    width: 30rem;
     box-sizing: border-box;
     border-radius: 35px;
     background-color: #33343D;
-    padding: 2rem;
+    padding: 1.5rem;
+    gap: .7rem;
+}
+
+.delete-warning {
+    background-color: #f0b132;
+    padding: .5rem;
+    color: white;
+    border-radius: .3rem;
+    font-size: .9rem;
+    width: 93%;
+}
+
+.delete-form-title {
+    color: white;
+    font-weight: 400;
+    font-size: 1.5rem;
+    align-self: flex-start;
+    padding-left: .9rem;
+}
+
+.delete-server-buttons {
+    display: flex;
+    gap: 1rem;
+    justify-content: flex-end;
+}
+
+#delete-button {
+    background-color: var(--main-button-red);
+    border: none;
+    color: white;
+    font-weight: 400;
+    cursor: pointer;
+    padding: .3rem;
+    border-radius: .2rem;
+
+}
+
+.cancel-button {
+background-color: var(--modal-background);
+border: none;
+font-weight: 400;
+color: white;
+font-size: 1rem;
+cursor: pointer;
+
 }

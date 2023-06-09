@@ -15,13 +15,24 @@ function SignupFormModal() {
 	const [lastname, setLastname] = useState('')
 	const [password, setPassword] = useState("");
 	const [confirmPassword, setConfirmPassword] = useState("");
+	const [image, setImage] = useState(null)
 	const [errors, setErrors] = useState([]);
 	const { closeModal } = useModal();
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
 		if (password === confirmPassword) {
-			const data = await dispatch(signUp(username, email, password, firstname, lastname));
+			// const data = await dispatch(signUp(username, email, password, firstname, lastname));
+			const formData = new FormData();
+			formData.append("image", image);
+			formData.append("username", username);
+			formData.append("email", email);
+			formData.append("first_name", firstname);
+			formData.append("last_name", lastname);
+			formData.append("password", password);
+			// console.log("this is the form data image: ", formData.get("image"))
+
+			const data = await dispatch(signUp(formData))
 
 			if (data) {
 				setErrors(data);
@@ -41,7 +52,7 @@ function SignupFormModal() {
 		<>
 			<div id="form-container">
 				<h1 className="form-title">Sign Up</h1>
-				<form className="form-box" onSubmit={handleSubmit}>
+				<form className="form-box" onSubmit={handleSubmit} encType="multipart/form-data">
 					<ul className="errors">
 						{Object.values(errors).map((error, idx) => {
 							return (
@@ -69,13 +80,30 @@ function SignupFormModal() {
 							required
 						/>
 					</label>
+
 					<label className="signup-labels">
 						Email
 						<input
 							type="text"
 							className="input-area"
 							value={email}
-							onChange={(e) => setEmail(e.target.value)}
+							onChange={(e) => {
+								if (!email.includes('@')) {
+									setErrors(prev => {
+										let err = { ...prev }
+										err.email = "Not a valid email"
+										return err;
+									})
+								} else {
+									setErrors(prev => {
+										let err = { ...prev }
+										delete err.email
+										return err
+									})
+
+								}
+								setEmail(e.target.value)
+							}}
 							required
 						/>
 					</label>
@@ -90,12 +118,36 @@ function SignupFormModal() {
 						/>
 					</label>
 					<label className="signup-labels">
+						Image icons
+						<input
+							type="file"
+							className="input-area"
+							accept="image/*"
+							onChange={(e) => setImage(e.target.files[0])}
+						/>
+					</label>
+					<label className="signup-labels">
 						Password
 						<input
 							type="password"
 							className="input-area"
 							value={password}
-							onChange={(e) => setPassword(e.target.value)}
+							onChange={(e) => {
+								if (e.target.value.trim().length < 8) {
+									setErrors(prev => {
+										const err = { ...prev };
+										err.passwordLength = "Password must be 8 characters or more."
+										return err;
+									})
+								} else {
+									setErrors(prev => {
+										const err = { ...prev }
+										delete err.passwordLength;
+										return err;
+									})
+								}
+								setPassword(e.target.value.trim())
+							}}
 							required
 						/>
 					</label>
@@ -105,7 +157,22 @@ function SignupFormModal() {
 							type="password"
 							className="input-area"
 							value={confirmPassword}
-							onChange={(e) => setConfirmPassword(e.target.value)}
+							onChange={(e) => {
+								if (password !== e.target.value.trim()) {
+									setErrors(prev => {
+										const err = { ...prev }
+										err.confirmPassword = "Confirm Password field must be the same as the Password field"
+										return err;
+									});
+								} else {
+									setErrors(prev => {
+										const err = { ...prev }
+										delete err.confirmPassword;
+										return err;
+									})
+								}
+								setConfirmPassword(e.target.value.trim())
+							}}
 							required
 						/>
 					</label>

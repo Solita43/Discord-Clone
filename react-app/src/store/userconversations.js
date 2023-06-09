@@ -46,12 +46,14 @@ export const createNewConversationThunk = (username) => async (dispatch) => {
         const data = await response.json();
         if (data.errors) {
 
+
             return data
         }
 
         dispatch(createNewConversation(data))
-        return data
+        // return data
     }
+
 }
 
 

@@ -2,12 +2,10 @@ import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { getChannelMessagesThunk } from "../../store/channels";
-import { io } from "socket.io-client";
 import UpdateMessageModal from "../UpdateMessageModal";
 import MessageDetails from "../MessageDetails";
 import OpenModalButton from "../OpenModalButton";
-
-let socket;
+import { socket } from "../../socket";
 
 export default function ChannelMessages() {
   let dispatch = useDispatch();
@@ -15,12 +13,13 @@ export default function ChannelMessages() {
 
   let { channelId, serverId } = params;
 
-  console.log("PARAMS => ", channelId)
+  // console.log("PARAMS => ", channelId)
 
   let channels = useSelector((state) => state.channels);
   let servers = useSelector((state) => state.servers.ServerDetails);
   let server = servers[serverId];
   let channelName;
+
   if (server) {
     channelName = server["channelIds"][channelId];
   }
@@ -38,17 +37,16 @@ export default function ChannelMessages() {
   }, [channelId]);
   useEffect(() => {
     if (channels[channelId]) {
-      setMessages(channels[channelId].sort((a,b)=>{
-        if(a.id < b.id){
-            return -1
+      setMessages(channels[channelId].sort((a, b) => {
+        if (a.id < b.id) {
+          return -1
         }
       }));
     }
   }, [channels]);
 
   useEffect(() => {
-    socket = io();
-
+    socket.emit("newUser", currentUser.userId)
     socket.on("channel_message", (channel_message) => {
       //   if (channelId == channel_message.channelId) {
       //     setMessages((messages) => [...messages, channel_message]);
@@ -68,10 +66,6 @@ export default function ChannelMessages() {
       channelId = channel_message.channelId
       dispatch(getChannelMessagesThunk(channelId));
     });
-
-    return () => {
-      socket.disconnect();
-    };
   }, []);
 
   const handleEnter = (e) => {
@@ -84,13 +78,15 @@ export default function ChannelMessages() {
   const sendChat = (e) => {
     e.preventDefault();
     if (chatInput.length > 255 || chatInput < 1) {
-      setErrors({ chat: "Message must be between 1 and 255" });
+      setErrors({ chat: "Message must be between 1 and 255 characters" });
+      return
     } else {
       socket.emit("channel_message", {
         message: chatInput,
         user_id: currentUser.userId,
         channel_id: channelId,
       });
+      socket.emit("newUser", currentUser.userId)
     }
 
     setChatInput("");
@@ -100,12 +96,14 @@ export default function ChannelMessages() {
     socket.emit("delete_channel_message", {
       message_id: messageId,
     });
+    socket.emit("newUser", currentUser.userId)
   };
 
   if (isLoading) return <div className="socket-container"></div>;
 
   return (
     <div className="socket-container">
+      {errors && <p className="errors">{errors.chat}</p>}
       <form className="channel-message-input-form" onSubmit={sendChat}>
         <textarea
           className="message-input"
@@ -122,7 +120,7 @@ export default function ChannelMessages() {
             {messages &&
               messages.map((message) => {
                 return (
-                  <div className="group-messages-buttons" onMouseOver={() => {
+                  <div key={message.id} className="group-messages-buttons" onMouseOver={() => {
                     const buttonbox = document.getElementById(message.id);
                     if (buttonbox) {
                       buttonbox.className = "message-update-buttons"
@@ -140,7 +138,7 @@ export default function ChannelMessages() {
                     {message.userId === currentUser.userId && (
                       <div id={message.id} className="hidden">
                         <button className="delete-message-button" onClick={() => deleteChat(message.id)}>
-                          <i class="fa-solid fa-trash-can"></i>
+                          <i className="fa-solid fa-trash-can"></i>
                         </button>
                         <OpenModalButton
                           modalComponent={
@@ -149,7 +147,7 @@ export default function ChannelMessages() {
                               message={message}
                             />
                           }
-                          buttonText={<i class="fa-solid fa-gear"></i>}
+                          buttonText={<i className="fa-solid fa-gear"></i>}
                           className={"update-conversation"}
                         />
                       </div>

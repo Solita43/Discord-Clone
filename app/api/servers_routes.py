@@ -1,8 +1,9 @@
-from flask import Blueprint, jsonify, session, request, redirect
-from flask_login import current_user, login_user, logout_user, login_required
+from flask import Blueprint, request, make_response
+from flask_login import current_user, login_required
 from app.models import Server, ServerUser, User, db, Channel, ChannelGroup
 from app.forms import ServerUserForm, ServerForm
 from app.api.utils import get_user_role
+from app.api.AWS_helpers import upload_file_to_s3, get_unique_filename, remove_file_from_s3
 
 server_routes = Blueprint('servers', __name__)
 
@@ -102,18 +103,27 @@ def create_a_server():
         }
 
     """
-    data = request.get_json()
+    # data = request.get_json()
+
     form = ServerForm()
     form['csrf_token'].data = request.cookies['csrf_token']
-    form.name.data = data['name']
-    if "imageUrl" in data:
-        form.imageURL.data = data["imageUrl"]
     form.owner_id.data = current_user.id
-
+    # form.name.data = data['name']
 
     if form.validate():
+        res = Server(
+            name=form.data["name"],
+            owner_id=current_user.id)
 
-        res = Server(**data, owner_id=current_user.id)
+        if "imageURL" in request.files:
+            image = form.data["imageURL"]
+            image.filename = get_unique_filename(image.filename)
+            upload = upload_file_to_s3(image)
+            if 'url' not in upload:
+                return "invalid url"
+            else:
+                res.imageUrl =upload["url"]
+
         db.session.add(res)
         db.session.commit()
         #create a channel group
@@ -130,6 +140,7 @@ def create_a_server():
     else:
         errors = form.errors
         return errors, 400
+
 
 @server_routes.route('/<int:serverId>', methods=["PUT"])
 @login_required
@@ -148,18 +159,22 @@ def edit_server(serverId):
     if role != "owner":
         return {'errors': ['Only owners may edit']}, 403
 
-    data = request.get_json()
+    server = Server.query.get(serverId)
     form = ServerForm()
     form['csrf_token'].data = request.cookies['csrf_token']
-    form.name.data = data['name']
-    if "imageUrl" in data:
-        form.imageURL.data = data["imageUrl"]
     form.owner_id.data = current_user.id
     if form.validate():
-        server = Server.query.get(serverId)
-        server.name = data["name"]
-        if "imageUrl" in data:
-            server.imageUrl = data["imageUrl"]
+        if "imageURL" in form.data and form.data["imageURL"] != None:
+            remove_file_from_s3(server.imageUrl)
+
+            image = form.data["imageURL"]
+            image.filename = get_unique_filename(image.filename)
+            upload = upload_file_to_s3(image)
+            if 'url' not in upload:
+                return "invalid url"
+            else:
+                server.imageUrl = upload["url"]
+        server.name = form.data["name"]
         db.session.commit()
         return server.to_dict()
     else:
@@ -191,9 +206,7 @@ def delete_server_by_id(server_id):
         }
     role = get_user_role(current_user.id, server_id)
     if role != "owner":
-        return {
-            "message": "Insufficient permission to delete this server."
-        }
+        return {'errors': 'Insufficient permission to delete this server'}, 403
     db.session.delete(server)
     db.session.commit()
     return {

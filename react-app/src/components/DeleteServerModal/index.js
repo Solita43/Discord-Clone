@@ -1,15 +1,15 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useModal } from "../../context/Modal";
 import { useHistory } from "react-router-dom";
-import {serverDelete} from "../../store/servers"
+import { serverDelete } from "../../store/servers"
 import "./DeleteServerModal.css"
 
 
-function DeleteServerModal({serverId, serverName}) {
-    const dispatch = useDispatch(); 
+function DeleteServerModal({ serverId, serverName }) {
+    const dispatch = useDispatch();
     const [name, setName] = useState("");
-	const { closeModal } = useModal();
+    const { closeModal } = useModal();
     const history = useHistory();
     const [error, setError] = useState("")
 
@@ -20,36 +20,41 @@ function DeleteServerModal({serverId, serverName}) {
             setError("Field must match server name exactly.")
             return
         } else {
-            dispatch(serverDelete(serverId))
-            history.push('/home')
-            closeModal()
+            dispatch(serverDelete(serverId)).then((data) => {
+                if (data.errors) {
+                    setError(data.errors)
+                    return
+                }
+                history.push('/home')
+                closeModal()
+            })
         }
     }
 
 
     return (
         <div id="delete-form-container">
-            <h1 className="form-title">Delete '{serverName}'</h1>
+            <h1 className="delete-form-title">Delete '{serverName}'?</h1>
             <p className="delete-warning">
-                Are you sure you want to delete this server? This action 
+                Are you sure you want to delete this server? This action
                 cannot be undone.
             </p>
+            {error ? (<p className="errors">* {error}</p>) : null}
             <form className="form-box" onSubmit={handleSubmit}>
-                {error && (
-                    <p className="errors" >{error}</p>
-                )}
                 <label className="signup-labels">
                     ENTER SERVER NAME
-                    <input 
+                    <input
                         type="text"
-                        className="input-area" 
+                        className="input-area"
                         value={name}
                         onChange={(e) => setName(e.target.value)}
                         required
                     />
                 </label>
-                <button onClick={closeModal}>Cancel</button>
-                <button id="delete-button" type="submit">Delete Server</button>
+                <div className="delete-server-buttons">
+                    <button className="cancel-button" onClick={closeModal}>Cancel</button>
+                    <button id="delete-button" type="submit">Delete Server</button>
+                </div>
             </form>
         </div>
     )

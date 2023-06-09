@@ -15,23 +15,38 @@ else:
 # create your socketIO instance
 socketio = SocketIO(cors_allowed_origin=origins)
 
-online_users = {}; 
+online_users = {}
 
 @socketio.on("newUser")
-def online_user(data): 
-    online_users[data[0]] = data[1]
-    user = User.query.get(data[0])
-    user.status = "true"
+def online_user(data):
+
+    print(online_users)
+    print(data)
+    #data = <userId>
+    online_users[data] = round(time()*1000)
+    user = User.query.get(data)
+    user.status = "online"
+
+    emit("newUser", [data, "online"], broadcast=True)
+
     db.session.commit()
 
-@socketio.on("disconnect")
-def offline_user(): 
-    for key, value in online_users.items(): 
-        if round(time()*1000) - value > 30000: 
-            user = User.query.get(key)
-            user.status = 'false'
-            db.session.commit()
 
+@socketio.on("disconnect")
+def offline_user():
+    for user_fix in User.query.all():
+        if online_users.get(user_fix.id) == None:
+            user_fix.status = "offline"
+            emit("newUser", [user_fix.id, 'offline'], broadcast=True)
+
+
+    for key, value in online_users.items():
+        if round(time()*1000) - value > 300000:
+            user = User.query.get(key)
+            user.status = 'offline'
+            emit("newUser", [key, 'offline'], broadcast=True)
+
+    db.session.commit()
 
 # handle direct messages - parameter is bananable but must use the same in the front end
 @socketio.on("direct_message")

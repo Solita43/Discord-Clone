@@ -88,13 +88,11 @@ export const serverDetailsGet = (serverId) => async (dispatch) => {
 
 }
 
-export const serverPost = (server) => async (dispatch) => {
+export const serverPost = (formData) => async (dispatch) => {
+    console.log("in the server store form Data: ".formData)
     const res = await fetch("/api/servers/", {
         method: "POST",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify(server)
+        body: formData
     })
 
     const data = await res.json();
@@ -104,15 +102,14 @@ export const serverPost = (server) => async (dispatch) => {
         dispatch(postServer(data))
         return data
     } else {
-        return {error: data.name[0]}
+        return { error: data.name[0] }
     }
 }
 
-export const serverEdit = (updated, serverId) => async (dispatch) => {
+export const serverEdit = (formData, serverId) => async (dispatch) => {
     const res = await fetch(`/api/servers/${serverId}`, {
         method: "PUT",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(updated)
+        body: formData
     })
 
     const data = await res.json();
@@ -174,7 +171,7 @@ export const createChannel = (body) => async (dispatch) => {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(body)
     })
-    const data = await res.json(); 
+    const data = await res.json();
     if (res.ok) {
         return data
     } else {
@@ -188,12 +185,12 @@ export const createChannelGroupThunk = (data) => async (dispatch) => {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(data)
     })
-    const errors = await res.json(); 
+    const errors = await res.json();
 
     if (res.ok) {
-        return null; 
+        return null;
     } else {
-        return errors; 
+        return errors;
     }
 }
 

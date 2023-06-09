@@ -49,6 +49,8 @@
 .dm-username {
   color: white;
   text-decoration: none;
+  display: flex;
+  flex-direction: column;
 }
 
 .dm-left {
@@ -56,7 +58,11 @@
   align-items: center;
   gap: 10px;
 }
-
+.online-status {
+  color: white;
+  font-size: 11px;
+  font-style: italic;
+}
 .dm-right {
   padding-right: 10px;
   visibility: hidden;
@@ -66,7 +72,7 @@
   visibility: visible;
 }
 
-#delete-convo{
+#delete-convo {
   font-size: 15px;
 }
 
@@ -101,7 +107,7 @@ a {
   flex-direction: column;
   align-items: flex-start;
   width: 100%;
-  height: auto; 
+  height: auto;
   margin: 0 1em;
   margin-top: 3rem;
   background-color: var(--center-page);
@@ -124,7 +130,6 @@ a {
   width: 100%;
   margin: 10px;
 }
-
 
 .errors {
   font-size: 15px;
