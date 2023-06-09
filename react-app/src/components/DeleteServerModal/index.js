@@ -1,15 +1,15 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useModal } from "../../context/Modal";
 import { useHistory } from "react-router-dom";
-import {serverDelete} from "../../store/servers"
+import { serverDelete } from "../../store/servers"
 import "./DeleteServerModal.css"
 
 
-function DeleteServerModal({serverId, serverName}) {
-    const dispatch = useDispatch(); 
+function DeleteServerModal({ serverId, serverName }) {
+    const dispatch = useDispatch();
     const [name, setName] = useState("");
-	const { closeModal } = useModal();
+    const { closeModal } = useModal();
     const history = useHistory();
     const [error, setError] = useState("")
 
@@ -20,9 +20,12 @@ function DeleteServerModal({serverId, serverName}) {
             setError("Field must match server name exactly.")
             return
         } else {
-            dispatch(serverDelete(serverId))
-            history.push('/home')
-            closeModal()
+            dispatch(serverDelete(serverId)).then(() => {
+                history.push('/home')
+                closeModal()
+            }).catch(e => {
+                console.log(e);
+            })
         }
     }
 
@@ -31,7 +34,7 @@ function DeleteServerModal({serverId, serverName}) {
         <div id="delete-form-container">
             <h1 className="form-title">Delete '{serverName}'</h1>
             <p className="delete-warning">
-                Are you sure you want to delete this server? This action 
+                Are you sure you want to delete this server? This action
                 cannot be undone.
             </p>
             <form className="form-box" onSubmit={handleSubmit}>
@@ -40,9 +43,9 @@ function DeleteServerModal({serverId, serverName}) {
                 )}
                 <label className="signup-labels">
                     ENTER SERVER NAME
-                    <input 
+                    <input
                         type="text"
-                        className="input-area" 
+                        className="input-area"
                         value={name}
                         onChange={(e) => setName(e.target.value)}
                         required

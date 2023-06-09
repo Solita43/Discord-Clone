@@ -73,24 +73,27 @@ def sign_up():
             image.filename = get_unique_filename(image.filename)
             upload = upload_file_to_s3(image)
             print("url: ", upload)
+            if 'url' not in upload:
+                return "invalid url"
+            else:
+                user = User(
+                    username=form.data['username'],
+                    email=form.data['email'],
+                    password=form.data['password'],
+                    first_name = form.data['first_name'],
+                    last_name = form.data['last_name'],
+                    imageUrl = upload["url"]
+                )
+                db.session.add(user)
+                db.session.commit()
+                login_user(user)
+                return user.to_dict()
+            return form.errors, 401
 
 
 
 
-    #     user = User(
-    #         username=form.data['username'],
-    #         email=form.data['email'],
-    #         password=form.data['password'],
-    #         first_name = form.data['first_name'],
-    #         last_name = form.data['last_name']
-    #         # imageUrl = (awsimage)
-    #     )
-    #     db.session.add(user)
-    #     db.session.commit()
-    #     login_user(user)
-    #     return user.to_dict()
-    # return form.errors, 401
-    return"HEY"
+
 
 
 @auth_routes.route('/unauthorized')
