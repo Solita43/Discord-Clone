@@ -248,6 +248,7 @@ textarea {
 
 .image-label {
   align-self: center;
+  padding: .7rem;
 }
 
 .message-text {

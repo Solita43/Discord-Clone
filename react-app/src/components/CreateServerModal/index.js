@@ -39,8 +39,8 @@ function CreateServerModal({ title, serverId }) {
     }
 
     return (
-        <div id="delete-form-container">
-            <h1 className="form-title">{title}</h1>
+        <div id="create-server-container">
+            <h1 className="create-server-title">{title}</h1>
             {error ? <p className="errors">* {error}</p> : null}
             <form onSubmit={handleSubmit} className="form-box" encType="multipart/form-data">
                 <label className="image-label">
@@ -59,7 +59,7 @@ function CreateServerModal({ title, serverId }) {
                         onChange={(e) => setImage(e.target.files[0])}
                     />
                 </label>
-                <label className="signup-labels">
+                <label className="create-server-label">
                     Server Name
                     <input
                         type="text"
@@ -69,7 +69,7 @@ function CreateServerModal({ title, serverId }) {
                         required
                     />
                 </label>
-                <button id="form-button" type="submit">Create</button>
+                <button id="create-server-button" type="submit">Create</button>
             </form>
         </div>
     );
