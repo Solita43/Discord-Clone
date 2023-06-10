@@ -5,7 +5,7 @@ import { getChannelMessagesThunk } from "../../store/channels";
 import UpdateMessageModal from "../UpdateMessageModal";
 import MessageDetails from "../MessageDetails";
 import OpenModalButton from "../OpenModalButton";
-import socketio from "socket.io-client";
+import { socket } from "../../socket";
 
 
 
@@ -21,10 +21,9 @@ export default function VoiceChannels() {
     const roomName = channelId;
     const localVideoRef = useRef(null);
     const remoteVideoRef = useRef(null);
+    const [remoteVideos, setRemoteVideos] = useState([])
+
     
-    const socket = socketio({
-        autoConnect: false,
-    });
 
     let pc; // For RTCPeerConnection Object
 
@@ -45,7 +44,6 @@ export default function VoiceChannels() {
             .then((stream) => {
                 console.log("Local Stream found");
                 localVideoRef.current.srcObject = stream;
-                socket.connect();
                 socket.emit("join", { username: localUsername, room: roomName });
             })
             .catch((error) => {
@@ -117,18 +115,18 @@ export default function VoiceChannels() {
         }
     };
 
-    socket.on("ready", () => {
-        console.log("Ready to Connect!");
-        createPeerConnection();
-        sendOffer();
-    });
-
-    socket.on("data", (data) => {
-        console.log("Data received: ", data);
-        signalingDataHandler(data);
-    });
-
+    
     useEffect(() => {
+        socket.on("ready", () => {
+            console.log("Ready to Connect!");
+            createPeerConnection();
+            sendOffer();
+        });
+    
+        socket.on("data", (data) => {
+            console.log("Data received: ", data);
+            signalingDataHandler(data);
+        });
         startConnection();
         return function cleanup() {
             pc?.close();
@@ -139,8 +137,8 @@ export default function VoiceChannels() {
         <div>
             <label>{"Username: " + localUsername}</label>
             <label>{"Room Id: " + roomName}</label>
-            <audio autoPlay muted playsInline ref={localVideoRef} />
-            <audio autoPlay playsInline ref={remoteVideoRef} />
+            <video autoPlay muted playsInline ref={localVideoRef} />
+            <video autoPlay playsInline ref={remoteVideoRef} />
         </div>
     );
 }
