@@ -1,5 +1,6 @@
 from flask import request
 from flask_socketio import SocketIO, emit, join_room, leave_room, send
+from flask_socketio import SocketIO, emit, join_room, leave_room, send
 from .models import DirectMessage, DirectMessageConversation, DirectMessageReaction, db, ChannelMessage, User
 import os
 from datetime import datetime
@@ -52,11 +53,18 @@ online_users = {}
 
 
 
- 
-@socketio.event
-def connect(): 
-    current_user.status = "online"
-    emit("updateUser", [current_user.id, "online"], broadcast=True)
+@socketio.on("newUser")
+def online_user(data):
+
+    print(online_users)
+    print(data)
+    #data = <userId>
+    online_users[data] = round(time()*1000)
+    user = User.query.get(data)
+    user.status = "online"
+
+    emit("updateUser", [data, "online"], broadcast=True)
+
     db.session.commit()
 
 @socketio.event

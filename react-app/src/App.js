@@ -17,6 +17,7 @@ import DeveloperList from "./components/DeveloperList"
 import VoiceChannels from "./components/VoiceChannels";
 import AllServersList from "./components/AllServersList";
 import ProtectedRoute from "./components/auth/ProtectedRoute";
+import VoiceChannels from "./components/VoiceChannels";
 
 function App() {
   const dispatch = useDispatch();
@@ -87,6 +88,20 @@ function App() {
               <ServerUserList />
               <LogoutNav />
             </ProtectedRoute>
+            <ProtectedRoute exact path="/voiceChannel/:serverId/:channelId">
+              <Navigation isLoaded={isLoaded} />
+              <ChannelList />
+              <VoiceChannels />
+              <ServerUserList />
+              <LogoutNav />
+            </ProtectedRoute>
+            <Route exact path="/voiceChannel/:serverId/:channelId">
+              <Navigation isLoaded={isLoaded} />
+              <ChannelList />
+              <VoiceChannels />
+              <ServerUserList />
+              <LogoutNav />
+            </Route>
             <ProtectedRoute exact path="/channels/:serverId/:channelId">
               <Navigation isLoaded={isLoaded} />
               <ChannelList />
