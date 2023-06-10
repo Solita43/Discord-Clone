@@ -9,6 +9,8 @@
   gap: 10px;
   flex-shrink: 0;
   margin-top: 3rem;
+  overflow: scroll;
+  margin-bottom: 48px;
 }
 
 #conversations-container img {
