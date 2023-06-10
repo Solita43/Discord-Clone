@@ -120,7 +120,7 @@ def create_a_server():
             image.filename = get_unique_filename(image.filename)
             upload = upload_file_to_s3(image)
             if 'url' not in upload:
-                return "invalid url"
+                return upload
             else:
                 res.imageUrl =upload["url"]
 
@@ -171,7 +171,7 @@ def edit_server(serverId):
             image.filename = get_unique_filename(image.filename)
             upload = upload_file_to_s3(image)
             if 'url' not in upload:
-                return "invalid url"
+                return upload
             else:
                 server.imageUrl = upload["url"]
         server.name = form.data["name"]
