@@ -116,17 +116,17 @@ export default function VoiceChannels() {
     };
 
     
+    socket.on("ready", () => {
+        console.log("Ready to Connect!");
+        createPeerConnection();
+        sendOffer();
+    });
+
+    socket.on("data", (data) => {
+        console.log("Data received: ", data);
+        signalingDataHandler(data);
+    });
     useEffect(() => {
-        socket.on("ready", () => {
-            console.log("Ready to Connect!");
-            createPeerConnection();
-            sendOffer();
-        });
-    
-        socket.on("data", (data) => {
-            console.log("Data received: ", data);
-            signalingDataHandler(data);
-        });
         startConnection();
         return function cleanup() {
             pc?.close();
