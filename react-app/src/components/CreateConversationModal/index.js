@@ -18,16 +18,17 @@ export default function CreateConversationModal({ users }) {
     const handleSubmit = async (e) => {
         let user = users.find(user => user.username === username)
         e.preventDefault();
-        const data = await dispatch(createNewConversationThunk(username))
-        if (data.errors) {
-            console.log(data);
-            setErrors(data.errors)
-            return
-        }
-        const { conversation_id } = data[user.userId]
+        dispatch(createNewConversationThunk(username)).then(data => {
+            if (data.errors) {
+                setErrors(data.errors)
+                return
+            }
+            const { conversation_id } = data[user.userId]
 
-        closeModal()
-        return history.push(`/conversations/${conversation_id}`)
+            closeModal()
+            return history.push(`/conversations/${conversation_id}`)
+
+        })
     }
 
     users = users.filter(user => user.userId !== currentUser.userId)
@@ -42,12 +43,12 @@ export default function CreateConversationModal({ users }) {
     return (
         // make it so that you have an input field and uner you display all users in a multiple select
         <>
-            <div id="form-container">
-                <h1 className="form-title">Create a Conversation</h1>
+            <div id="create-server-container">
+                <h1 className="create-server-title">Create a Conversation</h1>
                 {errors.length > 0 && <p className="errors">{errors}</p>}
                 <form id="convo-form" className="form-box" onSubmit={handleSubmit}>
 
-                    <label className="signup-labels">
+                    <label className="create-server-label">
 
                         <input
                             type="text"
@@ -111,7 +112,7 @@ export default function CreateConversationModal({ users }) {
                         })}
                     </div>
 
-                    <button id="form-button" type="submit">Create DM</button>
+                    <button id="convo-button" type="submit">Create DM</button>
 
 
                 </form>

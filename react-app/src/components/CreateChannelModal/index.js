@@ -36,19 +36,19 @@ export default function CreateChannelModal(props) {
 
     return (
         <>
-            <div id="form-container">
-                <h1 className="form-title">Create a New Channel!</h1>
+            <div id="create-server-container">
+                <h1 className="create-server-title">Create a New Channel!</h1>
                 <form className="form-box" onSubmit={handleSubmit}>
                     <ul className="errors">
                         {Object.values(errors).map((error, idx) => (
                             <li key={idx}>{error}</li>
                         ))}
                     </ul>
-                    <label className="signup-labels">
+                    <label className="create-server-label">
                         Channel Name
                         <input type="text" className="input-area" maxLength="25" minLength="5" value={name} onChange={(e) => setName(e.target.value)} required />
                     </label>
-                    <button id="form-button" type="submit">Create Channel</button>
+                    <button id="create-server-button" type="submit">Create Channel</button>
                 </form>
             </div>
         </>

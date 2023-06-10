@@ -68,13 +68,13 @@ textarea {
 
 .message-info {
   display: flex;
-  flex-direction: column;
   gap: 0.6rem;
   justify-content: flex-end;
 }
 
 .container-messages {
   display: flex;
+  flex-direction: column;
   gap: 0.8rem;
 }
 
@@ -102,8 +102,13 @@ textarea {
 }
 
 .message-update-buttons {
-  /* display: flex;
-  gap: 5px; */
+  display: flex;
+  gap: 0.1rem;
+  /* position: absolute; */
+  /* left: 79%; */
+  /* left: %; */
+  opacity: .8;
+  /* justify-self: flex-end; */
 }
 
 .delete-message-button {
@@ -253,4 +258,21 @@ textarea {
 
 .message-text {
   word-break: break-all;
+}
+
+.top-message {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+}
+
+.edit-message-input-area {
+  background-color: #232426;
+  border-radius: 7px;
+  height: 14rem;
+  font-size: 18px;
+  letter-spacing: 1.5px;
+  color: white;
+  padding: .5rem;
+  margin-top: 2px;
 }

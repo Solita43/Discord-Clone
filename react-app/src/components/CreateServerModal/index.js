@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useModal } from "../../context/Modal";
 import { useHistory } from "react-router-dom";
 import { serverPost, serverEdit } from "../../store/servers";
+import "./CreateServerModal.css"
 
 
 function CreateServerModal({ title, serverId }) {

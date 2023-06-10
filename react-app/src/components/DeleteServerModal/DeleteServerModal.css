@@ -53,3 +53,11 @@ font-size: 1rem;
 cursor: pointer;
 
 }
+
+.delete-server-label {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 2rem;
+    color: #fff;
+    width: 100%;
+}

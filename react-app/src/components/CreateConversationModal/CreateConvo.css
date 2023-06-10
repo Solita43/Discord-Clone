@@ -3,7 +3,13 @@
   height: 250px;
   margin-bottom: 2em;
   width: 60%;
+  align-self: center;
+  background-color: var(--message-hover);
+  padding: 0 1rem;
+  box-shadow: 0 0 1.15rem inset var(--modal-background);
+  border: inset 0.1rem var(--modal-background);
 }
+
 .users-list {
   color: white;
   /* text-align: right; */
@@ -23,9 +29,20 @@
 #form-container #convo-form {
   align-items: center;
 }
-#convo-form button {
-  width: 200px;
+
+#convo-button {
+  border-radius: 15px;
+  background-color: #5865f2;
+  color: #fff;
+  text-align: center;
+  font-size: 24px;
+  cursor: pointer;
+  margin-bottom: 1.5rem;
+  padding: 0.5rem;
+  align-self: center;
+  width: 100%;
 }
+
 /* NavLink #create-convo-users {
     display: flex;
 }

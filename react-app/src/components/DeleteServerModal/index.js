@@ -41,7 +41,7 @@ function DeleteServerModal({ serverId, serverName }) {
             </p>
             {error ? (<p className="errors">* {error}</p>) : null}
             <form className="form-box" onSubmit={handleSubmit}>
-                <label className="signup-labels">
+                <label className="delete-server-label">
                     ENTER SERVER NAME
                     <input
                         type="text"

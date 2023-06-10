@@ -120,12 +120,13 @@ export default function ChannelMessages() {
             {messages &&
               messages.map((message) => {
                 return (
-                  <div key={message.id} className="group-messages-buttons" onMouseOver={() => {
-                    const buttonbox = document.getElementById(message.id);
-                    if (buttonbox) {
-                      buttonbox.className = "message-update-buttons"
-                    }
-                  }}
+                  <div key={message.id} className="group-messages-buttons"
+                    onMouseOver={() => {
+                      const buttonbox = document.getElementById(message.id);
+                      if (buttonbox) {
+                        buttonbox.className = "message-update-buttons"
+                      }
+                    }}
                     onMouseLeave={() => {
                       const buttonbox = document.getElementById(message.id);
                       if (buttonbox) {
@@ -133,9 +134,9 @@ export default function ChannelMessages() {
                       }
                     }}
                   >
-                    <MessageDetails key={message.id} message={message} />
+                    <MessageDetails key={message.id} message={message} deleteChat={deleteChat} currentUser={currentUser} />
 
-                    {message.userId === currentUser.userId && (
+                    {/* {message.userId === currentUser.userId && (
                       <div id={message.id} className="hidden">
                         <button className="delete-message-button" onClick={() => deleteChat(message.id)}>
                           <i className="fa-solid fa-trash-can"></i>
@@ -151,7 +152,7 @@ export default function ChannelMessages() {
                           className={"update-conversation"}
                         />
                       </div>
-                    )}
+                    )} */}
                   </div>
                 );
               })}
