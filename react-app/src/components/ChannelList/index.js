@@ -40,7 +40,7 @@ export default function ChannelList() {
   }, [serverDetails]);
 
 
-  if (!serverDetails[serverId]) {
+  if (!serverDetails[serverId] || !allServers[serverId]) {
     return (<div id="conversations-container"></div>)
   }
 
