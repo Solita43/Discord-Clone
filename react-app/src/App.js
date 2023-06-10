@@ -15,7 +15,6 @@ import TitleBar from "./components/TitleBar";
 import ExploreServers from "./components/ExploreServers";
 // import CreateConversation from "./components/DirectMessages/CreateConversation";
 import LogoutNav from "./components/LogoutNav";
-import { io } from "socket.io-client";
 import { createNewSocket } from "./store/onlineStatusStore";
 import VoiceChannels from "./components/VoiceChannels";
 

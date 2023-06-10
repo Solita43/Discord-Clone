@@ -1,3 +1,4 @@
+from flask import request
 from flask_socketio import SocketIO, emit, join_room, leave_room, send
 from .models import DirectMessage, DirectMessageConversation, DirectMessageReaction, db, ChannelMessage, User
 import os
@@ -15,16 +16,33 @@ else:
 # create your socketIO instance
 socketio = SocketIO(cors_allowed_origin=origins)
 
+
+@socketio.on('join')
+def join(message):
+    username = message['username']
+    room = message['room']
+    join_room(room)
+    print('RoomEvent: {} has joined the room {}\n'.format(username, room))
+    emit('ready', {username: username}, to=room, skip_sid=request.sid)
+
+@socketio.on('data')
+def transfer_data(message):
+    username = message['username']
+    room = message['room']
+    data = message['data']
+    print('DataEvent: {} has sent the data:\n {}\n'.format(username, data))
+    emit('data', data, to=room, skip_sid=request.sid)  
+
+
+@socketio.on_error_default
+def default_error_handler(e):
+    print("Error: {}".format(e))
+
+
+
 online_users = {}
 
-@socketio.on("joinVoiceChannel")
-def joining_channel(data):
-    print("joinVoiceChannel", data) 
-    user_id = data[0]
-    channel_id = data[1]
-    join_room(channel_id)
-    emit("userConnect", {"channel_id": channel_id, "user_id": user_id})
-    print("USER JOINED YOUR CHANNEL", user_id, channel_id)
+
 
 
 @socketio.on("newUser")
