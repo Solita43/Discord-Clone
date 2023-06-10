@@ -9,8 +9,6 @@ import * as sessionActions from "./store/session";
 import * as serverActions from "./store/servers"
 import App from "./App";
 
-import { PeerProvider } from 'react-peer';
-
 import "./index.css";
 
 const store = configureStore();
@@ -28,16 +26,14 @@ function Root() {
 	return (
 		<ModalProvider>
 			<Provider store={store}>
-				<PeerProvider options={{key: "discordia"}}>
-					<BrowserRouter>
-						<Switch>
-							<Route>
-								<App />
-								<Modal />
-							</Route>
-						</Switch>
-					</BrowserRouter>
-				</PeerProvider>
+				<BrowserRouter>
+					<Switch>
+						<Route>
+							<App />
+							<Modal />
+						</Route>
+					</Switch>
+				</BrowserRouter>
 			</Provider>
 		</ModalProvider>
 	);
