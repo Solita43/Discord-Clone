@@ -3,7 +3,7 @@ import { useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { addServerUserThunk, getServersThunk } from "../../store/servers";
 import OpenModalButton from "../OpenModalButton";
-
+import Background2 from "../../assets/discord_home_2.png"
 import './exploreServers.css'
 import JoinServerModal from "../JoinServerModal";
 export default function ExploreServers() {
@@ -26,6 +26,14 @@ export default function ExploreServers() {
 
     return (
         <div id="explore-container">
+            <div className="server-discover-banner">
+            <div className="discover-title-area">
+                <h1 className="discover-title">Find your community</h1>
+                <p className="discover-motto">From gaming to music, to learning there's a place for you.</p>
+            </div>
+                <img className="discover-banner-img" src={Background2}/>
+            </div>
+
             <h2 id="featured-header">Featured Communities</h2>
             <div id="servers-list-container">
                 {
@@ -34,19 +42,22 @@ export default function ExploreServers() {
                         return <div key={server.id} className="server-container">
                             <img className="explore-server-image" src={server.imageUrl}></img>
                             <div className="server-container-bottom">
-                                <div>{server.name}</div>
-                                <div>{server.userCount} {server.userCount>1? "users":"user"}</div>
+                                <div className="top-server-info">
+                                    <div className="server-username">{server.name}</div>
+                                    {!(server.id in userServers) && (<div>
+                                        <OpenModalButton modalComponent={< JoinServerModal server={server} />} className="launch-server-button" buttonText="Join" />
+                                    </div>)}
+                                    {server.id in userServers && 
+                                    
+                                    (<button className="launch-server-button" onClick={()=>{
+                                        return history.push(`/channels/${server.id}/${server.default_channel_id}`)
+                                    }}
+                                    >Launch Server</button>)}
+
+                                </div>
+                                <div className="server-users">{server.userCount} {server.userCount>1? "users":"user"}</div>
 
 
-                                {!(server.id in userServers) && (<div>
-                                    <OpenModalButton modalComponent={< JoinServerModal server={server} />} buttonText="Join" />
-                                </div>)}
-                                {server.id in userServers && 
-                                
-                                (<button onClick={()=>{
-                                    return history.push(`/channels/${server.id}/${server.default_channel_id}`)
-                                }}
-                                >Launch Server</button>)}
 
                             </div>
                         </div>

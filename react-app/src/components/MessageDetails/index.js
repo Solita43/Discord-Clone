@@ -54,7 +54,7 @@ export default function MessageDetails({ message }) {
             {/* changed to view date in correct time zone  */}
             <p className="message-time-updated">{new Date(message.updatedAt + " UTC").toLocaleString()}</p> 
             </div>
-            {message.message}
+            <p className="message-text">{message.message}</p>
             {/* <button
                 onClick={() => buttonClick(message.id)}
             >😊</button> */}

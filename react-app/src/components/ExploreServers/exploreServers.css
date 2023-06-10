@@ -5,10 +5,11 @@
   row-gap: 2em;
   flex-wrap: wrap;
   width: fit-content;
-  justify-content: center;
+  justify-content: space-around;
   align-items: center;
   /* grid-template-columns: 1fr 1fr 1fr 1fr; */
   margin: auto;
+  padding-top: 1rem;
   
 }
 
@@ -16,22 +17,99 @@
   display: flex;
   flex-direction: column;
   width: max-content;
-  align-items: flex-start;
+  /* align-items: flex-start; */
   align-self: center;
+  border: 2px solid #2A2A2E;
+  border-radius: 15px;
+  /* width: calc(30% - 1em); */
+  align-content: center;
+  align-items: center;
 }
 .server-container-bottom {
   display: flex;
   flex-direction: column;
   color: white;
-  flex-wrap: wrap;
-  height: 50px;
+  /* flex-wrap: wrap; */
+  /* height: 50px; */
+  padding: .5rem 0.3rem;
+  background-color: #2A2A2E;
+  border-radius: 0 0 15px 15px;
+  width: 100%;
+
 }
 .explore-server-image {
-  width: 240px;
-  height: auto;
+  width: auto;
+  max-width: 300px;
+  height: 17rem;
   border-radius: 10px;
 }
 #explore-container {
   width: 100%;
   background-color: var(--channel-nav);
+  overflow: hidden scroll;
 }
+
+#featured-header {
+  color: white;
+  margin: 1rem;
+  font-weight: 500;
+}
+
+.server-users {
+  font-size: 10px;
+}
+
+.launch-server-button {
+    cursor: pointer;
+    background-color: #65656b5b;
+    border-radius: 15px;
+    color: white;
+    width: auto;
+    border: none;
+    height: 34px;
+    padding:1rem;
+    display: flex;
+    align-items: center;
+}
+
+.top-server-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.server-username {
+  font-weight: 300;
+  font-size: 20px;
+  overflow-wrap: break-word;
+}
+
+.discover-banner-img {
+
+  width: 100%;
+  border-radius: 15px;
+}
+
+.server-discover-banner {
+  position: relative;
+  margin: 1rem;
+  border-radius: 15px;
+  height: 20rem;
+  overflow: hidden;
+
+}
+
+.discover-title-area {
+  position: absolute;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  align-content: center;
+  width: 100%;
+  top: 5rem;
+
+}
+
+
+
