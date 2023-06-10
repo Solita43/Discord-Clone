@@ -42,8 +42,8 @@ function EditServerModal({ serverId }) {
 
 
     return (
-        <div id="delete-form-container">
-            <h1 className="form-title">Edit Server</h1>
+        <div id="create-server-container">
+            <h1 className="create-server-title">Edit Server</h1>
             <form onSubmit={handleSubmit} className="form-box" encType="multipart/form-data">
                 <ul className="errors">
                     {Object.values(errors).map((error, idx) => (
@@ -66,7 +66,7 @@ function EditServerModal({ serverId }) {
                         onChange={(e) => setImage(e.target.files[0])}
                     />
                 </label>
-                <label className="signup-labels">
+                <label className="create-server-label">
                     Server Name
                     <input
                         type="text"
@@ -78,7 +78,7 @@ function EditServerModal({ serverId }) {
                         maxLength="25"
                     />
                 </label>
-                <button id="form-button" type="submit">Edit Server</button>
+                <button id="create-server-button" type="submit">Edit Server</button>
             </form>
         </div>
     );
