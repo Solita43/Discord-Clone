@@ -12,6 +12,7 @@ from .private_channels import seed_private_channel_user, undo_private_channel_us
 from .server_users import seed_server_users, undo_server_users
 from .servers import seed_servers, undo_servers
 from .direct_message_reactions import seed_direct_message_reactions, undo_direct_message_reactions
+from .voice_channels import seed_voice_channels, undo_voice_channels
 
 from app.models.db import db, environment, SCHEMA
 
@@ -40,6 +41,7 @@ def seed():
         undo_direct_message_conversation_users()
         undo_direct_messages()
         undo_direct_message_reactions()
+        undo_voice_channels()
     seed_users()
     seed_servers()
     seed_server_users()
@@ -52,6 +54,7 @@ def seed():
     seed_direct_message_conversation_users()
     seed_direct_messages()
     seed_direct_message_reactions()
+    seed_voice_channels()
 
 
     # Add other seed functions here
@@ -72,4 +75,5 @@ def undo():
     undo_direct_message_conversation_users()
     undo_direct_messages()
     undo_direct_message_reactions()
+    undo_voice_channels()
     # Add other undo functions here

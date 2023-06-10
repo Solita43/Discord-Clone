@@ -19,6 +19,7 @@ from .api.channel_group_routes import channel_group_routes
 from .seeds import seed_commands
 from .config import Config
 from .socket import socketio
+from .api.voice_channel_routes import voice_channel_routes
 
 app = Flask(__name__, static_folder='../react-app/build', static_url_path='/')
 
@@ -44,6 +45,7 @@ app.register_blueprint(channel_message_routes, url_prefix='/api/channelMessages'
 app.register_blueprint(channel_routes, url_prefix="/api/channels")
 app.register_blueprint(channel_group_routes, url_prefix='/api/channelGroups')
 app.register_blueprint(online_status_routes, url_prefix="/api/onlineStatus")
+app.register_blueprint(voice_channel_routes, url_prefix="/api/voiceChannels")
 db.init_app(app)
 Migrate(app, db)
 

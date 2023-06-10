@@ -7,6 +7,7 @@ import servers from './servers';
 import users from './users'
 import channels from './channels'
 import onlineStatus from "./onlineStatusStore"
+import voiceChannels from "./voiceChannels"
 
 const rootReducer = combineReducers({
   session,
@@ -15,7 +16,8 @@ const rootReducer = combineReducers({
   servers,
   users,
   channels, 
-  onlineStatus
+  onlineStatus, 
+  voiceChannels
 });
 
 

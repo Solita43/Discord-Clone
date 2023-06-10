@@ -17,6 +17,7 @@ import ExploreServers from "./components/ExploreServers";
 import LogoutNav from "./components/LogoutNav";
 import { io } from "socket.io-client";
 import { createNewSocket } from "./store/onlineStatusStore";
+import VoiceChannels from "./components/VoiceChannels";
 
 function App() {
   const dispatch = useDispatch();
@@ -52,6 +53,13 @@ function App() {
               <Navigation isLoaded={isLoaded} />
               <DirectMessages />
               <ConversationMessages />
+              <LogoutNav />
+            </Route>
+            <Route exact path="/voiceChannel/:serverId/:channelId">
+              <Navigation isLoaded={isLoaded} />
+              <ChannelList />
+              <VoiceChannels />
+              <ServerUserList />
               <LogoutNav />
             </Route>
             <Route exact path="/channels/:serverId/:channelId">

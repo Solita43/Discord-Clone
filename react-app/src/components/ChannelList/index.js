@@ -9,6 +9,7 @@ import MenuDropdown from "../Navigation/MenuDropdown";
 import CreateChannelModal from "../CreateChannelModal";
 import DropDownButton from "../DropDownButton";
 import TitleBar from "../TitleBar";
+import { getVoiceChannelsByServerId }from "../../store/voiceChannels"; 
 
 export default function ChannelList() {
   const params = useParams();
@@ -19,6 +20,7 @@ export default function ChannelList() {
   const serverDetails = useSelector((state) => state.servers.ServerDetails);
   const allServers = useSelector((state) => state.servers.AllServers);
   const [serverDetail, setServerDetail] = useState(null);
+  const voiceChannels = useSelector((state) => state.voiceChannels);
 
   useEffect(() => {
     if (!Object.keys(allServers).length) {
@@ -32,6 +34,7 @@ export default function ChannelList() {
       !serverDetails[serverId]
     ) {
       dispatch(serverDetailsGet(serverId));
+      dispatch(getVoiceChannelsByServerId(serverId)); 
     }
   }, [dispatch, serverId]);
 
@@ -50,9 +53,9 @@ export default function ChannelList() {
   const groupNames = Object.keys(channels);
   const groupIds = serverDetails[serverId].groupIds
   let defaultChannel;
-if(allServers[serverId]){
-  defaultChannel = allServers[serverId].default_channel_id
-}
+  if (allServers[serverId]) {
+    defaultChannel = allServers[serverId].default_channel_id
+  }
   const displayName = (name) => {
     if (name.length > 14) {
       return name.slice(0, 14) + "..."
@@ -67,7 +70,7 @@ if(allServers[serverId]){
       <div id="conversations-container" className="channel-list-scroll">
         {/* <div className="server-header"> */}
         {/* <h1 className="dm-title">{displayName(allServers[serverId].name)}</h1> */}
-          {/* <DropDownButton serverId={serverId} title={displayName(allServers[serverId].name)} /> */}
+        {/* <DropDownButton serverId={serverId} title={displayName(allServers[serverId].name)} /> */}
 
         {
           groupNames.map(name => {
@@ -92,12 +95,20 @@ if(allServers[serverId]){
                       const button = document.getElementById(`channel-edit-${channelName}`)
                       button.className = "hidden"
                     }} onClick={() => history.push(`/channels/${serverId}/${channels[name][channelName].id}`)}>
-                      <span id="channel" style={channelName == serverDisplay.channelIds[channelId] ? {color: "white", fontWeight: "bold"}: {}}><i className="fa-solid fa-hashtag"></i>{channelName}</span>
-                      <OpenModalButton id={`channel-edit-${channelName}`} buttonText={(<i className="fa-solid fa-gear" style={{backgroundColor: "var(--channel-hover)", fontSize:".8rem"}}></i>) }className={"hidden"} modalComponent={<EditChannelModal channels={channels} channelName={channelName} groupNames={groupNames} groupIds={groupIds} defaultChannel={defaultChannel} />} />
+                      <span id="channel" style={channelName == serverDisplay.channelIds[channelId] ? { color: "white", fontWeight: "bold" } : {}}><i className="fa-solid fa-hashtag"></i>{channelName}</span>
+                      <OpenModalButton id={`channel-edit-${channelName}`} buttonText={(<i className="fa-solid fa-gear" style={{ backgroundColor: "var(--channel-hover)", fontSize: ".8rem" }}></i>)} className={"hidden"} modalComponent={<EditChannelModal channels={channels} channelName={channelName} groupNames={groupNames} groupIds={groupIds} defaultChannel={defaultChannel} />} />
                     </div>
                   )
                 })}
               </div>
+            )
+          })
+        }
+        <div className="group-container">Voice Channels</div>
+        {
+          Object.values(voiceChannels).map((voiceChannel) => {
+            return (
+              <NavLink to={`/voiceChannel/${serverId}/${voiceChannel.id}`}><div key={voiceChannel.id} className="channel-container">{voiceChannel.name}</div></ NavLink>
             )
           })
         }

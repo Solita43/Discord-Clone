@@ -1,4 +1,4 @@
-from flask_socketio import SocketIO, emit
+from flask_socketio import SocketIO, emit, join_room, leave_room, send
 from .models import DirectMessage, DirectMessageConversation, DirectMessageReaction, db, ChannelMessage, User
 import os
 from datetime import datetime
@@ -16,6 +16,16 @@ else:
 socketio = SocketIO(cors_allowed_origin=origins)
 
 online_users = {}
+
+@socketio.on("joinVoiceChannel")
+def joining_channel(data):
+    print("joinVoiceChannel", data) 
+    user_id = data[0]
+    channel_id = data[1]
+    join_room(channel_id)
+    emit("userConnect", {"channel_id": channel_id, "user_id": user_id})
+    print("USER JOINED YOUR CHANNEL", user_id, channel_id)
+
 
 @socketio.on("newUser")
 def online_user(data):
