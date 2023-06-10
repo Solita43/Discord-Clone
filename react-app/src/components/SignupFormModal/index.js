@@ -11,8 +11,6 @@ function SignupFormModal() {
 	const history = useHistory()
 	const [email, setEmail] = useState("");
 	const [username, setUsername] = useState("");
-	const [firstname, setFirstname] = useState('')
-	const [lastname, setLastname] = useState('')
 	const [password, setPassword] = useState("");
 	const [confirmPassword, setConfirmPassword] = useState("");
 	const [image, setImage] = useState(null)
@@ -27,8 +25,6 @@ function SignupFormModal() {
 			formData.append("image", image);
 			formData.append("username", username);
 			formData.append("email", email);
-			formData.append("first_name", firstname);
-			formData.append("last_name", lastname);
 			formData.append("password", password);
 			// console.log("this is the form data image: ", formData.get("image"))
 
@@ -50,7 +46,7 @@ function SignupFormModal() {
 
 	return (
 		<>
-			<div id="form-container">
+			<div id="sign-up-container">
 				<h1 className="form-title">Sign Up</h1>
 				<form className="form-box" onSubmit={handleSubmit} encType="multipart/form-data">
 					<ul className="errors">
@@ -60,27 +56,22 @@ function SignupFormModal() {
 							)
 						})}
 					</ul>
-					<label className="signup-labels">
-						First Name
+					<label className="image-label">
+						<div className="image-upload">
+							{image ? <p className="upload-name">{image.name}</p> : (
+								<>
+									<i class="fa-regular fa-image"></i>
+									<p>Upload</p>
+								</>
+							)}
+						</div>
 						<input
-							type="text"
-							className="input-area"
-							value={firstname}
-							onChange={(e) => setFirstname(e.target.value)}
-							required
+							type="file"
+							className="image-upload-input"
+							accept="image/*"
+							onChange={(e) => setImage(e.target.files[0])}
 						/>
 					</label>
-					<label className="signup-labels">
-						Last Name
-						<input
-							type="text"
-							className="input-area"
-							value={lastname}
-							onChange={(e) => setLastname(e.target.value)}
-							required
-						/>
-					</label>
-
 					<label className="signup-labels">
 						Email
 						<input
@@ -115,15 +106,6 @@ function SignupFormModal() {
 							value={username}
 							onChange={(e) => setUsername(e.target.value)}
 							required
-						/>
-					</label>
-					<label className="signup-labels">
-						Image icons
-						<input
-							type="file"
-							className="input-area"
-							accept="image/*"
-							onChange={(e) => setImage(e.target.files[0])}
 						/>
 					</label>
 					<label className="signup-labels">

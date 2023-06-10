@@ -35,7 +35,7 @@ export default function LandingPage() {
             <div>
                 <ul className="top-nav">
                     <li className="top-left-nav">
-                        <i className={`fa-solid fa-comment-dots`}></i>
+                        <i className={`fa-solid fa-gamepad`}></i>
                         <NavLink exact to="/" className="discordia-title">
                             Discordia
                         </NavLink>

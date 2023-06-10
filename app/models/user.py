@@ -12,8 +12,6 @@ class User(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(40), nullable=False, unique=True)
     email = db.Column(db.String(255), nullable=False, unique=True)
-    first_name = db.Column(db.String, nullable=False)
-    last_name = db.Column(db.String, nullable=False)
     status = db.Column(db.String)
     hashed_password = db.Column(db.String(255), nullable=False)
     imageUrl = db.Column(db.String(255), default="https://discordia-aa.s3.us-west-1.amazonaws.com/profile-default.jpg")

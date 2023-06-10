@@ -43,11 +43,18 @@ function CreateServerModal({ title, serverId }) {
             <h1 className="form-title">{title}</h1>
             {error ? <p className="errors">* {error}</p> : null}
             <form onSubmit={handleSubmit} className="form-box" encType="multipart/form-data">
-                <label className="signup-labels">
-                    Image icons
+                <label className="image-label">
+                    <div className="image-upload">
+                        {image ? <p className="upload-name">{image.name}</p> : (
+                            <>
+                                <i class="fa-regular fa-image"></i>
+                                <p>Upload</p>
+                            </>
+                        )}
+                    </div>
                     <input
                         type="file"
-                        className="input-area"
+                        className="image-upload-input"
                         accept="image/*"
                         onChange={(e) => setImage(e.target.files[0])}
                     />

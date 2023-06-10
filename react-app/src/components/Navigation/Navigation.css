@@ -39,7 +39,8 @@ body,
   display: none;
 }
 
-.server-icons {
+.server-icons,
+.explorer-icon {
   width: 3rem;
   height: 3rem;
   margin-top: 0.5rem;
