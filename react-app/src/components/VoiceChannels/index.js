@@ -39,7 +39,7 @@ export default function VoiceChannels() {
         navigator.mediaDevices
             .getUserMedia({
                 audio: true,
-                video: false,
+                video: true,
             })
             .then((stream) => {
                 console.log("Local Stream found");
