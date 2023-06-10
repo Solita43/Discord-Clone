@@ -21,6 +21,7 @@ export default function VoiceChannels() {
     const roomName = channelId;
     const localVideoRef = useRef(null);
     const remoteVideoRef = useRef(null);
+    
     const socket = socketio({
         autoConnect: false,
     });
