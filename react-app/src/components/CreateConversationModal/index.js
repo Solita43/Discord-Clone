@@ -12,7 +12,7 @@ export default function CreateConversationModal({ users }) {
     let currentUser = useSelector((state) => state.session.user);
     const userStatuses = useSelector((state) => state.onlineStatus.UserStatus)
     const [username, setUsername] = useState("")
-    let [errors, setErrors] = useState({});
+    let [errors, setErrors] = useState('');
     const dispatch = useDispatch()
     const { closeModal } = useModal();
     const handleSubmit = async (e) => {
@@ -44,7 +44,7 @@ export default function CreateConversationModal({ users }) {
         <>
             <div id="form-container">
                 <h1 className="form-title">Create a Conversation</h1>
-                {errors && <p className="errors">{errors}</p>}
+                {errors.length > 0 && <p className="errors">{errors}</p>}
                 <form id="convo-form" className="form-box" onSubmit={handleSubmit}>
 
                     <label className="signup-labels">

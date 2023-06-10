@@ -44,7 +44,7 @@ function Navigation({ isLoaded }) {
   useEffect(() => {
     const userId = sessionUser.userId;
 
-    socket.on("newUser", (user) => {
+    socket.on("updateUser", (user) => {
       console.log(user)
       dispatch(userOnlineStatusUpdate(user))
     })
