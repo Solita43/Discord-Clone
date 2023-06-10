@@ -5,7 +5,7 @@ import { getChannelMessagesThunk } from "../../store/channels";
 import UpdateMessageModal from "../UpdateMessageModal";
 import MessageDetails from "../MessageDetails";
 import OpenModalButton from "../OpenModalButton";
-import { socket } from "../../socket";
+import socketio from "socket.io-client";
 
 
 
