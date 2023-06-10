@@ -50,8 +50,15 @@ function EditServerModal({ serverId }) {
                         <li key={idx}>{error}</li>
                     ))}
                 </ul>
-                <label className="image-upload">
-                    <span className="image-upload-label">Change your server image!</span>
+                <label className="image-label">
+                    <div className="image-upload">
+                        {image ? <p className="upload-name">{image.name}</p> : (
+                            <>
+                                <i class="fa-regular fa-image"></i>
+                                <p>Upload</p>
+                            </>
+                        )}
+                    </div>
                     <input
                         type="file"
                         className="image-upload-input"

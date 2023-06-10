@@ -1,12 +1,12 @@
-#form-container {
+#sign-up-container {
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 558px;
-  height: auto;
+  width: 30rem;
   box-sizing: border-box;
   border-radius: 35px;
-  background-color: #33343d;
+  background-color: #33343D;
+  padding: .8rem;
 }
 
 .form-box {
@@ -21,7 +21,7 @@
 }
 
 .form-title {
-  margin-top: 25px;
+  margin-top: 1rem;
   color: white;
   font-weight: 300;
   font-size: 40px;
@@ -35,15 +35,16 @@
 }
 
 .form-button {
-  width: 100;
-  height: 64px;
+  width: 90%;
+  height: 3.5rem;
   border-radius: 15px;
   background-color: #5865f2;
   color: white;
   text-align: center;
   font-size: 24px;
   cursor: pointer;
-  margin-bottom: 1.5rem;
+  margin-bottom: 1rem;
+  align-self: center;
 }
 
 .input-area {
