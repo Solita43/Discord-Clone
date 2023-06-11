@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useModal } from "../../context/Modal";
-import { useHistory } from "react-router-dom";
 import { createChannelGroupThunk } from "../../store/servers";
 import { serverDetailsGet } from "../../store/servers";
 
@@ -9,7 +8,6 @@ import { serverDetailsGet } from "../../store/servers";
 export default function CreateGroupModal({ serverId }) {
     const [errors, setErrors] = useState([]);
     const [name, setName] = useState("");
-    const history = useHistory();
     const dispatch = useDispatch();
     const { closeModal } = useModal();
     const handleSubmit = async (e) => {
@@ -19,11 +17,11 @@ export default function CreateGroupModal({ serverId }) {
             name
         }))
 
-        
+
         if (data) {
-            setErrors(data); 
+            setErrors(data);
         } else {
-            
+
             dispatch(serverDetailsGet(serverId));
             closeModal()
         }

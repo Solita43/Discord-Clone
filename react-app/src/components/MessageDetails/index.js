@@ -1,21 +1,21 @@
-import React, { useState, useEffect } from "react"
+import React from "react"
 // import Picker from '@emoji-mart/react'
 // import data from '@emoji-mart/data'
-import { useSelector } from "react-redux"
+// import { useSelector } from "react-redux"
 
 
 export default function MessageDetails({ message }) {
 
-    let [emojiList, setEmojiList] = useState({})
-    let showEmojiList = emojiList[message.id]
+    // let [emojiList, setEmojiList] = useState({})
+    // let showEmojiList = emojiList[message.id]
     // let [reactions, setReactions] = useState(Object.values(message.reactions))
     // let reactSet = new Set(reactions)
-    let user = useSelector((state) => state.session.user)
-    const buttonClick = (messageId) => {
-        setEmojiList((prev) => {
-            return { ...prev, [messageId]: !prev[messageId] }
-        })
-    }
+    // let user = useSelector((state) => state.session.user)
+    // const buttonClick = (messageId) => {
+    //     setEmojiList((prev) => {
+    //         return { ...prev, [messageId]: !prev[messageId] }
+    //     })
+    // }
 
     // useEffect(() => {
     //     socket = io();
@@ -46,7 +46,7 @@ export default function MessageDetails({ message }) {
 
     return (<div className="container-messages" key={message.id}>
         <div className="message-user-img">
-            <img className="dm-profile-img" src={message.UserInfo.userIcon}></img>
+            <img alt="" className="dm-profile-img" src={message.UserInfo.userIcon}></img>
         </div>
         <div className="message-info">
             <div className="message-user-info">

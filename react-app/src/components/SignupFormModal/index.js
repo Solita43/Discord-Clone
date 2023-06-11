@@ -26,7 +26,7 @@ function SignupFormModal() {
 			formData.append("username", username);
 			formData.append("email", email);
 			formData.append("password", password);
-			// console.log("this is the form data image: ", formData.get("image"))
+
 
 			const data = await dispatch(signUp(formData))
 
@@ -52,7 +52,7 @@ function SignupFormModal() {
 					<ul className="errors">
 						{Object.values(errors).map((error, idx) => {
 							return (
-								<li key={idx} style={{paddingBottom: ".6rem"}}>* {error}</li>
+								<li key={idx} style={{ paddingBottom: ".6rem" }}>* {error}</li>
 							)
 						})}
 					</ul>
@@ -60,7 +60,7 @@ function SignupFormModal() {
 						<div className="image-upload">
 							{image ? <p className="upload-name">{image.name}</p> : (
 								<>
-									<i class="fa-regular fa-image"></i>
+									<i className="fa-regular fa-image"></i>
 									<p>Upload</p>
 								</>
 							)}
@@ -115,7 +115,7 @@ function SignupFormModal() {
 									})
 								} else {
 									setErrors(prev => {
-										let err = {...prev}
+										let err = { ...prev }
 										delete err.username
 										return err
 									})

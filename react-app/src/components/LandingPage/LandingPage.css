@@ -1,12 +1,26 @@
 #landing-page-root {
-  display: block;
+  /* display: block;
+  overflow: auto; */
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  overflow: auto;
+  background-color: #404eed;
 }
 
 .wrapper {
-  height: 560px;
+  /* background-color: #404eed;
+  display: block; */
+  flex-grow: 1;
   background-color: #404eed;
-  height: 100vw;
-  display: block;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-grow: 1;
+}
+
+.content-wrapper {
+  overflow: hidden;
 }
 
 .landing-title {
@@ -37,6 +51,9 @@
   flex-direction: column;
   width: 800px;
   align-items: center;
+  position: relative;
+  top: 5rem;
+  margin: auto;
 }
 
 .open-discordia {
@@ -54,34 +71,54 @@
 
 .all-images {
   background-color: #404eed;
-  display: flex;
-  justify-content: center;
+  /* display: flex;
+  justify-content: center; */
   /* border: 1px solid bisque; */
+  height: 10rem;
+  /* flex-grow: 0.5; */
 }
 
 .main-bg-image {
-  position: absolute;
-  top: -68px;
-  height: 754px;
+  position: relative;
+  /* top: -68px; */
+  /* height: 20rem; */
   width: auto;
   z-index: 0;
+  /* margin: auto; */
+  bottom: 29.2rem;
+  left: 100px;
 }
 
 .left-bg-image {
   position: relative;
   max-width: 700px;
-  bottom: 213px;
+  bottom: 52.4rem;
   right: 1433px;
 }
 
 .right-bg-image {
   position: relative;
   max-width: 631px;
-  bottom: 220px;
+  bottom: 52.4rem;
   left: 1482px;
 }
 
+/* .purple-div {
+  height: 15rem;
+  background-color: #404eed;
+} */
 
+.footer {
+  background-color: #33343d;
+  color: var(--text);
+  width: 100%;
+  height: 10rem;
+  bottom: 0;
+  z-index: 2;
+  padding: 10px;
+  position: fixed;
+  bottom: 0px;
+}
 
 .profile-dropdown {
   position: absolute;
@@ -141,8 +178,8 @@ li.top-right-nav {
 }
 
 .login-button {
-  width: 209px;
-  height: 68px;
+  width: 10rem;
+  height: 3rem;
   border-radius: 35px;
   background-color: white;
   color: black;
@@ -150,11 +187,15 @@ li.top-right-nav {
   font-weight: 500;
   border: none;
   cursor: pointer;
+  padding: 1rem 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .sign-up-button {
-  width: 209px;
-  height: 68px;
+  width: 10rem;
+  height: 3rem;
   border-radius: 35px;
   border: 3px solid white;
   background-color: #404eed;
@@ -162,6 +203,10 @@ li.top-right-nav {
   font-size: 20px;
   font-weight: 500;
   cursor: pointer;
+  display: flex;
+  align-items: center;
+  padding: 1rem 2rem;
+  justify-content: center;
 }
 
 .welcome-user {
@@ -187,7 +232,13 @@ li.top-right-nav {
 
 @media (max-width: 1400px) {
   .right-bg-image {
-    left: 1100px;
+    left: 1189px;
+  }
+}
+
+@media (max-width: 1200px) {
+  .right-bg-image {
+    left: 963px;
   }
 }
 
@@ -206,7 +257,7 @@ li.top-right-nav {
   }
 
   .main-bg-image {
-    top: -196px;
+    top: -27.5rem;
     width: 300%;
     left: -299px;
     height: 599px;
@@ -277,13 +328,13 @@ li.top-right-nav {
 
 @media (max-width: 817px) {
   .login-button {
-    width: 97px;
+    width: auto;
     height: 36px;
     font-size: 14px;
   }
 
   .sign-up-button {
-    width: 97px;
+    width: auto;
     height: 36px;
     font-size: 14px;
   }
@@ -333,13 +384,12 @@ li.top-right-nav {
   }
 }
 
-
 @media (max-width: 533px) {
   .wrapper {
-    height:auto;
+    height: auto;
   }
   .right-bg-image {
-    bottom:10px;
+    bottom: 10px;
     left: 200px;
   }
 
@@ -348,7 +398,7 @@ li.top-right-nav {
     margin-bottom: 50px;
   }
 
-  .main-bg-image{
+  .main-bg-image {
     background-color: #404eed;
   }
 

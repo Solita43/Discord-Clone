@@ -5,7 +5,7 @@ import { getChannelMessagesThunk } from "../../store/channels";
 import UpdateMessageModal from "../UpdateMessageModal";
 import MessageDetails from "../MessageDetails";
 import OpenModalButton from "../OpenModalButton";
-import { socket } from "../../socket";
+import { socket } from "../../socket"
 
 export default function ChannelMessages() {
   let dispatch = useDispatch();
@@ -13,7 +13,7 @@ export default function ChannelMessages() {
 
   let { channelId, serverId } = params;
 
-  // console.log("PARAMS => ", channelId)
+
 
   let channels = useSelector((state) => state.channels);
   let servers = useSelector((state) => state.servers.ServerDetails);
@@ -34,39 +34,41 @@ export default function ChannelMessages() {
     dispatch(getChannelMessagesThunk(channelId)).then(() =>
       setIsLoading(false)
     );
-  }, [channelId]);
+  }, [dispatch, channelId]);
+
   useEffect(() => {
     if (channels[channelId]) {
       setMessages(channels[channelId].sort((a, b) => {
         if (a.id < b.id) {
           return -1
         }
+        return 1
       }));
     }
-  }, [channels]);
+  }, [channels, channelId]);
 
   useEffect(() => {
-    socket.emit("newUser", currentUser.userId)
+
     socket.on("channel_message", (channel_message) => {
       //   if (channelId == channel_message.channelId) {
       //     setMessages((messages) => [...messages, channel_message]);
       //   }
-      channelId = channel_message.channelId
+      let channelId = channel_message.channelId
       dispatch(getChannelMessagesThunk(channelId));
     });
     socket.on("delete_channel_message", (deleted_message) => {
       //   setMessages((messages) => {
       //     return messages.filter((message) => message.id !== deleted_message.id);
       //   });
-      channelId = deleted_message.channelId
+      let channelId = deleted_message.channelId
       dispatch(getChannelMessagesThunk(channelId));
     });
 
     socket.on("update_channel_message", (channel_message) => {
-      channelId = channel_message.channelId
+      let channelId = channel_message.channelId
       dispatch(getChannelMessagesThunk(channelId));
     });
-  }, []);
+  }, [dispatch]);
 
   const handleEnter = (e) => {
     if (e.key === "Enter" && !e.shiftKey) {
@@ -86,7 +88,7 @@ export default function ChannelMessages() {
         user_id: currentUser.userId,
         channel_id: channelId,
       });
-      socket.emit("newUser", currentUser.userId)
+
     }
 
     setChatInput("");
@@ -96,7 +98,7 @@ export default function ChannelMessages() {
     socket.emit("delete_channel_message", {
       message_id: messageId,
     });
-    socket.emit("newUser", currentUser.userId)
+
   };
 
   if (isLoading) return <div className="socket-container"></div>;

@@ -7,9 +7,7 @@ import OpenModalButton from "../OpenModalButton";
 import "./directMessages.css";
 import MessageDetails from "../MessageDetails";
 import UpdateMessageModal from "../UpdateMessageModal";
-import { socket } from "../../socket";
-
-// initialize socket variable outside of component
+import { socket } from "../../socket"
 
 export default function ConversationMessages() {
     let dispatch = useDispatch();
@@ -30,7 +28,7 @@ export default function ConversationMessages() {
     for (let key in conversationList) {
         if (
             conversationList[key] &&
-            conversationList[key].conversation_id == conversationId
+            conversationList[key].conversation_id === parseInt(conversationId)
         ) {
             username = conversationList[key].username;
         }
@@ -40,7 +38,7 @@ export default function ConversationMessages() {
         dispatch(getConversationMessagesThunk(conversationId)).then(() =>
             setIsLoading(false)
         );
-    }, [conversationId]);
+    }, [conversationId, dispatch]);
 
     useEffect(() => {
         if (conversation && Object.keys(conversation).length)
@@ -48,8 +46,9 @@ export default function ConversationMessages() {
                 if (a.id < b.id) {
                     return -1
                 }
+                return 1
             }));
-    }, [conversations]);
+    }, [conversations, conversation]);
 
     // open socket with useEffect
     useEffect(() => {
@@ -80,7 +79,7 @@ export default function ConversationMessages() {
         return () => {
 
         };
-    }, []);
+    }, [dispatch]);
 
     if (isLoading) return <div id="direct-messages-view"></div>;
     // send chat messages through web socket
@@ -98,7 +97,7 @@ export default function ConversationMessages() {
                 user_id: currentUser.userId,
             });
             setChatInput("");
-            socket.emit("newUser", currentUser.userId)
+
         }
     };
     const handleEnter = (e) => {
@@ -111,7 +110,7 @@ export default function ConversationMessages() {
         socket.emit("delete_direct_message", {
             messageId,
         });
-        socket.emit("newUser", currentUser.userId)
+
     };
     if (isLoading || !conversation) {
         return <div id="direct-messages-view"></div>;

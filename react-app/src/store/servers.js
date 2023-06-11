@@ -4,7 +4,6 @@ const GET_DETAILS = "servers/GET_DETAILS";
 const POST_NEW_SERVER = "servers/POST_NEW_SERVER";
 const EDIT_SERVER = "servers/EDIT_SERVER";
 const DELETE_SERVER = "servers/DELETE_SERVER";
-const ADD_SERVER_USER = "servers/ADD_USER"
 
 
 
@@ -89,14 +88,14 @@ export const serverDetailsGet = (serverId) => async (dispatch) => {
 }
 
 export const serverPost = (formData) => async (dispatch) => {
-    console.log("in the server store form Data: ".formData)
+
     const res = await fetch("/api/servers/", {
         method: "POST",
         body: formData
     })
 
     const data = await res.json();
-    console.log("data", data)
+
 
     if (res.ok) {
         dispatch(postServer(data))

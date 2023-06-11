@@ -300,8 +300,7 @@ Create a new server. User that creates the server will automatically be designat
 ```json
 {
   "name": "new server!",
-  "imageURL": "something.com",
-  "userId": 1
+  "imageURL": "something.com"
 }
 ```
 
@@ -402,7 +401,7 @@ Returns a list of all available servers.
 
     ```json
     {
-      "Servers": {
+      "servers": {
         [
           {
             "id":1,
@@ -443,7 +442,7 @@ Returns a list of servers by user Id
 Adds a user to a server as a member.
 
 - Require Authentication: true
-- User must have the role "owner" or "admin" to add users to a server.
+
 - Request
 
   - Method: POST
@@ -458,7 +457,7 @@ Adds a user to a server as a member.
     }
     ```
 
-- Successful Response when user is Owner or Admin
+- Successful Response:
 
   - Status Code: 200
   - Headers: application/json
@@ -478,7 +477,6 @@ Adds a user to a server as a member.
 Gets the list of members in a server.
 
 - Require Authentication: true
-- User must be a member of the server with the role "user", "admin", or "owner".
 - Request
 
   - Method: GET

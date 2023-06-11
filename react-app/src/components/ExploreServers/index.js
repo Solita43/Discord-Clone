@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { addServerUserThunk, getServersThunk } from "../../store/servers";
+import { getServersThunk } from "../../store/servers";
 import OpenModalButton from "../OpenModalButton";
 import Background2 from "../../assets/discord_home_2.png"
 import './exploreServers.css'
@@ -15,18 +15,16 @@ export default function ExploreServers() {
 
     useEffect(() => {
         dispatch(getServersThunk())
-    }, [])
+    }, [dispatch])
     if (!servers.length) {
         return <h2>Featured Communities</h2>
     }
 
-    const handleClick = (server) => {
-        dispatch(addServerUserThunk(server.id))
-    }
+
 
     const displayName = (name) => {
         for (let word of name.split(" ")) {
-            console.log(word.length)
+
             if (word.length > 9) {
                 return name.slice(0, 9) + "..."
             }
@@ -41,7 +39,7 @@ export default function ExploreServers() {
                     <h1 className="discover-title">Find your community</h1>
                     <p className="discover-motto">From gaming to music, to learning there's a place for you.</p>
                 </div>
-                <img className="discover-banner-img" src={Background2} />
+                <img alt="" className="discover-banner-img" src={Background2} />
             </div>
 
             <h2 id="featured-header">Featured Communities</h2>
@@ -50,7 +48,7 @@ export default function ExploreServers() {
                     servers.map((server) => {
 
                         return <div key={server.id} className="server-container">
-                            <img className="explore-server-image" src={server.imageUrl}></img>
+                            <img alt={`Display icon for ${server.name}`} className="explore-server-image" src={server.imageUrl}></img>
                             <div className="server-container-bottom">
                                 <div className="top-server-info">
                                     <div className="server-username">{displayName(server.name)}</div>

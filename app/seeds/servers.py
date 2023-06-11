@@ -7,25 +7,25 @@ def seed_servers():
         {
             "name": "First server!!!",
             "imageUrl":"https://discordia-aa.s3.us-west-1.amazonaws.com/shubham-dhage-t0Bv0OBQuTg-unsplash.jpg",
-            "owner_id": 1,
+            "owner_id": 4,
             "default_channel_id": 1
         },
         {
             "name": "Demo server!!!",
             "imageUrl":"https://discordia-aa.s3.us-west-1.amazonaws.com/shubham-dhage-t0Bv0OBQuTg-unsplash.jpg",
-            "owner_id": 2,
+            "owner_id": 5,
             "default_channel_id": 7
         },
         {
             "name": "third is best",
             "imageUrl":"https://discordia-aa.s3.us-west-1.amazonaws.com/shubham-dhage-t0Bv0OBQuTg-unsplash.jpg",
-            "owner_id": 1,
+            "owner_id": 6,
             "default_channel_id": 10
         },
         {
             "name": "Dream team",
             "imageUrl":"https://discordia-aa.s3.us-west-1.amazonaws.com/shubham-dhage-t0Bv0OBQuTg-unsplash.jpg",
-            "owner_id": 1,
+            "owner_id": 7,
             "default_channel_id": 13
         },
 

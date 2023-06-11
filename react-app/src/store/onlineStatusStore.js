@@ -16,7 +16,7 @@ const usersStatus = (users) => ({
 
 
 export const userOnlineStatusUpdate = (user) => async (dispatch) => {
-    console.log(user)
+
     dispatch(updateUser(user))
     return null;
 }
@@ -46,7 +46,7 @@ export default function reducer(state = initialState, action) {
             /*
                 expected: [<userId>, "status"]
             */
-            console.log(action.payload)
+
             newState.UserStatus[action.payload[0]] = action.payload[1];
             return newState;
         case GET_USERS_STATUS_LIST:

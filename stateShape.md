@@ -7,35 +7,76 @@
   ```json
   {
     "userId": 1,
-    "userName": "biggieBoi1",
-    "emailAddress": "biggieBoi1@gmail.com"
+    "username": "biggieBoi1",
+    "email": "biggieBoi1@gmail.com",
+    "userIcon": "https://discordia-aa.s3.us-west-1.amazonaws.com/profile-default.jpg",
+    "userStatus": "online"
   }
   ```
 
-## UserConversationPartners:
+  ## Users
+
+- Information about all users
+
+```json
+{
+  "AllUsers": {
+    "<userId>": {
+      "email": "demo@aa.io",
+      "userIcon": "https://discordia-aa.s3.us-west-1.amazonaws.com/profile-default.jpg",
+      "userId": 1,
+      "userStatus": "online",
+      "username": "Demo"
+    },
+    "<userId>": {
+      "email": "demo2@aa.io",
+      "userIcon": "https://discordia-aa.s3.us-west-1.amazonaws.com/profile-default.jpg",
+      "userId": 2,
+      "userStatus": "online",
+      "username": "Demo-lition"
+    }
+  }
+}
+```
+
+## UserStatus
+
+- Status for each user
+
+```json
+{
+  "UserStatus": {
+    "<userId>": "online",
+    "<userId>": "offline"
+  }
+}
+```
+
+## UserConversations:
 
 - User's list past direct message partners
 
   ```json
   {
-    "user1": {
+    "<userId>": {
       "userId": 1,
       "userIcon": "something.com",
       "userStatus": "online",
-      "createdAt": "mm/dd/yy",
+      "conversation_id": 1,
+      "userStatus": "online",
       "updatedAt": "mm/dd/yy"
     },
-    "user2": {
+    "<userId>": {
       "userId": 1,
+      "conversation_id": 2,
       "userIcon": "somethingelse.com",
       "userStatus": "online",
-      "createdAt": "mm/dd/yy",
       "updatedAt": "mm/dd/yy"
     }
   }
   ```
 
-## UserConversations:
+## UserConversationMessages:
 
 - Messages from each conversation partner
 
@@ -46,24 +87,40 @@
       {
         "text": "heyyyyyy",
         "userId": 1,
-        "createdAt": "mm/dd/yy",
+        "UserInfo": {
+          "email": "demo@aa.io",
+          "userIcon": "https://discordia-aa.s3.us-west-1.amazonaws.com/profile-default.jpg",
+          "userId": 1,
+          "userStatus": "online",
+          "username": "Demo"
+        },
+        "updatedAt": "mm/dd/yy",
         "reactions": {
           "<reactionId>": {
             "username": "Demo-graphics",
             "emoji": "🙃"
           }
-        }
+        },
+        "id": 1
       },
       {
         "text": "wyd?",
         "userId": 2,
-        "createdAt": "mm/dd/yy",
+        "UserInfo": {
+          "email": "demo2@aa.io",
+          "userIcon": "https://discordia-aa.s3.us-west-1.amazonaws.com/profile-default.jpg",
+          "userId": 1,
+          "userStatus": "online",
+          "username": "Demo-lition"
+        },
+        "updatedAt": "mm/dd/yy",
         "reactions": {
           "<reactionId>": {
             "username": "Demo-lition",
             "emoji": "🙃"
           }
-        }
+        },
+        "id": 2
       }
     ]
   }
@@ -75,27 +132,33 @@
 - All of the servers received from "Get Servers by user ID" route
 - Will need to include the icon image URL
   ```json
-  {[
-      {
-          "serverId": 1,
-          "name": "Server 1",
-          "iconURL": "http://image.com"
-      },
-      {
-          "serverId": 2,
-          "name": "Server 2",
-          "iconURL": "http://image.com"
-      }
-  ]}
+  {
+    "<serverId>": {
+      "serverId": 1,
+      "default_channel_id": 1,
+      "name": "Server 1",
+      "imageURL": "http://image.com",
+      "owner_id": 1,
+      "userCount": 5
+    },
+    "<serverId>": {
+      "serverId": 2,
+      "default_channel_id": 7,
+      "name": "Server 2",
+      "imageURL": "http://image.com",
+      "owner_id": 1,
+      "userCount": 10
+    }
+  }
   ```
 
-## SpecificServer:
+## ServerDetails:
 
 - Server the current user is looking at. Probably data received from "Get server channels by server ID" route
 - Will need all of the channels the server has, users, that kind of thing
 
   ```json
-    {
+    "<serverId>"{
         "serverOwnerId": 1,
         "users": {
         "<username>": {
@@ -111,32 +174,72 @@
             "status": "Offline"
         }
         },
+        "channelIds":{
+          "<channelId>":"First channel!!",
+          "<channelId>":"Second channel :(",
+        },
         "channels": {
             "<channelCategory>": {
-                "<channelId>": {
+                "<channelName>": {
                     "id": 1,
+                    "created_at":"MM/DD/YY",
+                    "group_id":1,
+                    "group_name":"BEST GROUP",
                     "name": "Channel 1",
                     "category": "category 1",
-                    "private": "True"
+                    "isPrivate": "True"
                 },
-                "<channelId>": {
+                "<channelName>": {
                     "id": 2,
+                    "created_at":"MM/DD/YY",
+                    "group_id":1,
+                    "group_name":"BEST GROUP",
                     "name": "Channel 2",
                     "category": "category 1",
-                    "private": "True"
+                    "isPrivate": "True"
                 }
             },
                 "<channelCategory>" {
-                    "<channelId>": {
+                    "<channelName>": {
                     "id": 3,
+                    "created_at":"MM/DD/YY",
+                    "group_id":2,
+                    "group_name":"BESTEST GROUP",
                     "name": "Channel 3",
                     "category": "category 2",
-                    "private": "False"
+                    "isPrivate": "False"
                 }
             }
         }
     }
   ```
+
+## ServerList
+
+- Get all servers and related information
+
+```json
+{
+  "ServerList": {
+    "<serverId>": {
+      "default_channel_id": 1,
+      "id": 1,
+      "imageUrl": "https://discordia-aa.s3.us-west-1.amazonaws.com/shubham-dhage-t0Bv0OBQuTg-unsplash",
+      "name": "First server!!",
+      "owner_id": 1,
+      "userCount": 10
+    },
+    "<serverId>": {
+      "default_channel_id": 10,
+      "id": 2,
+      "imageUrl": "https://discordia-aa.s3.us-west-1.amazonaws.com/shubham-dhage-t0Bv0OBQuTg-unsplash",
+      "name": "Second server :(",
+      "owner_id": 1,
+      "userCount": 8
+    }
+  }
+}
+```
 
 ## Channels
 
@@ -144,61 +247,86 @@
 
 ```json
 {
-  "<channelId>": {
-    "messages": [
-      {
-        "messageId": 1,
-        "username": "Demo-lition",
-        "messageText": "Hey what's up?",
-        "dateTimeStamp": "1-1-2023 z 01:12:00",
-        "reactions": {
-          "<reactionId>": {
-            "username": "Demo-lition",
-            "emoji": "🙃"
-          }
-        }
+  "<channelId>": [
+    {
+      "UserInfo": {
+        "email": "demo@aa.io",
+        "userIcon": "https://discordia-aa.s3.us-west-1.amazonaws.com/profile-default.jpg",
+        "userId": 1,
+        "userStatus": "online",
+        "username": "Demo"
       },
-      {
-        "messageId": 2,
-        "username": "Demo-graphics",
-        "messageText": "Not much? You? ",
-        "dateTimeStamp": "1-2-2023 z 01:12:00",
-        "reactions": {
-          "<reactionId>": {
-            "username": "Demo-graphics",
-            "emoji": "🙃"
-          }
+      "channelId": 1,
+      "messageId": 1,
+      "username": "Demo-lition",
+      "message": "Hey what's up?",
+      "updatedAt": "MM/DD/YY",
+      "reactions": {
+        "<reactionId>": {
+          "username": "Demo-lition",
+          "emoji": "🙃"
         }
       }
-    ]
-  },
-  "<channelId>": {
-    "messages": [
-      {
-        "messageId": 1,
-        "username": "Demo-lition",
-        "messageText": "Hey what's up?",
-        "dateTimeStamp": "1-1-2023 z 01:12:00",
-        "reactions": {
-          "<reactionId>": {
-            "username": "Demo-lition",
-            "emoji": "🙃"
-          }
-        }
+    },
+    {
+      "UserInfo": {
+        "email": "demo@aa.io",
+        "userIcon": "https://discordia-aa.s3.us-west-1.amazonaws.com/profile-default.jpg",
+        "userId": 1,
+        "userStatus": "online",
+        "username": "Demo"
       },
-      {
-        "messageId": 2,
-        "username": "demo-graphics",
-        "messageText": "Not much? You? ",
-        "dateTimeStamp": "1-2-2023 z 01:12:00",
-        "reactions": {
-          "<reactionId>": {
-            "username": "Demo-graphics",
-            "emoji": "🙃"
-          }
+      "messageId": 2,
+      "username": "Demo-graphics",
+      "message": "Not much? You? ",
+      "updatedAt": "MM/DD/YY",
+      "reactions": {
+        "<reactionId>": {
+          "username": "Demo-graphics",
+          "emoji": "🙃"
         }
       }
-    ]
-  }
+    }
+  ],
+  "<channelId>": [
+    {
+      "UserInfo": {
+        "email": "demo@aa.io",
+        "userIcon": "https://discordia-aa.s3.us-west-1.amazonaws.com/profile-default.jpg",
+        "userId": 1,
+        "userStatus": "online",
+        "username": "Demo"
+      },
+      "messageId": 1,
+      "username": "Demo-lition",
+      "message": "Hey what's up?",
+      "updatedAt": "MM/DD/YY",
+      "reactions": {
+        "<reactionId>": {
+          "username": "Demo-lition",
+          "emoji": "🙃"
+        }
+      }
+    },
+    {
+      "UserInfo": {
+        "email": "demo@aa.io",
+        "userIcon": "https://discordia-aa.s3.us-west-1.amazonaws.com/profile-default.jpg",
+        "userId": 1,
+        "userStatus": "online",
+        "username": "Demo"
+      },
+      "messageId": 2,
+      "username": "demo-graphics",
+      "message": "Not much? You? ",
+      "updatedAt": "MM/DD/YY",
+      "reactions": {
+        "<reactionId>": {
+          "username": "Demo-graphics",
+          "emoji": "🙃"
+        }
+      }
+    }
+  ]
 }
 ```

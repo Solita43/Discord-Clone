@@ -1,29 +1,28 @@
 .user-list {
-    list-style: none;
+  list-style: none;
 }
 
 .user-box {
-    height: 2rem;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  height: 2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .user-box:hover {
-    background-color: wheat;
+  background-color: wheat;
 }
 
 .server-user-list {
-    overflow: auto;
-    scrollbar-width: 0;
-    scroll-behavior: smooth;
+  overflow-y: auto;
+  scrollbar-width: 0;
+  scroll-behavior: smooth;
 }
 
 .server-user-list > span {
-    color: white
+  color: white;
 }
 
 ::-webkit-scrollbar {
-    width: 0px;
+  width: 0px;
 }
-

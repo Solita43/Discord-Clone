@@ -2,8 +2,7 @@ import React, { useState } from "react";
 import { useModal } from "../../context/Modal";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 import { useDispatch, useSelector } from "react-redux";
-import { Redirect } from 'react-router-dom'
-import { createNewConversationThunk, getConversationsThunk } from "../../store/userconversations";
+import { createNewConversationThunk } from "../../store/userconversations";
 
 import "./CreateConvo.css"
 
@@ -36,12 +35,13 @@ export default function CreateConversationModal({ users }) {
     users = users.filter(user => user.username.includes(username))
     users = users.filter(
         (user) =>
-          !userConversations.find(
-            (conversation) => conversation.userId === user.userId
-          )
-      );
+            !userConversations.find(
+                (conversation) => conversation.userId === user.userId
+            )
+    );
     users.sort((a, b) => {
         if (a.username < b.username) return -1
+        return 1
     })
 
     // dispatch to create a new conversation
@@ -86,7 +86,7 @@ export default function CreateConversationModal({ users }) {
                                             <div>
 
 
-                                                <img className="dm-profile-img" src={user.userIcon}
+                                                <img alt='user icon' className="dm-profile-img" src={user.userIcon}
                                                     style={online ? { border: "2px solid green" } : {}}
                                                 ></img>
                                                 <p className="dm-username">

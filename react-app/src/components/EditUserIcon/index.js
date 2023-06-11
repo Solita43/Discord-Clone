@@ -1,8 +1,6 @@
 import React, { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { useModal } from "../../context/Modal";
-import { useHistory, useParams } from "react-router-dom";
-import { serverPost, serverEdit } from "../../store/servers";
 import { iconEdit } from "../../store/session";
 
 
@@ -11,7 +9,6 @@ function EditUserIcon() {
     const [image, setImage] = useState(null);
     const [errors, setErrors] = useState(null);
     const { closeModal } = useModal();
-    const history = useHistory();
 
 
     const handleSubmit = async (e) => {
@@ -24,7 +21,7 @@ function EditUserIcon() {
 
         const formData = new FormData()
         formData.append("image", image)
-        console.log("we have clicked to change image!! ")
+
         dispatch(iconEdit(formData)).then((data) => {
             if (data.errors) {
                 setErrors(data.errors)
@@ -33,7 +30,7 @@ function EditUserIcon() {
             }
         })
 
-        
+
     }
 
 

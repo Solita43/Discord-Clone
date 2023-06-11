@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { NavLink, Redirect, useHistory, useParams } from "react-router-dom";
+import { NavLink, Redirect, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import "./Navigation.css";
 import { userServersGet } from "../../store/servers";
@@ -7,7 +7,7 @@ import CreateServerModal from "../CreateServerModal";
 import OpenModalButton from "../OpenModalButton";
 import { getConversationsThunk } from '../../store/userconversations';
 import { getUsersOnlineStatus, userOnlineStatusUpdate } from "../../store/onlineStatusStore";
-import { socket } from "../../socket";
+import { socket } from "../../socket"
 
 function Navigation({ isLoaded }) {
   const dispatch = useDispatch();
@@ -18,7 +18,6 @@ function Navigation({ isLoaded }) {
 
   const sessionUser = useSelector(state => state.session.user);
   const servers = useSelector(state => state.servers.AllServers);
-  const history = useHistory();
 
   const conversations = Object.values(useSelector(state => state.userConversations))
   let firstConversation = conversations.sort((a, b) => {
@@ -37,25 +36,24 @@ function Navigation({ isLoaded }) {
       dispatch(userServersGet(sessionUser.userId))
       dispatch(getConversationsThunk())
       dispatch(getUsersOnlineStatus())
-      socket.emit("newUser", sessionUser.userId)
+      socket.connect();
+      socket.on("updateUser", (user) => {
+        dispatch(userOnlineStatusUpdate(user))
+      })
+      return () => socket.disconnect()
     }
   }, [sessionUser, dispatch])
 
   useEffect(() => {
-    const userId = sessionUser.userId;
 
-    socket.on("updateUser", (user) => {
-      console.log(user)
-      dispatch(userOnlineStatusUpdate(user))
-    })
-
-    return () => socket.disconnect()
 
   }, [sessionUser])
   if (!isLoaded) return (<Redirect to="/" />)
   if (!servers) return null;
   const root = window.document.getElementById('root')
   root.style.display = 'flex'
+
+  const serverList = Object.values(servers).slice(0, 9);
 
 
 
@@ -65,9 +63,9 @@ function Navigation({ isLoaded }) {
       <div className="server-nav-bar">
         <div>
           <div className="tooltip" data-tooltip={"Direct Messages"} style={{ paddingBottom: ".3rem", borderBottom: ".1rem solid var(--center-page)" }}>
-            <a className="dm-anchor-tag" >
+            <a href={`/conversations/${firstConversation}`} className="dm-anchor-tag" >
               <div className="server-icons dm-div" style={conversationId ? { backgroundColor: "var(--main-button-blue)", borderRadius: "15px" } : {}}>
-                <i className="fa-solid fa-gamepad" onClick={() => history.push(`/conversations/${firstConversation}`)} style={{ color: "var(--text)", fontSize: "1.8rem" }}></i>
+                <i className="fa-solid fa-gamepad" style={{ color: "var(--text)", fontSize: "1.8rem" }}></i>
                 {/* <img
                   className="dm-img"
                   src="https://img.icons8.com/?size=512&id=aqOnqIFQZ4_I&format=png"
@@ -76,7 +74,7 @@ function Navigation({ isLoaded }) {
               </div>
             </a>
           </div>
-          {Object.values(servers).map((server) => {
+          {serverList.map((server) => {
 
             return (
               <div
@@ -85,8 +83,8 @@ function Navigation({ isLoaded }) {
                 data-tooltip={server.name}
               >
                 <NavLink to={`/channels/${server.id}/${server.default_channel_id}`}>
-                  <img className="server-icons" src={server.imageUrl}
-                    style={serverId == server.id ? { border: "2px solid white", borderRadius: "15px" } : {}}
+                  <img alt={`Display icon for ${server.name}`} className="server-icons" src={server.imageUrl}
+                    style={parseInt(serverId) === server.id ? { border: "2px solid white", borderRadius: "15px" } : {}}
                   />
                 </NavLink>
               </div>
@@ -98,7 +96,6 @@ function Navigation({ isLoaded }) {
           <div className="tooltip explorer-icon" data-tooltip="Explore Servers">
             <NavLink to="/servers/explore">
               <button id='create-a-server'><i className="fa-solid fa-compass" id='create-a-server'></i></button>
-
             </NavLink>
           </div>
         </div>
