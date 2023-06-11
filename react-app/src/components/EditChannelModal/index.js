@@ -47,14 +47,14 @@ export default function EditChannelModal(props) {
     }
 
     const deleteChannelFunction = async (e) => {
-        e.preventDefault(); 
+        e.preventDefault();
         const channelId = channelInfo.id;
         const data = await dispatch(deleteChannel(channelId))
         if (data) {
-            setErrors(data); 
+            setErrors(data);
         } else {
             dispatch(serverDetailsGet(channelInfo.server_id));
-            closeModal(); 
+            closeModal();
             history.push(`/channels/${channelInfo.server_id}/${defaultChannel}`)
         }
     }
@@ -62,19 +62,19 @@ export default function EditChannelModal(props) {
 
     return (
         <>
-            <div id="form-container">
-                <h1 className="form-title">Edit Channel</h1>
+            <div id="create-server-container">
+                <h1 className="create-server-title">Edit Channel</h1>
                 <form className="form-box" onSubmit={handleSubmit}>
                     <ul className="errors">
                         {Object.values(errors).map((error, idx) => (
                             <li key={idx}>{error}</li>
                         ))}
                     </ul>
-                    <label className="signup-labels">
+                    <label className="create-server-label">
                         Channel Name
-                        <input type="text" className="input-area"  maxLength="25" minLength="5" value={name} onChange={(e) => setName(e.target.value)} required />
+                        <input type="text" className="input-area" maxLength="25" minLength="5" value={name} onChange={(e) => setName(e.target.value)} required />
                     </label>
-                    <label className="signup-labels">
+                    <label className="create-server-label">
                         Channel group
                         <select name="groupName" className="input-area" defaultValue={groupNames[0]} value={groupName} onChange={(e) => setGroupName(e.target.value)}>
                             {groupNames.map((name) => {
@@ -84,10 +84,14 @@ export default function EditChannelModal(props) {
                             })}
                         </select>
                     </label>
-                    <button id="form-button" type="submit">Submit Changes</button>
-                    <button id="form-button" style={{ backgroundColor: "red", marginTop: "15px"}} className="delete-button" type="submit" onClick={deleteChannelFunction}>Delete Channel</button>
+                    <div className="delete-server-buttons">
+                        <button id="delete-edit-button"  className="delete-button" type="submit" onClick={deleteChannelFunction}>Delete Channel</button>
+                        <button id="submit-edit-channel" type="submit">Submit Changes</button>
+                    </div>
                 </form>
             </div>
         </>
     )
 }
+
+// style={{ backgroundColor: "red", marginTop: "15px" }}

@@ -42,12 +42,12 @@ export default function UpdateMessageModal({ message, isChannel }) {
     }
 
 
-    return (<div id="form-container">
-        <h1 className="form-title">Update message</h1>
+    return (<div id="create-server-container">
+        <h1 className="create-server-title">Update message</h1>
         <form className="form-box" onSubmit={sendUpdatedMessage}>
-            <label className="signup-labels">
+            <label className="create-server-label">
                 Message
-                <textarea className="input-area"
+                <textarea className="edit-message-input-area"
                     onKeyPress={handleEnter}
                     // defaultValue={message.message}
                     value={newChat}
@@ -55,13 +55,15 @@ export default function UpdateMessageModal({ message, isChannel }) {
                 ></textarea>
 
             </label>
+            <div className="delete-server-buttons">
             <button
-                className="form-button"
+                className="cancel-button"
                 onClick={closeModal}
             >Cancel</button>
-            <button className="form-button" type="submit"
+            <button id="update-message-button" type="submit"
                 disabled={newChat === ''}
             >Submit</button>
+            </div>
 
         </form>
     </div>)

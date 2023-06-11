@@ -124,6 +124,7 @@ export default function LandingPage() {
                                             <div className="coder-contact-info">
                                                 <a
                                                     className="coder-link"
+                                                    target="_blank"
                                                     href="https://www.linkedin.com/in/benjamin-wilson-2a39ab271/"
                                                 >
                                                     LinkedIn
@@ -131,6 +132,7 @@ export default function LandingPage() {
                                                 <span>|</span>
                                                 <a
                                                     className="coder-link"
+                                                    target="_blank"
                                                     href="https://github.com/BenjaminWilson13"
                                                 >
                                                     Git Hub
@@ -150,6 +152,7 @@ export default function LandingPage() {
                                             <div className="coder-contact-info">
                                                 <a
                                                     className="coder-link"
+                                                    target="_blank"
                                                     href="https://www.linkedin.com/in/melinda-cortez-3581b0139/"
                                                 >
                                                     LinkedIn
@@ -158,6 +161,7 @@ export default function LandingPage() {
                                                 <a
                                                     className="coder-link"
                                                     href="https://github.com/Solita43"
+                                                    target="_blank"
                                                 >
                                                     Git Hub
                                                 </a>
@@ -176,6 +180,7 @@ export default function LandingPage() {
                                             <div className="coder-contact-info">
                                                 <a
                                                     className="coder-link"
+                                                    target="_blank"
                                                     href="https://www.linkedin.com/in/beverly-duran/"
                                                 >
                                                     LinkedIn
@@ -183,6 +188,7 @@ export default function LandingPage() {
                                                 <span>|</span>
                                                 <a
                                                     className="coder-link"
+                                                    target="_blank"
                                                     href="https://github.com/duranbeverly"
                                                 >
                                                     Git Hub
@@ -202,6 +208,7 @@ export default function LandingPage() {
                                             <div className="coder-contact-info">
                                                 <a
                                                     className="coder-link"
+                                                    target="_blank"
                                                     href="https://www.linkedin.com/in/jay-levin/"
                                                 >
                                                     LinkedIn
@@ -209,6 +216,7 @@ export default function LandingPage() {
                                                 <span>|</span>
                                                 <a
                                                     className="coder-link"
+                                                    target="_blank"
                                                     href="https://github.com/jaylevin96"
                                                 >
                                                     Git Hub

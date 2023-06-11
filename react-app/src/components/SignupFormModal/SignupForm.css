@@ -16,8 +16,8 @@
   box-sizing: border-box;
   border-radius: 35px;
   background-color: #33343d;
-  padding: 15px;
-  margin: 0 30px;
+  padding: .8rem;
+  margin: 0
 }
 
 .form-title {

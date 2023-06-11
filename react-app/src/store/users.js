@@ -6,6 +6,8 @@ const getUsers = (data) => ({
     data
 })
 
+
+
 export const getAllUsersThunk = () => async (dispatch) => {
     let res = await fetch('/api/users/')
     const data = await res.json();
@@ -17,6 +19,8 @@ export const getAllUsersThunk = () => async (dispatch) => {
         return data;
     }
 }
+
+
 
 const initialState = {
     allUsers: {}

@@ -25,17 +25,21 @@ function TitleBar({ title, users }) {
 
     useEffect(() => {
         setIsLoading(false)
+
+        return () => setIsLoading(true)
     }, [])
 
-
+ 
 
     if (isLoading) return (<div className="top-bar"><div id="channel-top-title"></div></div>)
-    const header = conversationId ? conversation.username : title;
+    
+    let header = conversation ? conversation.username : title;
+
     return (
         <div className="top-bar">
             <DropDownButton serverId={serverId} title={title} users={users} />
             <div id="channel-top-title">
-                {conversationId ? (<img className="title-profile-img" src={conversation.userIcon}
+                {conversation ? (<img className="title-profile-img" src={conversation.userIcon}
                     style={online ? { border: "2px solid green" } : {}}
 
                 ></img>) : <i className="fa-solid fa-hashtag title-icon"></i>}

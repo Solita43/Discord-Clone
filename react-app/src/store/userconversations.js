@@ -42,17 +42,22 @@ export const createNewConversationThunk = (username) => async (dispatch) => {
         body: JSON.stringify({ username })
     })
 
+
+    const data = await response.json();
+
     if (response.ok) {
-        const data = await response.json();
+
+        dispatch(createNewConversation(data))
+        return data
+    } else {
         if (data.errors) {
 
 
             return data
         }
 
-        dispatch(createNewConversation(data))
-        // return data
     }
+
 
 }
 
@@ -61,12 +66,16 @@ export const deleteConversationThunk = (id, userId) => async dispatch => {
     const response = await fetch(`/api/conversations/${id}`, {
         method: "DELETE"
     })
+    
+    const data = await response.json()
+
     if (response.ok) {
-        const data = await response.json()
-        if (data.errors) {
-            return
-        }
+  
         dispatch(deleteConversation(userId))
+        return data;
+    }
+    if (data.errors) {
+        return data
     }
 }
 
