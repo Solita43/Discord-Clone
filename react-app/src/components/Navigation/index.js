@@ -45,7 +45,7 @@ function Navigation({ isLoaded }) {
     const userId = sessionUser.userId;
 
     socket.on("updateUser", (user) => {
-      console.log(user)
+
       dispatch(userOnlineStatusUpdate(user))
     })
 
@@ -56,6 +56,8 @@ function Navigation({ isLoaded }) {
   if (!servers) return null;
   const root = window.document.getElementById('root')
   root.style.display = 'flex'
+
+  const serverList = Object.values(servers).slice(0, 9);
 
 
 
@@ -76,7 +78,7 @@ function Navigation({ isLoaded }) {
               </div>
             </a>
           </div>
-          {Object.values(servers).map((server) => {
+          {serverList.map((server) => {
 
             return (
               <div

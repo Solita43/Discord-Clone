@@ -48,7 +48,7 @@ function CreateServerModal({ title, serverId }) {
                     <div className="image-upload">
                         {image ? <p className="upload-name">{image.name}</p> : (
                             <>
-                                <i class="fa-regular fa-image"></i>
+                                <i className="fa-regular fa-image"></i>
                                 <p>Upload</p>
                             </>
                         )}

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { NavLink, Redirect, useParams, useHistory } from "react-router-dom";
+import { Redirect, useParams, useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import "./ChannelList.css";
 import { userServersGet, serverDetailsGet } from "../../store/servers";
@@ -50,9 +50,9 @@ export default function ChannelList() {
   const groupNames = Object.keys(channels);
   const groupIds = serverDetails[serverId].groupIds
   let defaultChannel;
-if(allServers[serverId]){
-  defaultChannel = allServers[serverId].default_channel_id
-}
+  if (allServers[serverId]) {
+    defaultChannel = allServers[serverId].default_channel_id
+  }
   const displayName = (name) => {
     if (name.length > 14) {
       return name.slice(0, 14) + "..."
@@ -67,7 +67,7 @@ if(allServers[serverId]){
       <div id="conversations-container" className="channel-list-scroll">
         {/* <div className="server-header"> */}
         {/* <h1 className="dm-title">{displayName(allServers[serverId].name)}</h1> */}
-          {/* <DropDownButton serverId={serverId} title={displayName(allServers[serverId].name)} /> */}
+        {/* <DropDownButton serverId={serverId} title={displayName(allServers[serverId].name)} /> */}
 
         {
           groupNames.map(name => {
@@ -92,8 +92,8 @@ if(allServers[serverId]){
                       const button = document.getElementById(`channel-edit-${channelName}`)
                       button.className = "hidden"
                     }} onClick={() => history.push(`/channels/${serverId}/${channels[name][channelName].id}`)}>
-                      <span id="channel" style={channelName == serverDisplay.channelIds[channelId] ? {color: "white", fontWeight: "bold"}: {}}><i className="fa-solid fa-hashtag"></i>{channelName}</span>
-                      <OpenModalButton id={`channel-edit-${channelName}`} buttonText={(<i className="fa-solid fa-gear" style={{backgroundColor: "var(--channel-hover)", fontSize:".8rem"}}></i>) }className={"hidden"} modalComponent={<EditChannelModal channels={channels} channelName={channelName} groupNames={groupNames} groupIds={groupIds} defaultChannel={defaultChannel} />} />
+                      <span id="channel" style={channelName == serverDisplay.channelIds[channelId] ? { color: "white", fontWeight: "bold" } : {}}><i className="fa-solid fa-hashtag"></i>{channelName}</span>
+                      <OpenModalButton id={`channel-edit-${channelName}`} buttonText={(<i className="fa-solid fa-gear" style={{ backgroundColor: "var(--channel-hover)", fontSize: ".8rem" }}></i>)} className={"hidden"} modalComponent={<EditChannelModal channels={channels} channelName={channelName} groupNames={groupNames} groupIds={groupIds} defaultChannel={defaultChannel} />} />
                     </div>
                   )
                 })}

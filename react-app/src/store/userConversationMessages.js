@@ -9,15 +9,15 @@ const getConversationMessages = (data) => {
 }
 
 export const getConversationMessagesThunk = (id) => async (dispatch) => {
-    console.log("ID IN THUNK",id)
+
     const response = await fetch(`/api/conversations/${id}`)
     if (response.ok) {
         const data = await response.json();
         if (data.errors) {
-            
+
             return
         }
-        console.log("MESSAGES",data)
+
         dispatch(getConversationMessages(data))
 
     }

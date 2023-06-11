@@ -1,0 +1,47 @@
+#list-container {
+  width: 100%;
+  height: auto;
+  margin-top: 3rem;
+  gap: 1rem;
+  flex-shrink: 1;
+  background-color: var(--center-page);
+  color: white;
+  padding: 1rem;
+}
+
+#server-list-icon {
+  width: 5rem;
+  height: 5rem;
+  border-radius: 5rem;
+}
+
+#server-list-container {
+  display: flex;
+  flex-direction: column;
+  overflow-y: scroll;
+  height: 100%;
+  width: 100%;
+  flex-wrap: nowrap;
+  margin-bottom: 0;
+  gap: 1rem;
+}
+
+#server-container {
+  display: flex;
+  align-items: center;
+  height: max-content;
+  border: red 2px solid;
+  gap: 1rem;
+  padding: 0.5rem;
+}
+
+#server-info {
+  display: flex;
+  gap: 2rem;
+}
+
+#server-list-edge {
+  display: flex;
+  margin-left: auto;
+  align-items: center;
+}
