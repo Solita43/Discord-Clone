@@ -72,6 +72,7 @@ export default function ChannelMessages() {
 
   const handleEnter = (e) => {
     if (e.key === "Enter" && !e.shiftKey) {
+      setErrors({})
       sendChat(e);
     }
   };
@@ -105,7 +106,7 @@ export default function ChannelMessages() {
 
   return (
     <div className="socket-container">
-      {errors && <p className="errors">{errors.chat}</p>}
+      {errors.chat && <p className="errors">{errors.chat}</p>}
       <form className="channel-message-input-form" onSubmit={sendChat}>
         <textarea
           className="message-input"

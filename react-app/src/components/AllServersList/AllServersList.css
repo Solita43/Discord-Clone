@@ -44,7 +44,7 @@
 
 #server-info {
   display: flex;
-  gap: 2rem;
+  flex-direction: column;
 }
 
 #server-list-edge {
