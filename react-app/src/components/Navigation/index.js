@@ -70,7 +70,7 @@ function Navigation({ isLoaded }) {
       <div className="server-nav-bar">
         <div>
           <div className="tooltip" data-tooltip={"Direct Messages"} style={{ paddingBottom: ".3rem", borderBottom: ".1rem solid var(--center-page)" }}>
-            <a href={`/conversations/${firstConversation}`} className="dm-anchor-tag" >
+            <a href={`/home`} className="dm-anchor-tag" >
               <div className="server-icons dm-div" style={conversationId ? { backgroundColor: "var(--main-button-blue)", borderRadius: "15px" } : {}}>
                 <i className="fa-solid fa-gamepad" style={{ color: "var(--text)", fontSize: "1.8rem" }}></i>
                 {/* <img
