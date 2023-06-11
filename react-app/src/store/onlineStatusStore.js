@@ -16,7 +16,6 @@ const usersStatus = (users) => ({
 
 
 export const userOnlineStatusUpdate = (user) => async (dispatch) => {
-    console.log(user)
     dispatch(updateUser(user))
     return null;
 }

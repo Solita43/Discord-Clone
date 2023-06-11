@@ -7,9 +7,7 @@ import OpenModalButton from "../OpenModalButton";
 import "./directMessages.css";
 import MessageDetails from "../MessageDetails";
 import UpdateMessageModal from "../UpdateMessageModal";
-import { socket } from "../../socket";
-
-// initialize socket variable outside of component
+import { socket } from "../../socket"
 
 export default function ConversationMessages() {
     let dispatch = useDispatch();
@@ -98,7 +96,7 @@ export default function ConversationMessages() {
                 user_id: currentUser.userId,
             });
             setChatInput("");
-            socket.emit("newUser", currentUser.userId)
+             
         }
     };
     const handleEnter = (e) => {
@@ -111,7 +109,7 @@ export default function ConversationMessages() {
         socket.emit("delete_direct_message", {
             messageId,
         });
-        socket.emit("newUser", currentUser.userId)
+         
     };
     if (isLoading || !conversation) {
         return <div id="direct-messages-view"></div>;
