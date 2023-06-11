@@ -17,7 +17,7 @@ export default function ExploreServers() {
         dispatch(getServersThunk())
     }, [dispatch])
     if (!servers.length) {
-        return <h2>Featured Communities</h2>
+        return <div id="explore-container"></div>
     }
 
 
