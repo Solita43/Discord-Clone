@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useModal } from "../../context/Modal";
-import { socket } from "../../socket";
+import { socket } from "../../socket"
 
 
 export default function UpdateMessageModal({ message, isChannel }) {

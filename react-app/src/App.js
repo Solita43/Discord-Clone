@@ -9,9 +9,8 @@ import LandingPage from "./components/LandingPage";
 import ChannelList from "./components/ChannelList";
 import ChannelMessages from "./components/ChannelMessages";
 import ServerUserList from "./components/ServerUserList";
-// import TitleBar from "./components/TitleBar";
+import TitleBar from "./components/TitleBar";
 import ExploreServers from "./components/ExploreServers";
-// import CreateConversation from "./components/DirectMessages/CreateConversation";
 import LogoutNav from "./components/LogoutNav";
 import DeveloperList from "./components/DeveloperList"
 // // import { createNewSocket } from "./store/onlineStatusStore";
@@ -21,9 +20,9 @@ import AllServersList from "./components/AllServersList";
 function App() {
   const dispatch = useDispatch();
   const [isLoaded, setIsLoaded] = useState(false);
-  // const sessionUser = useSelector(state => state.session.user);
+  const sessionUser = useSelector(state => state.session.user); 
   useEffect(() => {
-    dispatch(authenticate()).then(() => setIsLoaded(true));
+    dispatch(authenticate()).then(() => setIsLoaded(true));  
   }, [dispatch, authenticate]);
 
   return (
