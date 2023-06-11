@@ -170,5 +170,4 @@ def downgrade():
     op.drop_table('direct_message_conversation_users', schema=SCHEMA)
     op.drop_table('users', schema=SCHEMA)
     op.drop_table('direct_message_conversations', schema=SCHEMA)
-    op.drop_table('voice_channels', schema=SCHEMA)
     # ### end Alembic commands ###
