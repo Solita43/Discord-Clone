@@ -5,7 +5,7 @@ import { getChannelMessagesThunk } from "../../store/channels";
 import UpdateMessageModal from "../UpdateMessageModal";
 import MessageDetails from "../MessageDetails";
 import OpenModalButton from "../OpenModalButton";
-import { socket } from "../../socket";
+import { socket } from "../../socket"
 
 export default function ChannelMessages() {
   let dispatch = useDispatch();
@@ -46,7 +46,7 @@ export default function ChannelMessages() {
   }, [channels]);
 
   useEffect(() => {
-    socket.emit("newUser", currentUser.userId)
+     
     socket.on("channel_message", (channel_message) => {
       //   if (channelId == channel_message.channelId) {
       //     setMessages((messages) => [...messages, channel_message]);
@@ -86,7 +86,7 @@ export default function ChannelMessages() {
         user_id: currentUser.userId,
         channel_id: channelId,
       });
-      socket.emit("newUser", currentUser.userId)
+       
     }
 
     setChatInput("");
@@ -96,7 +96,7 @@ export default function ChannelMessages() {
     socket.emit("delete_channel_message", {
       message_id: messageId,
     });
-    socket.emit("newUser", currentUser.userId)
+     
   };
 
   if (isLoading) return <div className="socket-container"></div>;

@@ -1,8 +1,9 @@
 from flask_socketio import SocketIO, emit
+from flask import request
 from .models import DirectMessage, DirectMessageConversation, DirectMessageReaction, db, ChannelMessage, User
 import os
 from datetime import datetime
-from time import time
+from flask_login import current_user, login_required
 
 
 
@@ -17,35 +18,17 @@ socketio = SocketIO(cors_allowed_origin=origins)
 
 online_users = {}
 
-@socketio.on("newUser")
-def online_user(data):
 
-    print(online_users)
-    print(data)
-    #data = <userId>
-    online_users[data] = round(time()*1000)
-    user = User.query.get(data)
-    user.status = "online"
-
-    emit("updateUser", [data, "online"], broadcast=True)
-
+@socketio.event
+def connect(): 
+    current_user.status = "online"
+    emit("updateUser", [current_user.id, "online"], broadcast=True)
     db.session.commit()
 
-
-@socketio.on("disconnect")
-def offline_user():
-    for user_fix in User.query.all():
-        if online_users.get(user_fix.id) == None:
-            user_fix.status = "offline"
-            emit("newUser", [user_fix.id, 'offline'], broadcast=True)
-
-
-    for key, value in online_users.items():
-        if round(time()*1000) - value > 300000:
-            user = User.query.get(key)
-            user.status = 'offline'
-            emit("newUser", [key, 'offline'], broadcast=True)
-
+@socketio.event
+def disconnect(): 
+    current_user.status = "offline"
+    emit("updateUser", [current_user.id, "offline"], broadcast=True)
     db.session.commit()
 
 # handle direct messages - parameter is bananable but must use the same in the front end

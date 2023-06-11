@@ -7,7 +7,7 @@ import CreateServerModal from "../CreateServerModal";
 import OpenModalButton from "../OpenModalButton";
 import { getConversationsThunk } from '../../store/userconversations';
 import { getUsersOnlineStatus, userOnlineStatusUpdate } from "../../store/onlineStatusStore";
-import { socket } from "../../socket";
+import { socket } from "../../socket"
 
 function Navigation({ isLoaded }) {
   const dispatch = useDispatch();
@@ -37,19 +37,16 @@ function Navigation({ isLoaded }) {
       dispatch(userServersGet(sessionUser.userId))
       dispatch(getConversationsThunk())
       dispatch(getUsersOnlineStatus())
-      socket.emit("newUser", sessionUser.userId)
+      socket.connect(); 
+      socket.on("updateUser", (user) => {
+        dispatch(userOnlineStatusUpdate(user))
+      })
+      return () => socket.disconnect()
     }
   }, [sessionUser, dispatch])
 
   useEffect(() => {
-    const userId = sessionUser.userId;
 
-    socket.on("updateUser", (user) => {
-
-      dispatch(userOnlineStatusUpdate(user))
-    })
-
-    return () => socket.disconnect()
 
   }, [sessionUser])
   if (!isLoaded) return (<Redirect to="/" />)
