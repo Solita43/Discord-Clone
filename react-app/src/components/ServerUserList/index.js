@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from "react"
-import { NavLink, useParams } from 'react-router-dom'
-import { useSelector, useDispatch } from "react-redux";
+import React from "react"
+import { useParams } from 'react-router-dom'
+import { useSelector } from "react-redux";
 import "./ServerUserLIst.css";
 
 export default function ServerUserList() {
-    const { channelId, serverId } = useParams();
+    const { serverId } = useParams();
     const serverDetails = useSelector((state) => state.servers.ServerDetails);
     const userStatuses = useSelector((state) => state.onlineStatus.UserStatus)
 
@@ -33,7 +33,7 @@ export default function ServerUserList() {
             <span>Owner</span>
             <div className="conversation-user-container">
                 <div className="dm-left">
-                    <img className="dm-profile-img" src={allUsers[owner[0]].userIcon}
+                    <img alt={`User icon for ${allUsers[owner[0]].username}`} className="dm-profile-img" src={allUsers[owner[0]].userIcon}
                         style={ownerStatus ? { border: "2px solid green" } : {}}
                     ></img>
                     <p className="dm-username">{allUsers[owner[0]].username}
@@ -55,7 +55,7 @@ export default function ServerUserList() {
                 return (
                     <div key={userId} className="conversation-user-container">
                         <div className="dm-left">
-                            <img className="dm-profile-img" src={allUsers[userId].userIcon}
+                            <img alt={`User icon for ${allUsers[userId].username}`} className="dm-profile-img" src={allUsers[userId].userIcon}
                                 style={online ? { border: "2px solid green" } : {}}
 
                             ></img>
@@ -80,7 +80,7 @@ export default function ServerUserList() {
                 return (
                     <div key={userId} className="conversation-user-container">
                         <div className="dm-left">
-                            <img className="dm-profile-img" src={allUsers[userId].userIcon}
+                            <img alt={`User icon for ${allUsers[userId].username}`} className="dm-profile-img" src={allUsers[userId].userIcon}
                                 style={online ? { border: "2px solid green" } : {}}
                             ></img>
                             <p className="dm-username">{allUsers[userId].username}

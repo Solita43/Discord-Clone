@@ -8,7 +8,6 @@ import configureStore from "./store";
 import * as sessionActions from "./store/session";
 import * as serverActions from "./store/servers"
 import App from "./App";
-import LandingPage from "./components/LandingPage";
 
 import "./index.css";
 

@@ -1,10 +1,10 @@
-import React, { useState, useEffect, useRef } from "react";
+import React from "react";
 import OpenModalButton from "../OpenModalButton";
 import DeleteServerModal from "../DeleteServerModal"
 import CreateGroupModal from "../CreateGroupModal";
 import EditServerModal from "../EditSeverModal"
 
-function ServerDropDown({serverId, serverName, closeMenu}) {
+function ServerDropDown({ serverId, serverName, closeMenu }) {
 
     return (
         <>

@@ -115,7 +115,7 @@ def create_a_server():
             name=form.data["name"],
             owner_id=current_user.id)
 
-        if "imageURL" in request.files:
+        if "imageURL" in form.data and form.data["imageURL"] != None:
             image = form.data["imageURL"]
             image.filename = get_unique_filename(image.filename)
             upload = upload_file_to_s3(image)

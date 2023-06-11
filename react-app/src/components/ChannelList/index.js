@@ -1,13 +1,11 @@
-import React, { useEffect, useState } from "react";
-import { Redirect, useParams, useHistory } from "react-router-dom";
+import React, { useEffect } from "react";
+import { useParams, useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import "./ChannelList.css";
 import { userServersGet, serverDetailsGet } from "../../store/servers";
 import OpenModalButton from "../OpenModalButton";
 import EditChannelModal from "../EditChannelModal"
-import MenuDropdown from "../Navigation/MenuDropdown";
 import CreateChannelModal from "../CreateChannelModal";
-import DropDownButton from "../DropDownButton";
 import TitleBar from "../TitleBar";
 import { getVoiceChannelsByServerId }from "../../store/voiceChannels"; 
 
@@ -26,7 +24,7 @@ export default function ChannelList() {
     if (!Object.keys(allServers).length) {
       dispatch(userServersGet(sessionUser.userId));
     }
-  }, [dispatch]);
+  }, [dispatch, allServers, sessionUser.userId]);
 
   useEffect(() => {
     if (
@@ -36,11 +34,8 @@ export default function ChannelList() {
       dispatch(serverDetailsGet(serverId));
       dispatch(getVoiceChannelsByServerId(serverId)); 
     }
-  }, [dispatch, serverId]);
+  }, [dispatch, serverId, serverDetails, allServers]);
 
-  useEffect(() => {
-    setServerDetail(serverDetails)
-  }, [serverDetails]);
 
 
   if (!serverDetails[serverId] || !allServers[serverId]) {
@@ -48,7 +43,7 @@ export default function ChannelList() {
   }
 
   const serverDisplay = serverDetails[serverId];
-  const { channels, owner, users } = serverDisplay;
+  const { channels } = serverDisplay;
 
   const groupNames = Object.keys(channels);
   const groupIds = serverDetails[serverId].groupIds
@@ -56,22 +51,12 @@ export default function ChannelList() {
   if (allServers[serverId]) {
     defaultChannel = allServers[serverId].default_channel_id
   }
-  const displayName = (name) => {
-    if (name.length > 14) {
-      return name.slice(0, 14) + "..."
-    } else {
-      return name
-    }
-  }
+
 
   return (
     <>
       <TitleBar serverId={serverId} title={allServers[serverId].name} />
       <div id="conversations-container" className="channel-list-scroll">
-        {/* <div className="server-header"> */}
-        {/* <h1 className="dm-title">{displayName(allServers[serverId].name)}</h1> */}
-        {/* <DropDownButton serverId={serverId} title={displayName(allServers[serverId].name)} /> */}
-
         {
           groupNames.map(name => {
             return (
@@ -95,7 +80,7 @@ export default function ChannelList() {
                       const button = document.getElementById(`channel-edit-${channelName}`)
                       button.className = "hidden"
                     }} onClick={() => history.push(`/channels/${serverId}/${channels[name][channelName].id}`)}>
-                      <span id="channel" style={channelName == serverDisplay.channelIds[channelId] ? { color: "white", fontWeight: "bold" } : {}}><i className="fa-solid fa-hashtag"></i>{channelName}</span>
+                      <span id="channel" style={channelName === serverDisplay.channelIds[channelId] ? { color: "white", fontWeight: "bold" } : {}}><i className="fa-solid fa-hashtag"></i>{channelName}</span>
                       <OpenModalButton id={`channel-edit-${channelName}`} buttonText={(<i className="fa-solid fa-gear" style={{ backgroundColor: "var(--channel-hover)", fontSize: ".8rem" }}></i>)} className={"hidden"} modalComponent={<EditChannelModal channels={channels} channelName={channelName} groupNames={groupNames} groupIds={groupIds} defaultChannel={defaultChannel} />} />
                     </div>
                   )
@@ -114,44 +99,4 @@ export default function ChannelList() {
         }
       </div>
     </>);
-
-
-  {/* </div> */ }
-  {/* <ul>
-        {groupNames.map((name) => {
-          return (
-            <>
-              <li className="channel-group-name" onMouseOver={(e) => {
-                const button = document.getElementById(`new-channel-button-${name}`)
-                button.className = "edit-channel-name-button"
-              }} onMouseLeave={(e) => {
-                const button = document.getElementById(`new-channel-button-${name}`)
-                button.className = "hidden"
-              }}>
-                {name}
-                <OpenModalButton id={`new-channel-button-${name}`} buttonText="Add Channel" className={"hidden"} modalComponent={<CreateChannelModal groupId={groupIds[name]} serverId={parseInt(serverId)} defaultChannel={defaultChannel} />} />
-              </li>
-              <ul>
-                {Object.keys(channels[name]).map((channelName) => {
-                  return (
-                    <li className="channel-name" onMouseOver={(e) => {
-                      const button = document.getElementById(`channel-edit-${channelName}`)
-                      button.className = "edit-channel-name-button"
-                    }} onMouseLeave={(e) => {
-                      const button = document.getElementById(`channel-edit-${channelName}`)
-                      button.className = "hidden"
-                    }} onClick={() => history.push(`/channels/${serverId}/${channels[name][channelName].id}`)}>
-                      {channelName}
-                      <OpenModalButton id={`channel-edit-${channelName}`} buttonText="Edit" className={"hidden"} modalComponent={<EditChannelModal channels={channels} channelName={channelName} groupNames={groupNames} groupIds={groupIds} defaultChannel={defaultChannel} />} />
-                    </li>
-                  )
-                })}
-              </ul>
-            </>
-          );
-        })}
-      </ul> */}
-
-
-
 }

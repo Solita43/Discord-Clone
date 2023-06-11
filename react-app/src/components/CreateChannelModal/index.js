@@ -3,10 +3,10 @@ import { useDispatch } from "react-redux";
 import { useModal } from "../../context/Modal";
 import { useHistory } from "react-router-dom";
 import "./CreateChannelModal.css";
-import { channelEdit, deleteChannel, serverDetailsGet, createChannel } from "../../store/servers";
+import { serverDetailsGet, createChannel } from "../../store/servers";
 
 export default function CreateChannelModal(props) {
-    const { groupId, serverId, defaultChannel } = props
+    const { groupId, serverId } = props
     const [errors, setErrors] = useState([]);
     const [name, setName] = useState("");
     const history = useHistory();
@@ -23,7 +23,7 @@ export default function CreateChannelModal(props) {
             isPrivate: false
         }
         const data = await dispatch(createChannel(body));
-        
+
         if (typeof data.name !== "string") {
             setErrors(data)
         } else {

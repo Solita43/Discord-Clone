@@ -28,7 +28,7 @@ export default function ConversationMessages() {
     for (let key in conversationList) {
         if (
             conversationList[key] &&
-            conversationList[key].conversation_id == conversationId
+            conversationList[key].conversation_id === parseInt(conversationId)
         ) {
             username = conversationList[key].username;
         }
@@ -38,7 +38,7 @@ export default function ConversationMessages() {
         dispatch(getConversationMessagesThunk(conversationId)).then(() =>
             setIsLoading(false)
         );
-    }, [conversationId]);
+    }, [conversationId, dispatch]);
 
     useEffect(() => {
         if (conversation && Object.keys(conversation).length)
@@ -46,8 +46,9 @@ export default function ConversationMessages() {
                 if (a.id < b.id) {
                     return -1
                 }
+                return 1
             }));
-    }, [conversations]);
+    }, [conversations, conversation]);
 
     // open socket with useEffect
     useEffect(() => {
@@ -78,7 +79,7 @@ export default function ConversationMessages() {
         return () => {
 
         };
-    }, []);
+    }, [dispatch]);
 
     if (isLoading) return <div id="direct-messages-view"></div>;
     // send chat messages through web socket
@@ -96,7 +97,7 @@ export default function ConversationMessages() {
                 user_id: currentUser.userId,
             });
             setChatInput("");
-             
+
         }
     };
     const handleEnter = (e) => {
@@ -109,7 +110,7 @@ export default function ConversationMessages() {
         socket.emit("delete_direct_message", {
             messageId,
         });
-         
+
     };
     if (isLoading || !conversation) {
         return <div id="direct-messages-view"></div>;

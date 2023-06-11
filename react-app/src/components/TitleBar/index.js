@@ -29,17 +29,17 @@ function TitleBar({ title, users }) {
         return () => setIsLoading(true)
     }, [])
 
- 
+
 
     if (isLoading) return (<div className="top-bar"><div id="channel-top-title"></div></div>)
-    
+
     let header = conversation ? conversation.username : title;
 
     return (
         <div className="top-bar">
             <DropDownButton serverId={serverId} title={title} users={users} />
             <div id="channel-top-title">
-                {conversation ? (<img className="title-profile-img" src={conversation.userIcon}
+                {conversation ? (<img alt="" className="title-profile-img" src={conversation.userIcon}
                     style={online ? { border: "2px solid green" } : {}}
 
                 ></img>) : <i className="fa-solid fa-hashtag title-icon"></i>}

@@ -10,9 +10,9 @@
 }
 
 #server-list-icon {
-  width: 5rem;
-  height: 5rem;
-  border-radius: 5rem;
+  width: 4rem;
+  height: 4rem;
+  border-radius: 4rem;
 }
 
 #server-list-container {
@@ -24,15 +24,22 @@
   flex-wrap: nowrap;
   margin-bottom: 0;
   gap: 1rem;
+  scrollbar-width: 2rem;
+  scroll-behavior: smooth;
+}
+
+#server-container:hover {
+  background-color: var(--message-hover);
 }
 
 #server-container {
   display: flex;
   align-items: center;
   height: max-content;
-  border: red 2px solid;
   gap: 1rem;
   padding: 0.5rem;
+  border-radius: 0.7rem;
+  cursor: pointer;
 }
 
 #server-info {
@@ -44,4 +51,31 @@
   display: flex;
   margin-left: auto;
   align-items: center;
+  gap: 0.5rem;
+  color: var(--check-box);
+}
+
+#user-count {
+  color: var(--text);
+}
+
+#home-title {
+  text-align: center;
+  color: var(--text);
+  border-bottom: 0.05rem solid rgba(207, 201, 191, 0.3);
+  padding: 0.5rem;
+}
+
+#new-user-home {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  height: 100%;
+  color: var(--text);
+  justify-content: center;
+  align-items: center;
+}
+
+#server-list-explore:hover {
+  background-color: var(--check-box);
 }

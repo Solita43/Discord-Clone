@@ -62,9 +62,6 @@ textarea {
   resize: none;
 }
 
-.message-user-img {
-}
-
 .message-info {
   display: flex;
   flex-direction: column;
@@ -171,9 +168,6 @@ textarea {
 .coder-info {
   /* border: 1px solid var(--center-page); */
   flex: 1;
-}
-
-.coder-info-right {
 }
 
 .coder-link {

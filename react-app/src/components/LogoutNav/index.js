@@ -1,4 +1,3 @@
-import React, { useState, useEffect } from "react"
 import { useDispatch, useSelector } from 'react-redux';
 import OpenModalButton from '../OpenModalButton'
 import * as sessionActions from '../../store/session'
@@ -20,7 +19,7 @@ export default function LogoutNav() {
         <>
             <div className="bottom-nav">
                 <div className="left-nav-bar">
-                    <img className="nav-user-profile-img" src={sessionUser.userIcon} />
+                    <img alt="Your user icon" className="nav-user-profile-img" src={sessionUser.userIcon} />
                     <p className="nav-username">{sessionUser.username}</p>
                 </div>
                 <OpenModalButton

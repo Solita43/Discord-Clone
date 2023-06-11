@@ -1,4 +1,4 @@
-from flask import Blueprint, jsonify, session, request
+from flask import Blueprint, request
 from app.models import User, db
 from app.forms import LoginForm
 from app.forms import SignUpForm
@@ -63,27 +63,30 @@ def sign_up():
     form = SignUpForm()
     form['csrf_token'].data = request.cookies['csrf_token']
     if form.validate():
-
-        if 'image' in request.files:
+        user = User(
+                    username=form.data['username'],
+                    email=form.data['email'],
+                    password=form.data['password'],
+                )
+        if "image" in form.data and form.data["image"] != None:
 
             image = form.data["image"]
             image.filename = get_unique_filename(image.filename)
             upload = upload_file_to_s3(image)
-            print("url: ", upload)
+
             if 'url' not in upload:
-                return "invalid url"
+                return upload
             else:
-                user = User(
-                    username=form.data['username'],
-                    email=form.data['email'],
-                    password=form.data['password'],
-                    imageUrl = upload["url"]
-                )
-                db.session.add(user)
-                db.session.commit()
-                login_user(user)
-                return user.to_dict()
-            return form.errors, 401
+                user.imageUrl = upload["url"]
+
+        db.session.add(user)
+        db.session.commit()
+        login_user(user)
+        return user.to_dict()
+    else:
+        return form.errors, 401
+
+
 
 
 
