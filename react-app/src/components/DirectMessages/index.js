@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react"
-import { NavLink, useParams } from 'react-router-dom'
+import { NavLink, useParams, useHistory } from 'react-router-dom'
 import { useSelector, useDispatch } from "react-redux"
 import { getConversationsThunk, deleteConversationThunk } from "../../store/userconversations"
 import { getAllUsersThunk } from "../../store/users";
@@ -22,12 +22,19 @@ export default function DirectMessages() {
     let [isLoading, setIsLoading] = useState(true)
     let users = useSelector((state) => state.users)
     users = Object.values(users.allUsers)
+    const history = useHistory()
+
     useEffect(() => {
         dispatch(getConversationsThunk()).then(dispatch(getAllUsersThunk())).then(() => setIsLoading(false))
     }, [])
 
     const deleteConversation = (id, userId) => {
-        dispatch(deleteConversationThunk(id, userId))
+        dispatch(deleteConversationThunk(id, userId)).then(() => {
+            if(conversationId == id){
+                history.push("/home");
+            }
+            
+        })
     }
 
     if (isLoading) {

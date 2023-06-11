@@ -9,7 +9,7 @@ function LoginFormModal() {
   const dispatch = useDispatch();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [errors, setErrors] = useState([]);
+  const [errors, setErrors] = useState(null);
   const { closeModal } = useModal();
   const history = useHistory()
 
@@ -66,9 +66,9 @@ function LoginFormModal() {
         <h1 className="form-title">Welcome Back!</h1>
         <form className="form-box" onSubmit={handleSubmit}>
           <ul className="errors">
-            {errors.map((error, idx) => (
-              <li key={idx}>{error}</li>
-            ))}
+            {errors && (
+              <p className="errors">* Invalid credentials</p>
+            )}
           </ul>
           <label className="signup-labels">
             Email
@@ -76,7 +76,10 @@ function LoginFormModal() {
               type="text"
               className="input-area"
               value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              onChange={(e) => {
+                setErrors(null)
+                setEmail(e.target.value)
+              }}
               required
             />
           </label>
@@ -86,7 +89,10 @@ function LoginFormModal() {
               type="password"
               className="input-area"
               value={password}
-              onChange={(e) => setPassword(e.target.value)}
+              onChange={(e) => {
+                setErrors(null)
+                setPassword(e.target.value)
+              }}
               required
             />
           </label>

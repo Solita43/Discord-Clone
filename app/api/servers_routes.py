@@ -1,4 +1,4 @@
-from flask import Blueprint, request, make_response
+from flask import Blueprint, request
 from flask_login import current_user, login_required
 from app.models import Server, ServerUser, User, db, Channel, ChannelGroup
 from app.forms import ServerUserForm, ServerForm
@@ -207,6 +207,8 @@ def delete_server_by_id(server_id):
     role = get_user_role(current_user.id, server_id)
     if role != "owner":
         return {'errors': 'Insufficient permission to delete this server'}, 403
+    
+    remove_file_from_s3(server.imageUrl)
     db.session.delete(server)
     db.session.commit()
     return {

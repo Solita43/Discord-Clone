@@ -1,4 +1,4 @@
-from ..models import Server, ServerUser
+from ..models import ServerUser
 
 def get_user_role(user_id, server_id): 
     """

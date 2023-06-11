@@ -58,6 +58,7 @@ function EditServerModal({ serverId }) {
                                 <p>Upload</p>
                             </>
                         )}
+                        <div className="image-dot"><p>+</p></div>
                     </div>
                     <input
                         type="file"

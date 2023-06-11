@@ -7,8 +7,6 @@
     border-radius: 35px;
     background-color: #33343d;
     padding: 1rem;
-    grid-gap: 0.7rem;
-    gap: 0.7rem;
 }
 
 .create-server-title {
@@ -35,3 +33,4 @@
     margin-bottom: 1.5rem;
     padding: 0.5rem;
 }
+

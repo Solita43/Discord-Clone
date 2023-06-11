@@ -2,7 +2,7 @@
   overflow-y: scroll;
   height: 250px;
   margin-bottom: 2em;
-  width: 60%;
+  width: 100%;
   align-self: center;
   background-color: var(--message-hover);
   padding: 0 1rem;
@@ -32,6 +32,7 @@
 
 #convo-button {
   border-radius: 15px;
+  border: none;
   background-color: #5865f2;
   color: #fff;
   text-align: center;
@@ -42,6 +43,28 @@
   align-self: center;
   width: 100%;
 }
+
+.create-convo-checkbox {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  border: none;
+  outline: none;
+  background-color: rgba(0, 0, 0, 0.192);
+  border: 1px solid rgba(255, 255, 255, 0.425);
+  width: 16px;
+  height: 16px;
+  border-radius: 3px;
+}
+
+.create-convo-checkbox:checked::after {
+  content: "✓";
+  position: relative;
+  top: -2px;
+  left: 2px;
+  color: white;
+}
+
 
 /* NavLink #create-convo-users {
     display: flex;

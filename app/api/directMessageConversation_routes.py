@@ -1,7 +1,7 @@
 from flask import Blueprint, request
 from sqlalchemy import or_, and_
 from flask_login import current_user, login_required
-from app.models import DirectMessageConversationUser, db, DirectMessageReaction, DirectMessage, User, DirectMessageConversation
+from app.models import DirectMessageConversationUser, db, DirectMessage, User, DirectMessageConversation
 from app.forms import DirectMessageForm
 
 conversation_routes = Blueprint("conversations", __name__)

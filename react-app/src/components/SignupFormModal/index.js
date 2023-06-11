@@ -52,7 +52,7 @@ function SignupFormModal() {
 					<ul className="errors">
 						{Object.values(errors).map((error, idx) => {
 							return (
-								<li key={idx}>{error}</li>
+								<li key={idx} style={{paddingBottom: ".6rem"}}>* {error}</li>
 							)
 						})}
 					</ul>
@@ -64,6 +64,7 @@ function SignupFormModal() {
 									<p>Upload</p>
 								</>
 							)}
+							<div className="image-dot"><p>+</p></div>
 						</div>
 						<input
 							type="file"
@@ -75,11 +76,12 @@ function SignupFormModal() {
 					<label className="signup-labels">
 						Email
 						<input
-							type="text"
+							type="email"
 							className="input-area"
+							size={30}
 							value={email}
 							onChange={(e) => {
-								if (!email.includes('@')) {
+								if (!email.includes('@') && !email.includes('.')) {
 									setErrors(prev => {
 										let err = { ...prev }
 										err.email = "Not a valid email"
@@ -104,7 +106,22 @@ function SignupFormModal() {
 							type="text"
 							className="input-area"
 							value={username}
-							onChange={(e) => setUsername(e.target.value)}
+							onChange={(e) => {
+								if (e.target.value.trim().length >= 30) {
+									setErrors(prev => {
+										let err = { ...prev }
+										err.username = "Username cannot be more than 30 characters"
+										return err;
+									})
+								} else {
+									setErrors(prev => {
+										let err = {...prev}
+										delete err.username
+										return err
+									})
+								}
+								setUsername(e.target.value)
+							}}
 							required
 						/>
 					</label>
@@ -143,7 +160,7 @@ function SignupFormModal() {
 								if (password !== e.target.value.trim()) {
 									setErrors(prev => {
 										const err = { ...prev }
-										err.confirmPassword = "Confirm Password field must be the same as the Password field"
+										err.confirmPassword = "Confirm Password field must match the Password field"
 										return err;
 									});
 								} else {

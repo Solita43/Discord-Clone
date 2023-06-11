@@ -332,3 +332,34 @@ li.top-right-nav {
     background-color: #404eed;
   }
 }
+
+
+@media (max-width: 533px) {
+  .wrapper {
+    height:auto;
+  }
+  .right-bg-image {
+    bottom:10px;
+    left: 200px;
+  }
+
+  .body-wrapper {
+    margin-top: 0;
+    margin-bottom: 50px;
+  }
+
+  .main-bg-image{
+    background-color: #404eed;
+  }
+
+  .developer-info-boxes {
+    flex-direction: column;
+  }
+
+  .footer {
+    display: block;
+    bottom: -10rem;
+    z-index: 2;
+    overflow-y: auto;
+  }
+}
