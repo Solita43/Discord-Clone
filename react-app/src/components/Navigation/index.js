@@ -7,9 +7,8 @@ import CreateServerModal from "../CreateServerModal";
 import OpenModalButton from "../OpenModalButton";
 import { getConversationsThunk } from '../../store/userconversations';
 import { getUsersOnlineStatus, userOnlineStatusUpdate } from "../../store/onlineStatusStore";
-import { socket } from "../../socket"
 
-function Navigation({ isLoaded }) {
+function Navigation({ isLoaded, socket }) {
   const dispatch = useDispatch();
   const params = useParams()
   const { serverId, conversationId } = params;
@@ -33,7 +32,7 @@ function Navigation({ isLoaded }) {
 
 
   useEffect(() => {
-    if (isLoaded) {
+    if (sessionUser) {
       dispatch(userServersGet(sessionUser.userId))
       dispatch(getConversationsThunk())
       dispatch(getUsersOnlineStatus())
@@ -43,7 +42,7 @@ function Navigation({ isLoaded }) {
       })
       return () => socket.disconnect()
     }
-  }, [isLoaded, dispatch])
+  }, [sessionUser, dispatch])
 
   useEffect(() => {
     const userId = sessionUser.userId;
