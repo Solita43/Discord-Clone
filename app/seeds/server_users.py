@@ -3,25 +3,25 @@ from sqlalchemy.sql import text
 
 def seed_server_users():
     demo1 = ServerUser(
-        user_id= User.query.filter(User.username == "Demo").first().id,
+        user_id = 4,
         server_id= 1,
         role= "owner"
-        )
+    )
 
     demo2 = ServerUser(
-        user_id = demo1.user_id,
+        user_id = 1,
         server_id = 2,
         role = "user"
     )
 
     demo3 = ServerUser(
-        user_id = demo1.user_id,
+        user_id = 6,
         server_id = 3,
         role = "owner"
     )
 
     demo4 = ServerUser(
-        user_id = demo1.user_id,
+        user_id = 7,
         server_id = 4,
         role = "owner"
     )
@@ -33,7 +33,7 @@ def seed_server_users():
     )
 
     marnie2 = ServerUser(
-        user_id = marnie1.user_id,
+        user_id = 5,
         server_id = 2,
         role = "owner"
     )
@@ -65,7 +65,7 @@ def seed_server_users():
 
     bev1 = ServerUser(
         user_id = User.query.filter(User.username == "bev").first().id,
-        server_id = 1,
+        server_id = 4,
         role = "user"
     )
 

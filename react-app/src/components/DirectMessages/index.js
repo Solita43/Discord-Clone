@@ -3,17 +3,17 @@ import { NavLink, useParams, useHistory } from 'react-router-dom'
 import { useSelector, useDispatch } from "react-redux"
 import { getConversationsThunk, deleteConversationThunk } from "../../store/userconversations"
 import { getAllUsersThunk } from "../../store/users";
-import CreateConversationModal from "../CreateConversationModal";
-import ConversationMessages from "./ConversationMessages";
-import OpenModalButton from "../OpenModalButton";
 import './directMessages.css'
-import DropDownButton from "../DropDownButton";
 import TitleBar from "../TitleBar";
 
 export default function DirectMessages() {
     let dispatch = useDispatch()
     let params = useParams()
     let { conversationId } = params
+    useEffect(() => {
+        dispatch(getConversationsThunk()).then(dispatch(getAllUsersThunk())).then(() => setIsLoading(false))
+    }, [dispatch])
+
     let userConversations = Object.values(useSelector((state) => state.userConversations))
     const userStatuses = useSelector((state) => state.onlineStatus.UserStatus)
     userConversations = userConversations.sort((a, b) => {
@@ -24,16 +24,18 @@ export default function DirectMessages() {
     users = Object.values(users.allUsers)
     const history = useHistory()
 
-    useEffect(() => {
-        dispatch(getConversationsThunk()).then(dispatch(getAllUsersThunk())).then(() => setIsLoading(false))
-    }, [])
 
+    try {
+        conversationId = parseInt(conversationId)
+    } catch {
+        history.push('/')
+    }
     const deleteConversation = (id, userId) => {
         dispatch(deleteConversationThunk(id, userId)).then(() => {
-            if(conversationId == id){
+            if (parseInt(conversationId) === id) {
                 history.push("/home");
             }
-            
+
         })
     }
 
@@ -61,7 +63,7 @@ export default function DirectMessages() {
                             <NavLink to={`/conversations/${conversation['conversation_id']}`}>
                                 <div className="conversation-user-container">
                                     <div className="dm-left">
-                                        <img className="dm-profile-img" src={conversation.userIcon}
+                                        <img alt={`user icon for ${conversation.username}`} className="dm-profile-img" src={conversation.userIcon}
                                             // style={conversation.conversation_id == conversationId ? { border: "2px solid white", borderRadius: "15px" } : {}}
                                             // style={conversation.conversation_id == conversationId ? { borderRadius: "15px" } : {}}
                                             style={online ? { border: "2px solid green" } : {}}

@@ -1,9 +1,8 @@
-import React, { useState } from "react";
+import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import background from "../../assets/main_background.svg";
 import backgroundLeft from "../../assets/main_left_background.svg";
 import backgroundRight from "../../assets/main_right_background.svg";
-import backgroundMain from "../../assets/discord_home_2.png";
 import { useHistory } from "react-router-dom";
 import OpenModalButton from "../OpenModalButton";
 import LoginFormModal from "../LoginFormModal";
@@ -60,12 +59,6 @@ export default function LandingPage() {
                         ) : null}
 
                     </li>
-                    {/* {isLoaded && (
-                    <li className='top-right-nav'>
-                        <ProfileButton user={user} />
-                        <i className={`fa-solid fa-bars`}></i>
-                    </li>
-                )} */}
                 </ul>
 
                 <div className="wrapper">
@@ -108,7 +101,7 @@ export default function LandingPage() {
                             ></img>
                         </div>
 
-
+                        <div className="purple-div"></div>
 
                         <div className="footer">
                             <div className="footer-container">
@@ -119,6 +112,7 @@ export default function LandingPage() {
                                             <img
                                                 src="https://res.cloudinary.com/dnzxq7dgk/image/upload/v1686271883/P2/ben-banner_vle0nz.png"
                                                 className="coder-image"
+                                                alt=""
                                             ></img>
                                             <div className="coder-info-right">
                                                 <p className="coder-name">Benjamin Wilson</p>
@@ -127,6 +121,7 @@ export default function LandingPage() {
                                                         className="coder-link"
                                                         target="_blank"
                                                         href="https://www.linkedin.com/in/benjamin-wilson-2a39ab271/"
+                                                        rel="noreferrer"
                                                     >
                                                         LinkedIn
                                                     </a>
@@ -135,6 +130,7 @@ export default function LandingPage() {
                                                         className="coder-link"
                                                         target="_blank"
                                                         href="https://github.com/BenjaminWilson13"
+                                                        rel="noreferrer"
                                                     >
                                                         Git Hub
                                                     </a>
@@ -147,6 +143,7 @@ export default function LandingPage() {
                                             <img
                                                 className="coder-image"
                                                 src="https://res.cloudinary.com/dnzxq7dgk/image/upload/v1686271951/P2/mel-banner_wjcicw.png"
+                                                alt=""
                                             ></img>
                                             <div className="coder-info-right">
                                                 <p className="coder-name">Melinda Cortez</p>
@@ -155,6 +152,7 @@ export default function LandingPage() {
                                                         className="coder-link"
                                                         target="_blank"
                                                         href="https://www.linkedin.com/in/melinda-cortez-3581b0139/"
+                                                        rel="noreferrer"
                                                     >
                                                         LinkedIn
                                                     </a>
@@ -163,6 +161,7 @@ export default function LandingPage() {
                                                         className="coder-link"
                                                         href="https://github.com/Solita43"
                                                         target="_blank"
+                                                        rel="noreferrer"
                                                     >
                                                         Git Hub
                                                     </a>
@@ -175,6 +174,7 @@ export default function LandingPage() {
                                             <img
                                                 src="https://res.cloudinary.com/dnzxq7dgk/image/upload/v1686271970/P2/bev-banner_ocoqn8.png"
                                                 className="coder-image"
+                                                alt=""
                                             ></img>
                                             <div className="coder-info-right">
                                                 <p className="coder-name">Beverly Duran</p>
@@ -183,6 +183,7 @@ export default function LandingPage() {
                                                         className="coder-link"
                                                         target="_blank"
                                                         href="https://www.linkedin.com/in/beverly-duran/"
+                                                        rel="noreferrer"
                                                     >
                                                         LinkedIn
                                                     </a>
@@ -191,6 +192,7 @@ export default function LandingPage() {
                                                         className="coder-link"
                                                         target="_blank"
                                                         href="https://github.com/duranbeverly"
+                                                        rel="noreferrer"
                                                     >
                                                         Git Hub
                                                     </a>
@@ -203,6 +205,7 @@ export default function LandingPage() {
                                             <img
                                                 src="https://res.cloudinary.com/dnzxq7dgk/image/upload/v1686271920/P2/jay-banner_kcxgwe.png"
                                                 className="coder-image"
+                                                alt=""
                                             ></img>
                                             <div className="coder-info-right">
                                                 <p className="coder-name">Jay Levin</p>
@@ -211,6 +214,7 @@ export default function LandingPage() {
                                                         className="coder-link"
                                                         target="_blank"
                                                         href="https://www.linkedin.com/in/jay-levin/"
+                                                        rel="noreferrer"
                                                     >
                                                         LinkedIn
                                                     </a>
@@ -219,6 +223,7 @@ export default function LandingPage() {
                                                         className="coder-link"
                                                         target="_blank"
                                                         href="https://github.com/jaylevin96"
+                                                        rel="noreferrer"
                                                     >
                                                         Git Hub
                                                     </a>

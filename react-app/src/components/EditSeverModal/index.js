@@ -1,8 +1,7 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useModal } from "../../context/Modal";
-import { useHistory, useParams } from "react-router-dom";
-import { serverPost, serverEdit } from "../../store/servers";
+import { serverEdit } from "../../store/servers";
 
 
 function EditServerModal({ serverId }) {
@@ -16,7 +15,6 @@ function EditServerModal({ serverId }) {
     }
 
     const { closeModal } = useModal();
-    const history = useHistory();
 
 
     const handleSubmit = async (e) => {

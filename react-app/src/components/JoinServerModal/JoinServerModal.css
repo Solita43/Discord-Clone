@@ -1,0 +1,14 @@
+.sign-up-form-server-img {
+  max-width: 350px;
+  height: auto;
+  border-radius: 25px;
+}
+
+.server-image-box {
+  display: flex;
+  align-items: center;
+}
+
+.server-name {
+  color: var(--text);
+}

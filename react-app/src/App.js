@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { Route, Switch } from "react-router-dom";
 import { authenticate } from "./store/session";
 import Navigation from "./components/Navigation";
@@ -12,16 +12,14 @@ import ServerUserList from "./components/ServerUserList";
 import ExploreServers from "./components/ExploreServers";
 import LogoutNav from "./components/LogoutNav";
 import DeveloperList from "./components/DeveloperList"
-// import { io } from "socket.io-client";
-// import { createNewSocket } from "./store/onlineStatusStore";
 import AllServersList from "./components/AllServersList";
 
 function App() {
   const dispatch = useDispatch();
   const [isLoaded, setIsLoaded] = useState(false);
   useEffect(() => {
-    dispatch(authenticate()).then(() => setIsLoaded(true));  
-  }, [dispatch, authenticate]);
+    dispatch(authenticate()).then(() => setIsLoaded(true));
+  }, [dispatch]);
 
   return (
     <>
@@ -45,14 +43,14 @@ function App() {
             <Route exact path="/conversations">
               <Navigation isLoaded={isLoaded} />
               <DirectMessages />
-              <DeveloperList/>
+              <DeveloperList />
               <LogoutNav />
             </Route>
             <Route exact path="/conversations/:conversationId">
               <Navigation isLoaded={isLoaded} />
               <DirectMessages />
               <ConversationMessages />
-              <DeveloperList/>
+              <DeveloperList />
               <LogoutNav />
             </Route>
             <Route exact path="/channels/:serverId/:channelId">
