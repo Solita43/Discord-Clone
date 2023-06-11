@@ -89,14 +89,14 @@ export const serverDetailsGet = (serverId) => async (dispatch) => {
 }
 
 export const serverPost = (formData) => async (dispatch) => {
-    console.log("in the server store form Data: ".formData)
+
     const res = await fetch("/api/servers/", {
         method: "POST",
         body: formData
     })
 
     const data = await res.json();
-    console.log("data", data)
+
 
     if (res.ok) {
         dispatch(postServer(data))

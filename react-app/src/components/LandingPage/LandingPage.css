@@ -1,12 +1,22 @@
 #landing-page-root {
-  display: block;
+  /* display: block; */
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
 }
 
 .wrapper {
   height: 560px;
   background-color: #404eed;
-  height: 100vw;
-  display: block;
+  /* height: 100vw; */
+  /* display: block; */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.content-wrapper {
+  overflow: hidden;
 }
 
 .landing-title {
@@ -37,6 +47,9 @@
   flex-direction: column;
   width: 800px;
   align-items: center;
+  position: relative;
+  top: 5rem;
+  margin: auto;
 }
 
 .open-discordia {
@@ -52,36 +65,50 @@
   z-index: 2;
 }
 
+.images-all {
+}
+
 .all-images {
   background-color: #404eed;
-  display: flex;
-  justify-content: center;
+  /* display: flex;
+  justify-content: center; */
   /* border: 1px solid bisque; */
+  height: 10rem;
 }
 
 .main-bg-image {
-  position: absolute;
-  top: -68px;
-  height: 754px;
+  position: relative;
+  /* top: -68px; */
+  height: 20rem;
   width: auto;
   z-index: 0;
+  left: -175px;
+  bottom: 10rem;
 }
 
 .left-bg-image {
   position: relative;
   max-width: 700px;
-  bottom: 213px;
+  bottom: 33.5rem;
   right: 1433px;
 }
 
 .right-bg-image {
   position: relative;
   max-width: 631px;
-  bottom: 220px;
+  bottom: 33.5rem;
   left: 1482px;
 }
 
-
+.footer {
+  background-color: #33343d;
+  color: var(--text);
+  /* width: 100%;
+  height: 10rem;
+  bottom: 0;
+  z-index: 2; */
+  padding: 10px;
+}
 
 .profile-dropdown {
   position: absolute;
@@ -191,6 +218,12 @@ li.top-right-nav {
   }
 }
 
+@media (max-width: 1200px) {
+  .right-bg-image {
+    left: 963px;
+  }
+}
+
 @media (max-width: 1020px) {
   .wrapper {
     overflow: hidden;
@@ -206,7 +239,7 @@ li.top-right-nav {
   }
 
   .main-bg-image {
-    top: -196px;
+    top: -27.5rem;
     width: 300%;
     left: -299px;
     height: 599px;
@@ -333,13 +366,12 @@ li.top-right-nav {
   }
 }
 
-
 @media (max-width: 533px) {
   .wrapper {
-    height:auto;
+    height: auto;
   }
   .right-bg-image {
-    bottom:10px;
+    bottom: 10px;
     left: 200px;
   }
 
@@ -348,7 +380,7 @@ li.top-right-nav {
     margin-bottom: 50px;
   }
 
-  .main-bg-image{
+  .main-bg-image {
     background-color: #404eed;
   }
 

@@ -94,7 +94,7 @@ export const signUp = (formData) => async (dispatch) => {
 };
 
 export const iconEdit = (formData) => async (dispatch) => {
-	console.log("we are in the thunk====")
+
     const res = await fetch("/api/users/", {
         method: "PUT",
         body: formData
@@ -115,7 +115,7 @@ export default function reducer(state = initialState, action) {
 			return { user: action.payload };
 		case REMOVE_USER:
 			return { user: null };
-		case EDIT_USER_ICON: 
+		case EDIT_USER_ICON:
 			return {user: action.data}
 		default:
 			return state;

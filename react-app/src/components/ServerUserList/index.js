@@ -25,9 +25,9 @@ export default function ServerUserList() {
     });
     let ownerObj = allUsers[owner[0]]
     let ownerStatus = userStatuses[ownerObj.userId] === "online" ? true : false
-    console.log("OWNER", ownerObj);
+
     return (
-        <div id="conversations-container" className="server-user-list" style={{marginBottom: "0"}}>
+        <div id="conversations-container" className="server-user-list" style={{ marginBottom: "0" }}>
 
 
             <span>Owner</span>
@@ -53,7 +53,7 @@ export default function ServerUserList() {
                     online = true
                 }
                 return (
-                    <div className="conversation-user-container">
+                    <div key={userId} className="conversation-user-container">
                         <div className="dm-left">
                             <img className="dm-profile-img" src={allUsers[userId].userIcon}
                                 style={online ? { border: "2px solid green" } : {}}
@@ -78,7 +78,7 @@ export default function ServerUserList() {
                     online = true
                 }
                 return (
-                    <div className="conversation-user-container">
+                    <div key={userId} className="conversation-user-container">
                         <div className="dm-left">
                             <img className="dm-profile-img" src={allUsers[userId].userIcon}
                                 style={online ? { border: "2px solid green" } : {}}

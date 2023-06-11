@@ -207,7 +207,7 @@ def delete_server_by_id(server_id):
     role = get_user_role(current_user.id, server_id)
     if role != "owner":
         return {'errors': 'Insufficient permission to delete this server'}, 403
-    
+
     remove_file_from_s3(server.imageUrl)
     db.session.delete(server)
     db.session.commit()
@@ -230,10 +230,9 @@ def add_user_to_server(server_id):
         "role": <"user", "admin">
     }
 
-    Adds a user to a server's member list if the currently logged in
-    user has a server role of "admin" or "owner".
+    Adds a user to a server's member list.
 
-    Otherwise returns message object with an error message.
+
 
     """
 

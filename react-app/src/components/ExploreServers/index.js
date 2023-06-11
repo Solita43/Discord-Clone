@@ -26,7 +26,7 @@ export default function ExploreServers() {
 
     const displayName = (name) => {
         for (let word of name.split(" ")) {
-            console.log(word.length)
+
             if (word.length > 9) {
                 return name.slice(0, 9) + "..."
             }

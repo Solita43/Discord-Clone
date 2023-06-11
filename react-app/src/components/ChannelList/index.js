@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { NavLink, Redirect, useParams, useHistory } from "react-router-dom";
+import { Redirect, useParams, useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import "./ChannelList.css";
 import { userServersGet, serverDetailsGet } from "../../store/servers";

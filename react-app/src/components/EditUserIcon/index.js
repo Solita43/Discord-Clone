@@ -24,7 +24,7 @@ function EditUserIcon() {
 
         const formData = new FormData()
         formData.append("image", image)
-        console.log("we have clicked to change image!! ")
+
         dispatch(iconEdit(formData)).then((data) => {
             if (data.errors) {
                 setErrors(data.errors)
@@ -33,7 +33,7 @@ function EditUserIcon() {
             }
         })
 
-        
+
     }
 
 

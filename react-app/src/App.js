@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Route, Switch } from "react-router-dom";
-import SignupFormPage from "./components/SignupFormPage";
-import LoginFormPage from "./components/LoginFormPage";
 import { authenticate } from "./store/session";
 import Navigation from "./components/Navigation";
 import DirectMessages from "./components/DirectMessages";
@@ -11,18 +9,19 @@ import LandingPage from "./components/LandingPage";
 import ChannelList from "./components/ChannelList";
 import ChannelMessages from "./components/ChannelMessages";
 import ServerUserList from "./components/ServerUserList";
-import TitleBar from "./components/TitleBar";
+// import TitleBar from "./components/TitleBar";
 import ExploreServers from "./components/ExploreServers";
 // import CreateConversation from "./components/DirectMessages/CreateConversation";
 import LogoutNav from "./components/LogoutNav";
 import DeveloperList from "./components/DeveloperList"
-import { createNewSocket } from "./store/onlineStatusStore";
+// // import { createNewSocket } from "./store/onlineStatusStore";
 import VoiceChannels from "./components/VoiceChannels";
+import AllServersList from "./components/AllServersList";
 
 function App() {
   const dispatch = useDispatch();
   const [isLoaded, setIsLoaded] = useState(false);
-  const sessionUser = useSelector(state => state.session.user);
+  // const sessionUser = useSelector(state => state.session.user);
   useEffect(() => {
     dispatch(authenticate()).then(() => setIsLoaded(true));
   }, [dispatch, authenticate]);
@@ -41,21 +40,36 @@ function App() {
             <Route exact path="/home">
               <Navigation isLoaded={isLoaded} />
               <DirectMessages />
-              <DeveloperList/>
+              <AllServersList />
+              <DeveloperList />
               <LogoutNav />
               {/* <CreateConversation /> */}
             </Route>
             <Route exact path="/conversations">
               <Navigation isLoaded={isLoaded} />
               <DirectMessages />
-              <DeveloperList/>
+              <DeveloperList />
               <LogoutNav />
             </Route>
             <Route exact path="/conversations/:conversationId">
               <Navigation isLoaded={isLoaded} />
               <DirectMessages />
               <ConversationMessages />
-              <DeveloperList/>
+              <DeveloperList /> 
+              <LogoutNav />
+            </Route>
+            <Route exact path="/voiceChannel/:serverId/:channelId">
+              <Navigation isLoaded={isLoaded} />
+              <ChannelList />
+              <VoiceChannels />
+              <ServerUserList />
+              <LogoutNav />
+            </Route>
+            <Route exact path="/voiceChannel/:serverId/:channelId">
+              <Navigation isLoaded={isLoaded} />
+              <ChannelList />
+              <VoiceChannels />
+              <ServerUserList />
               <LogoutNav />
             </Route>
             <Route exact path="/voiceChannel/:serverId/:channelId">
