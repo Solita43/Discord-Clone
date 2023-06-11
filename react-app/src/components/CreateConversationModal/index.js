@@ -30,9 +30,16 @@ export default function CreateConversationModal({ users }) {
 
         })
     }
+    let userConversations = Object.values(useSelector((state) => state.userConversations))
 
     users = users.filter(user => user.userId !== currentUser.userId)
     users = users.filter(user => user.username.includes(username))
+    users = users.filter(
+        (user) =>
+          !userConversations.find(
+            (conversation) => conversation.userId === user.userId
+          )
+      );
     users.sort((a, b) => {
         if (a.username < b.username) return -1
     })

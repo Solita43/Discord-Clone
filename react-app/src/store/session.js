@@ -1,6 +1,8 @@
 // constants
 const SET_USER = "session/SET_USER";
 const REMOVE_USER = "session/REMOVE_USER";
+const EDIT_USER_ICON = "users/EDIT_USER_ICON"
+
 
 const setUser = (user) => ({
 	type: SET_USER,
@@ -10,6 +12,12 @@ const setUser = (user) => ({
 const removeUser = () => ({
 	type: REMOVE_USER,
 });
+
+const editIcon = (data) => ({
+    type: EDIT_USER_ICON,
+    data
+})
+
 
 const initialState = { user: null };
 
@@ -85,12 +93,30 @@ export const signUp = (formData) => async (dispatch) => {
 	}
 };
 
+export const iconEdit = (formData) => async (dispatch) => {
+	console.log("we are in the thunk====")
+    const res = await fetch("/api/users/", {
+        method: "PUT",
+        body: formData
+    })
+
+    const data = await res.json();
+
+    if (res.ok) {
+        dispatch(editIcon(data));
+    }
+
+    return data;
+}
+
 export default function reducer(state = initialState, action) {
 	switch (action.type) {
 		case SET_USER:
 			return { user: action.payload };
 		case REMOVE_USER:
 			return { user: null };
+		case EDIT_USER_ICON: 
+			return {user: action.data}
 		default:
 			return state;
 	}

@@ -1,0 +1,22 @@
+#submit-edit-channel {
+    background-color: var(--main-button-blue);
+}
+
+#submit-edit-channel,
+#delete-edit-button {
+    font-size: 1rem;
+    text-align: center;
+    border: none;
+    color: white;
+    font-weight: 400;
+    cursor: pointer;
+    padding: .7rem;
+    border-radius: .2rem;
+}
+
+#delete-edit-button {
+    background-color: var(--main-button-red);
+    
+}
+
+

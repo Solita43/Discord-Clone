@@ -55,13 +55,15 @@ export default function UpdateMessageModal({ message, isChannel }) {
                 ></textarea>
 
             </label>
+            <div className="delete-server-buttons">
             <button
                 className="cancel-button"
                 onClick={closeModal}
             >Cancel</button>
-            <button id="create-server-button" type="submit"
+            <button id="update-message-button" type="submit"
                 disabled={newChat === ''}
             >Submit</button>
+            </div>
 
         </form>
     </div>)

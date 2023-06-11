@@ -24,14 +24,24 @@ export default function ExploreServers() {
         dispatch(addServerUserThunk(server.id))
     }
 
+    const displayName = (name) => {
+        for (let word of name.split(" ")) {
+            console.log(word.length)
+            if (word.length > 9) {
+                return name.slice(0, 9) + "..."
+            }
+        }
+        return name
+    }
+
     return (
         <div id="explore-container">
             <div className="server-discover-banner">
-            <div className="discover-title-area">
-                <h1 className="discover-title">Find your community</h1>
-                <p className="discover-motto">From gaming to music, to learning there's a place for you.</p>
-            </div>
-                <img className="discover-banner-img" src={Background2}/>
+                <div className="discover-title-area">
+                    <h1 className="discover-title">Find your community</h1>
+                    <p className="discover-motto">From gaming to music, to learning there's a place for you.</p>
+                </div>
+                <img className="discover-banner-img" src={Background2} />
             </div>
 
             <h2 id="featured-header">Featured Communities</h2>
@@ -43,19 +53,19 @@ export default function ExploreServers() {
                             <img className="explore-server-image" src={server.imageUrl}></img>
                             <div className="server-container-bottom">
                                 <div className="top-server-info">
-                                    <div className="server-username">{server.name}</div>
+                                    <div className="server-username">{displayName(server.name)}</div>
                                     {!(server.id in userServers) && (<div>
                                         <OpenModalButton modalComponent={< JoinServerModal server={server} />} className="launch-server-button" buttonText="Join" />
                                     </div>)}
-                                    {server.id in userServers && 
-                                    
-                                    (<button className="launch-server-button" onClick={()=>{
-                                        return history.push(`/channels/${server.id}/${server.default_channel_id}`)
-                                    }}
-                                    >Launch Server</button>)}
+                                    {server.id in userServers &&
+
+                                        (<button className="launch-server-button" onClick={() => {
+                                            return history.push(`/channels/${server.id}/${server.default_channel_id}`)
+                                        }}
+                                        >Launch Server</button>)}
 
                                 </div>
-                                <div className="server-users">{server.userCount} {server.userCount>1? "users":"user"}</div>
+                                <div className="server-users">{server.userCount} {server.userCount > 1 ? "users" : "user"}</div>
 
 
 

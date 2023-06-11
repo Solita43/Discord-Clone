@@ -150,8 +150,8 @@ export default function ConversationMessages() {
                                         if (buttonbox) buttonbox.className = "hidden";
                                     }}
                                 >
-                                    <MessageDetails key={message.id} message={message} currentUser={currentUser} deleteChat={deleteChat}/>
-                                    {/* {message.userId === currentUser.userId && (
+                                    <MessageDetails key={message.id} message={message} />
+                                    {message.userId === currentUser.userId && (
                                         <div id={message.id} className="hidden">
                                             <button
                                                 className="delete-message-button"
@@ -168,7 +168,7 @@ export default function ConversationMessages() {
                                                 }
                                             />
                                         </div>
-                                    )} */}
+                                    )}
                                 </div>
                             );
                         })}

@@ -68,13 +68,13 @@ textarea {
 
 .message-info {
   display: flex;
+  flex-direction: column;
   gap: 0.6rem;
   justify-content: flex-end;
 }
 
 .container-messages {
   display: flex;
-  flex-direction: column;
   gap: 0.8rem;
 }
 
@@ -95,6 +95,8 @@ textarea {
   justify-content: space-between;
   padding: .8rem;
   border-radius: .7rem;
+  background-color: transparent;
+  position: relative;
 }
 
 .group-messages-buttons:hover {
@@ -103,23 +105,23 @@ textarea {
 
 .message-update-buttons {
   display: flex;
-  gap: 0.1rem;
-  /* position: absolute; */
-  /* left: 79%; */
-  /* left: %; */
-  opacity: .8;
-  /* justify-self: flex-end; */
+  gap: 5px;
+  align-self: flex-start;
+  position: absolute;
+  right: 1rem;
+  opacity: .85;
 }
 
 .delete-message-button {
   border: none;
-  background-color: var(--center-page);
+  background-color:  rgba(0,0,0,0);
   margin-right: 5px;
   color: var(--hover-channel);
 }
 
 .update-conversation {
   border: none;
+  background-color: rgba(0,0,0,0);
 }
 
 .fa-trash-can {
@@ -236,7 +238,8 @@ textarea {
   flex-direction: column;
   color:var(--text);
   font-size: 1rem;
-  object-fit: contain;  
+  object-fit: contain; 
+  position: relative; 
 }
 
 .image-upload-input {
@@ -253,18 +256,18 @@ textarea {
 
 .image-label {
   align-self: center;
-  padding: .7rem;
+  padding: 0 .7rem;
 }
 
 .message-text {
   word-break: break-all;
 }
 
-.top-message {
+/* .top-message {
   display: flex;
   align-items: center;
   gap: 0.8rem;
-}
+} */
 
 .edit-message-input-area {
   background-color: #232426;
@@ -275,4 +278,33 @@ textarea {
   color: white;
   padding: .5rem;
   margin-top: 2px;
+}
+
+#update-message-button {
+  background-color: var(--main-button-blue);
+  border: none;
+  color: white;
+  cursor: pointer;
+  padding: .3rem;
+  border-radius: .2rem;
+}
+
+.image-dot {
+  background-color: var(--main-button-blue);
+  width: 1.5rem;
+  height: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  position: absolute;
+  top: 0;
+  right: 0.5rem;
+  color: white;
+}
+
+.errors {
+  list-style: none;
+  color: #ef4343;
+  text-align: center;
 }

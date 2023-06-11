@@ -27,7 +27,7 @@ export default function ServerUserList() {
     let ownerStatus = userStatuses[ownerObj.userId] === "online" ? true : false
     console.log("OWNER", ownerObj);
     return (
-        <div id="conversations-container" className="server-user-list">
+        <div id="conversations-container" className="server-user-list" style={{marginBottom: "0"}}>
 
 
             <span>Owner</span>

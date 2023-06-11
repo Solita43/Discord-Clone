@@ -15,6 +15,7 @@ import TitleBar from "./components/TitleBar";
 import ExploreServers from "./components/ExploreServers";
 // import CreateConversation from "./components/DirectMessages/CreateConversation";
 import LogoutNav from "./components/LogoutNav";
+import DeveloperList from "./components/DeveloperList"
 import { createNewSocket } from "./store/onlineStatusStore";
 import VoiceChannels from "./components/VoiceChannels";
 
@@ -40,18 +41,28 @@ function App() {
             <Route exact path="/home">
               <Navigation isLoaded={isLoaded} />
               <DirectMessages />
+              <DeveloperList/>
               <LogoutNav />
               {/* <CreateConversation /> */}
             </Route>
             <Route exact path="/conversations">
               <Navigation isLoaded={isLoaded} />
               <DirectMessages />
+              <DeveloperList/>
               <LogoutNav />
             </Route>
             <Route exact path="/conversations/:conversationId">
               <Navigation isLoaded={isLoaded} />
               <DirectMessages />
               <ConversationMessages />
+              <DeveloperList/>
+              <LogoutNav />
+            </Route>
+            <Route exact path="/voiceChannel/:serverId/:channelId">
+              <Navigation isLoaded={isLoaded} />
+              <ChannelList />
+              <VoiceChannels />
+              <ServerUserList />
               <LogoutNav />
             </Route>
             <Route exact path="/voiceChannel/:serverId/:channelId">
