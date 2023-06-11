@@ -7,8 +7,9 @@ import CreateServerModal from "../CreateServerModal";
 import OpenModalButton from "../OpenModalButton";
 import { getConversationsThunk } from '../../store/userconversations';
 import { getUsersOnlineStatus, userOnlineStatusUpdate } from "../../store/onlineStatusStore";
+import { socket } from "../../socket"
 
-function Navigation({ isLoaded, socket }) {
+function Navigation({ isLoaded }) {
   const dispatch = useDispatch();
   const params = useParams()
   const { serverId, conversationId } = params;
