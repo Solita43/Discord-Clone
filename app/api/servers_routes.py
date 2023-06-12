@@ -162,6 +162,7 @@ def edit_server(serverId):
     server = Server.query.get(serverId)
     form = ServerForm()
     form['csrf_token'].data = request.cookies['csrf_token']
+    form['id'].data = serverId
     form.owner_id.data = current_user.id
     if form.validate():
         if "imageURL" in form.data and form.data["imageURL"] != None:

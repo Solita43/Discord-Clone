@@ -38,4 +38,6 @@
 .nav-username {
   color: white;
   font-size: 14px;
+  width: 5rem;
+  word-wrap: break-word;
 }
