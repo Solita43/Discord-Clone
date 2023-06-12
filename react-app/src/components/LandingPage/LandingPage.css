@@ -237,9 +237,9 @@ li.top-right-nav {
 }
 
 @media (max-width: 1200px) {
-  .right-bg-image {
+  /* .right-bg-image {
     left: 963px;
-  }
+  } */
 }
 
 @media (max-width: 1020px) {
@@ -252,7 +252,7 @@ li.top-right-nav {
   } */
 
   .right-bg-image {
-    bottom: -35px;
+    /* bottom: -35px; */
     left: 764px;
   }
 
@@ -295,7 +295,7 @@ li.top-right-nav {
   .body {
     align-items: start;
     height: 15rem;
-    margin: 10px 0;
+    margin: 1rem;
     width: 420px;
     height: 20rem;
   }

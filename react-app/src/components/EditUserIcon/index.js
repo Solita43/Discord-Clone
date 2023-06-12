@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useModal } from "../../context/Modal";
 import { iconEdit } from "../../store/session";
 
@@ -7,24 +7,31 @@ import { iconEdit } from "../../store/session";
 function EditUserIcon() {
     const dispatch = useDispatch();
     const [image, setImage] = useState(null);
+    const [username, setUsername] = useState(null);
     const [errors, setErrors] = useState(null);
-    const { closeModal } = useModal();
+    const sessionUser = useSelector(state => state.session.user);
+    const [isLoading, setIsLoading] = useState(false)
 
+    const { closeModal } = useModal();
+    if (sessionUser && !username) {
+        setUsername(sessionUser.username);
+    }
 
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        if (!image) {
-            setErrors("Please upload a valid image file.")
-            return
-        }
-
         const formData = new FormData()
         formData.append("image", image)
+        formData.append("username", username)
+
+        setIsLoading(true)
 
         dispatch(iconEdit(formData)).then((data) => {
+
+
             if (data.errors) {
                 setErrors(data.errors)
+                setIsLoading(false)
             } else {
                 closeModal()
             }
@@ -33,16 +40,23 @@ function EditUserIcon() {
 
     }
 
+    if (isLoading) {
+        return (
+            <div id="create-server-container" style={{width: "fit-content"}}>
+                <h1 style={{color: "var(--text)", padding: ".6rem", width: "100%"}}>Loading Profile Changes...</h1>
+            </div>
+        )
+    }
 
 
     return (
         <div id="create-server-container">
-            <h1 className="create-server-title">Update Profile Image</h1>
+            <h1 className="create-server-title">Update Profile</h1>
             <form onSubmit={handleSubmit} className="form-box" encType="multipart/form-data">
                 {errors && (
-                    <p className="erros">* {errors}</p>
+                    <p className="errors">* {errors}</p>
                 )}
-                <label className="image-label">
+                <label className="image-label" id="edit-user-image">
                     <div className="image-upload">
                         {image ? <p className="upload-name">{image.name}</p> : (
                             <>
@@ -58,6 +72,17 @@ function EditUserIcon() {
                         accept="image/*"
                         onChange={(e) => setImage(e.target.files[0])}
                     />
+                </label>
+                <label className="create-server-label">
+                    Username
+                    <input type="test"
+                        value={username}
+                        className="input-area"
+                        onChange={(e) => setUsername(e.target.value)}
+                        required
+                        minLength="3"
+                        maxLength="40"
+                        placeholder="Username" />
                 </label>
                 <button id="create-server-button" type="submit">Submit</button>
             </form>

@@ -288,3 +288,7 @@ textarea {
   color: #ef4343;
   text-align: center;
 }
+
+#edit-user-image {
+  padding-bottom: .5rem;
+}
