@@ -80,7 +80,7 @@ export default function ChannelMessages() {
   // send messages through web socket
   const sendChat = (e) => {
     e.preventDefault();
-    if (chatInput.length > 255 || chatInput < 1) {
+    if (chatInput.length > 255 || chatInput.length < 1) {
       setErrors({ chat: "Message must be between 1 and 255 characters" });
       return
     } else {
