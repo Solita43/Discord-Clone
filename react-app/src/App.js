@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { Route, Switch } from "react-router-dom";
+import { Route, Switch, Redirect } from "react-router-dom";
 import { authenticate } from "./store/session";
 import Navigation from "./components/Navigation";
 import DirectMessages from "./components/DirectMessages";
@@ -16,6 +16,7 @@ import DeveloperList from "./components/DeveloperList"
 // // import { createNewSocket } from "./store/onlineStatusStore";
 import VoiceChannels from "./components/VoiceChannels";
 import AllServersList from "./components/AllServersList";
+import ProtectedRoute from "./components/auth/ProtectedRoute";
 
 function App() {
   const dispatch = useDispatch();
@@ -36,21 +37,22 @@ function App() {
             <Route exact path="/">
               <LandingPage />
             </Route>
-            <Route exact path="/home">
+            <ProtectedRoute exact path="/home">
+
               <Navigation isLoaded={isLoaded} />
               <DirectMessages />
               <AllServersList />
               <DeveloperList />
               <LogoutNav />
               {/* <CreateConversation /> */}
-            </Route>
-            <Route exact path="/conversations">
+            </ProtectedRoute>
+            <ProtectedRoute exact path="/conversations">
               <Navigation isLoaded={isLoaded} />
               <DirectMessages />
               <DeveloperList />
               <LogoutNav />
-            </Route>
-            <Route exact path="/conversations/:conversationId">
+            </ProtectedRoute>
+            <ProtectedRoute exact path="/conversations/:conversationId">
               <Navigation isLoaded={isLoaded} />
               <DirectMessages />
               <ConversationMessages />
@@ -84,17 +86,20 @@ function App() {
               <VoiceChannels />
               <ServerUserList />
               <LogoutNav />
-            </Route>
-            <Route exact path="/channels/:serverId/:channelId">
+            </ProtectedRoute>
+            <ProtectedRoute exact path="/channels/:serverId/:channelId">
               <Navigation isLoaded={isLoaded} />
               <ChannelList />
               <ChannelMessages />
               <ServerUserList />
               <LogoutNav />
-            </Route>
-            <Route exact path="/servers/explore">
+            </ProtectedRoute>
+            <ProtectedRoute exact path="/servers/explore">
               <Navigation isLoaded={isLoaded} />
               <ExploreServers />
+            </ProtectedRoute>
+            <Route>
+              <Redirect to='/home' />
             </Route>
           </Switch>
         </>
