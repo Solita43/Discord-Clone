@@ -112,7 +112,6 @@ export const serverEdit = (formData, serverId) => async (dispatch) => {
     })
 
     const data = await res.json();
-
     if (res.ok) {
         dispatch(editServer(data))
         return null
