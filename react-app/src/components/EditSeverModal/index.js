@@ -7,15 +7,12 @@ import { serverEdit } from "../../store/servers";
 function EditServerModal({ serverId }) {
     const server = useSelector(state => state.servers.AllServers[serverId])
     const dispatch = useDispatch();
-    const [name, setName] = useState(null);
+    const [name, setName] = useState(server.name);
     const [image, setImage] = useState(null);
     const [errors, setErrors] = useState([]);
     const [isLoading, setIsLoading] = useState(false)
 
-    if (server && !name) {
-        setName(server.name);
-    }
-
+  
     const { closeModal } = useModal();
 
 
@@ -32,7 +29,7 @@ function EditServerModal({ serverId }) {
 
 
         dispatch(serverEdit(formData, serverId)).then((data) => {
-            if (data.errors) {
+            if (data) {
                 setErrors(data.errors); 
                 setIsLoading(false); 
             } else {
