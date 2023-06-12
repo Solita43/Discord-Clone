@@ -30,7 +30,7 @@ function EditServerModal({ serverId }) {
 
         dispatch(serverEdit(formData, serverId)).then((data) => {
             if (data) {
-                setErrors(data.errors); 
+                setErrors(data); 
                 setIsLoading(false); 
             } else {
                 closeModal()
