@@ -7,13 +7,16 @@ import { iconEdit } from "../../store/session";
 function EditUserIcon() {
     const dispatch = useDispatch();
     const [image, setImage] = useState(null);
+    const [username, setUsername] = useState(null);
     const [errors, setErrors] = useState(null);
     const sessionUser = useSelector(state => state.session.user);
     const [username, setUsername] = useState(sessionUser.username);
     const [isLoading, setIsLoading] = useState(false)
 
     const { closeModal } = useModal();
-    
+    if (sessionUser && !username) {
+        setUsername(sessionUser.username);
+    }
 
     const handleSubmit = async (e) => {
         e.preventDefault();
