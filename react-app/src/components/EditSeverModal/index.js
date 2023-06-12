@@ -10,6 +10,8 @@ function EditServerModal({ serverId }) {
     const [name, setName] = useState(null);
     const [image, setImage] = useState(null);
     const [errors, setErrors] = useState([]);
+    const [isLoading, setIsLoading] = useState(false)
+
     if (server && !name) {
         setName(server.name);
     }
@@ -26,16 +28,30 @@ function EditServerModal({ serverId }) {
         }
         formData.append("name", name)
 
-        const data = await dispatch(serverEdit(formData, serverId))
+        setIsLoading(true)
 
-        if (data) {
-            setErrors(data)
-        } else {
-            closeModal()
-        }
+
+        dispatch(serverEdit(formData, serverId)).then((data) => {
+            if (data.errors) {
+                setErrors(data.errors); 
+                setIsLoading(false); 
+            } else {
+                closeModal()
+            }
+        })
+
 
 
     }
+
+    if (isLoading) {
+        return (
+            <div id="create-server-container" style={{width: "fit-content"}}>
+                <h1 style={{color: "var(--text)", padding: ".6rem", width: "100%"}}>Loading Server Changes...</h1>
+            </div>
+        )
+    }
+
 
 
 
@@ -45,14 +61,14 @@ function EditServerModal({ serverId }) {
             <form onSubmit={handleSubmit} className="form-box" encType="multipart/form-data">
                 <ul className="errors">
                     {Object.values(errors).map((error, idx) => (
-                        <li key={idx}>{error}</li>
+                        <li key={idx} style={{paddingBottom: ".5rem"}}> * {error}</li>
                     ))}
                 </ul>
                 <label className="image-label">
                     <div className="image-upload">
                         {image ? <p className="upload-name">{image.name}</p> : (
                             <>
-                                <i class="fa-regular fa-image"></i>
+                                <i className="fa-regular fa-image"></i>
                                 <p>Upload</p>
                             </>
                         )}

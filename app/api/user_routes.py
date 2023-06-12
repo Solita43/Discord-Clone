@@ -43,7 +43,7 @@ def user_image():
     form['csrf_token'].data = request.cookies['csrf_token']
 
     if form.validate():
-        if "image" in form.data:
+        if "image" in form.data and form.data["image"] != None:
             remove_file_from_s3(current_user.imageUrl)
 
             image = form.data["image"]
@@ -53,8 +53,10 @@ def user_image():
                 return upload
             else:
                 current_user.imageUrl = upload["url"]
-                db.session.commit()
-                return current_user.to_dict() , 201
+        elif form.data["username"] != current_user.username:
+            current_user.username = form.data["username"]
+        db.session.commit()
+        return current_user.to_dict() , 201
     else:
         errors = form.errors
         return errors, 400

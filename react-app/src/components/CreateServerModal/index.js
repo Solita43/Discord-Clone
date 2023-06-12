@@ -12,7 +12,9 @@ function CreateServerModal({ title, serverId }) {
     const [image, setImage] = useState(null)
     const { closeModal } = useModal();
     const history = useHistory();
-    const [error, setError] = useState(null)
+    const [error, setError] = useState(null);
+    const [isLoading, setIsLoading] = useState(false)
+
 
 
     const handleSubmit = async (e) => {
@@ -26,16 +28,30 @@ function CreateServerModal({ title, serverId }) {
         formData.append("imageURL", image);
         formData.append("name", name)
 
-        const data = await dispatch(serverPost(formData))
+        setIsLoading(true)
+
+
+        dispatch(serverPost(formData)).then((data) => {
+            if (data.error) {
+                setError(data.error);
+                setIsLoading(false);
+            } else {
+                history.push(`/channels/${data.id}/${data.default_channel_id}`)
+                closeModal();
+            }
+        })
         // const data = await dispatch(serverPost({ name }))
-        if (data.error) {
-            setError(data.error)
-        } else {
-            history.push(`/channels/${data.id}/${data.default_channel_id}`)
-            closeModal();
-        }
 
 
+
+    }
+
+    if (isLoading) {
+        return (
+            <div id="create-server-container">
+                <h1 style={{ color: "var(--text)", padding: ".6rem" }}>Loading Server Changes...</h1>
+            </div>
+        )
     }
 
     return (

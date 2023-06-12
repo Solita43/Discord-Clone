@@ -15,34 +15,41 @@ function SignupFormModal() {
 	const [confirmPassword, setConfirmPassword] = useState("");
 	const [image, setImage] = useState(null)
 	const [errors, setErrors] = useState([]);
+    const [isLoading, setIsLoading] = useState(false)
+
 	const { closeModal } = useModal();
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
 		if (password === confirmPassword) {
-			// const data = await dispatch(signUp(username, email, password, firstname, lastname));
 			const formData = new FormData();
 			formData.append("image", image);
 			formData.append("username", username);
 			formData.append("email", email);
 			formData.append("password", password);
+			setIsLoading(true)
 
 
-			const data = await dispatch(signUp(formData))
-
-			if (data) {
-				setErrors(data);
-			} else {
-				closeModal();
-				history.push('/home')
-
-			}
-		} else {
-			setErrors([
-				"Confirm Password field must be the same as the Password field",
-			]);
+			dispatch(signUp(formData)).then((data) => {
+				if (data) {
+					setErrors(data);
+					setIsLoading(false); 
+				} else {
+					closeModal();
+					history.push('/home')
+	
+				}
+			})
 		}
 	};
+
+	if (isLoading) {
+        return (
+            <div id="create-server-container" style={{width: "fit-content"}}>
+                <h1 style={{color: "var(--text)", padding: ".6rem", width: "100%"}}>Creating New Account...</h1>
+            </div>
+        )
+    }
 
 	return (
 		<>
