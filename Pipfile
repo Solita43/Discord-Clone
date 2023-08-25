@@ -43,7 +43,7 @@ dnspython = "==1.16.0"
 "zope.event" = "==4.6"
 "zope.interface" = "==6.0"
 python-socketio = "==5.8.0"
-gevent = "==21.1.2"
+gevent = "==22.10.2"
 
 [dev-packages]
 
