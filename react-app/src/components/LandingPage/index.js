@@ -110,7 +110,7 @@ export default function LandingPage() {
                                     <div className="coder-info">
                                         <div className="coder-info-wrapper">
                                             <img
-                                                src="https://res.cloudinary.com/dnzxq7dgk/image/upload/v1686271883/P2/ben-banner_vle0nz.png"
+                                                src="https://res.cloudinary.com/dnzxq7dgk/image/upload/v1693003871/P2/Ben_deqlf3.png"
                                                 className="coder-image"
                                                 alt=""
                                             ></img>
@@ -142,7 +142,7 @@ export default function LandingPage() {
                                         <div className="coder-info-wrapper">
                                             <img
                                                 className="coder-image"
-                                                src="https://res.cloudinary.com/dnzxq7dgk/image/upload/v1686271951/P2/mel-banner_wjcicw.png"
+                                                src="https://res.cloudinary.com/dnzxq7dgk/image/upload/v1693003787/P2/mel_t3x8gh.png"
                                                 alt=""
                                             ></img>
                                             <div className="coder-info-right">
@@ -172,7 +172,7 @@ export default function LandingPage() {
                                     <div className="coder-info">
                                         <div className="coder-info-wrapper">
                                             <img
-                                                src="https://res.cloudinary.com/dnzxq7dgk/image/upload/v1686271970/P2/bev-banner_ocoqn8.png"
+                                                src="https://res.cloudinary.com/dnzxq7dgk/image/upload/v1693003989/P2/Bev_wgwj5y.png"
                                                 className="coder-image"
                                                 alt=""
                                             ></img>
@@ -203,7 +203,7 @@ export default function LandingPage() {
                                     <div className="coder-info">
                                         <div className="coder-info-wrapper">
                                             <img
-                                                src="https://res.cloudinary.com/dnzxq7dgk/image/upload/v1686271920/P2/jay-banner_kcxgwe.png"
+                                                src="https://res.cloudinary.com/dnzxq7dgk/image/upload/v1693004328/P2/Jay_a6jfqo.png"
                                                 className="coder-image"
                                                 alt=""
                                             ></img>
