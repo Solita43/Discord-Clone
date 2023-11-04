@@ -16,6 +16,13 @@ else:
 # create your socketIO instance
 socketio = SocketIO(cors_allowed_origin=origins)
 
+@socketio.on("userJoinedVoiceChannel")
+def newUser(message): 
+    print("Joining Channel", message)
+
+@socketio.on("userLeavingChannel")
+def leaveChannel(message): 
+    print("Leaving Channel", message)
 
 @socketio.on('join')
 def join(message):

@@ -10,18 +10,34 @@ import { socket } from "../../socket";
 
 
 export default function VoiceChannels() {
-    function getRandomIntInclusive(min, max) {
-        min = Math.ceil(min);
-        max = Math.floor(max);
-        return Math.floor(Math.random() * (max - min + 1) + min); // The maximum is inclusive and the minimum is inclusive
-    }
-
     const { serverId, channelId } = useParams();
     const localUsername = getRandomIntInclusive(1, 100);
     const roomName = channelId;
     const localVideoRef = useRef(null);
     const remoteVideoRef = useRef(null);
     const [remoteVideos, setRemoteVideos] = useState([])
+    const currentUser = useSelector((state) => state.session.user);
+
+    useEffect(() => {
+        socket.emit("userJoinedVoiceChannel", {
+            "userId": currentUser.userId, 
+            serverId, 
+            channelId
+        })
+        return () => {
+            socket.emit("userLeavingChannel", {
+                "userId": currentUser.userId, 
+                serverId, 
+                channelId
+            })
+        }
+    }, [])
+    function getRandomIntInclusive(min, max) {
+        min = Math.ceil(min);
+        max = Math.floor(max);
+        return Math.floor(Math.random() * (max - min + 1) + min); // The maximum is inclusive and the minimum is inclusive
+    }
+
 
     
 
@@ -39,7 +55,7 @@ export default function VoiceChannels() {
         navigator.mediaDevices
             .getUserMedia({
                 audio: true,
-                video: true,
+                video: false,
             })
             .then((stream) => {
                 console.log("Local Stream found");
