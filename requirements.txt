@@ -19,7 +19,7 @@ greenlet==2.0.1
 gunicorn==20.1.0
 importlib-metadata==6.6.0
 itsdangerous==2.1.2
-jinja2==3.1.2
+jinja2==3.1.4
 jmespath==1.0.1
 mako==1.2.4
 markupsafe==2.1.2
